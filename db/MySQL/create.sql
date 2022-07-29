@@ -4,7 +4,7 @@ create database Login;
 
 use Login
 
-create table Client(
+create table Cliente(
 id bigint not null auto_increment, 
 nome varchar(256) not null, 
 email varchar(24) not null unique, 
@@ -16,6 +16,6 @@ telefone varchar(11),
 papel varchar(3) not null,
 primary key (id));
 
-insert into Usuario(nome, email, cpf, senha, nascimento, papel) values ('Administrador', 'admin@email.com', '12345678910', 'admin', 2000-01-01 ,'ADM');
+insert into Cliente(nome, email, cpf, senha, nascimento, papel) values ('Administrador', 'admin@email.com', '12345678910', 'admin', "2000-01-01" ,'ADM');
 
-insert into Usuario(nome, email, cpf, senha, sexo, nascimento, telefone, papel) values ('Usuario', 'usuario@email.com', '12345678910', 'user', 'F', 2000-01-01 , '123456789' ,'USR');
+insert into Cliente(nome, email, cpf, senha, sexo, nascimento, telefone, papel) values ('Usuario', 'usuario@email.com', '12345678920', 'user', 'F', "2000-01-01" , '123456789' ,'USR');

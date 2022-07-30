@@ -42,7 +42,7 @@ public class IndexController extends HttpServlet {
 				if (usuario != null) {
 					if (usuario.getSenha().equals(senha)) {
 						request.getSession().setAttribute("usuarioLogado", usuario);
-						if (usuario.getPapel().equals("ADMIN")) {
+						if (usuario.getPapel().equals("ADM")) {
 							response.sendRedirect("admin/");
 						} else {
 							response.sendRedirect("usuario/");

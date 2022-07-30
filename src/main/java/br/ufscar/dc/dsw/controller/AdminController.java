@@ -30,12 +30,11 @@ public class AdminController extends HttpServlet {
     	
     	if (usuario == null) {
     		response.sendRedirect(request.getContextPath());
-    	} else if (usuario.getPapel().equals("ADMIN")) {
+    	} else if (usuario.getPapel().equals("ADM")) {
     		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/index.jsp");
             dispatcher.forward(request, response);
     	} else {
     		erros.add("Acesso não autorizado!");
-    		erros.add("Apenas Papel [ADMIN] tem acesso a essa página");
     		request.setAttribute("mensagens", erros);
     		RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
     		rd.forward(request, response);

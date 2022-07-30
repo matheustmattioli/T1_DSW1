@@ -7,7 +7,7 @@
         <title>ROTES - Home</title>
     </head>
     <body>
-        <h1>Página do Usuário</h1>
+        <h1>Página da Agência</h1>
         <p>Olá, ${sessionScope.usuarioLogado.nome}</p>
         <ul>
             <li>

@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.ufscar.dc.dsw.dao.AgenciaDAO;
 import br.ufscar.dc.dsw.dao.UsuarioDAO;
+import br.ufscar.dc.dsw.domain.Agencia;
 import br.ufscar.dc.dsw.domain.Usuario;
 import br.ufscar.dc.dsw.util.Erro;
 
@@ -28,17 +30,19 @@ public class IndexController extends HttpServlet {
 			throws ServletException, IOException {
 		Erro erros = new Erro();
 		if (request.getParameter("bOK") != null) {
-			String login = request.getParameter("login");
+			String email = request.getParameter("email");
 			String senha = request.getParameter("senha");
-			if (login == null || login.isEmpty()) {
-				erros.add("Login não informado!");
+			if (email == null || email.isEmpty()) {
+				erros.add("É necessário informar um email para logar");
 			}
 			if (senha == null || senha.isEmpty()) {
-				erros.add("Senha não informada!");
+				erros.add("É necessário informar uma senha para logar");
 			}
 			if (!erros.isExisteErros()) {
 				UsuarioDAO dao = new UsuarioDAO();
-				Usuario usuario = dao.getbyLogin(login);
+				Usuario usuario = dao.getbyEmail(email);
+				AgenciaDAO daoAgencia = new AgenciaDAO();
+				Agencia agencia = daoAgencia.getbyEmail(email);
 				if (usuario != null) {
 					if (usuario.getSenha().equals(senha)) {
 						request.getSession().setAttribute("usuarioLogado", usuario);
@@ -49,10 +53,18 @@ public class IndexController extends HttpServlet {
 						}
 						return;
 					} else {
-						erros.add("Senha inválida!");
+						erros.add("Senha ou email inválidos");
+					}
+				} else if(agencia != null) {
+					if (agencia.getSenha().equals(senha)) {
+						request.getSession().setAttribute("usuarioLogado", agencia);
+						response.sendRedirect("agencia/");
+						return;
+					} else {
+						erros.add("Senha ou email inválidos");
 					}
 				} else {
-					erros.add("Usuário não encontrado!");
+					erros.add("Usuário não encontrado");
 				}
 			}
 		}

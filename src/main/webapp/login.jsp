@@ -5,10 +5,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Autenticação de Usuário</title>
+        <title>ROTES - Autenticação de Usuário</title>
         <link href="${pageContext.request.contextPath}/layout.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+    <h1>ROTES Viagens</h1>
+    <h2> A rota dos seus sonhos ao seu alcance</h2>
         <h1>Autenticação de Usuário</h1>
         <c:if test="${mensagens.existeErros}">
             <div id="erro">
@@ -22,9 +24,9 @@
         <form method="post" action="index.jsp">
             <table>
                 <tr>
-                    <th>Login: </th>
-                    <td><input type="text" name="login"
-                               value="${param.login}"/></td>
+                    <th>Email: </th>
+                    <td><input type="text" name="email"
+                               value="${param.email}"/></td>
                 </tr>
                 <tr>
                     <th>Senha: </th>

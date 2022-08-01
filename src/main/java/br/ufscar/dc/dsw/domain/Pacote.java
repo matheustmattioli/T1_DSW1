@@ -1,30 +1,40 @@
 package br.ufscar.dc.dsw.domain;
 
+import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Date;
 
 public class Pacote {
 	private Long id;
     private String CNPJ;
-    private String destino;
-    private SimpleDateFormat dataPartida;
+    private long destino;
+
+    private Date dataPartida;
     private int duracaoDias;	
-    private int valor;
+    private BigDecimal valor;
+    private String descricao;
+    // Contains base64-encoded photos
+    private ArrayList<String> fotos;
     
     public Pacote(Long id) {
         this.id = id;
     }
 
-    public Pacote(String CNPJ, String destino, SimpleDateFormat dataPartida, int duracaoDias, int valor) {
+    public Pacote(String CNPJ, long destino, Date dataPartida, int duracaoDias, BigDecimal valor) {
         this.CNPJ = CNPJ;
         this.destino = destino;
-        this.dataPartida.setCalendar(dataPartida.getCalendar());
+        this.dataPartida = dataPartida;
         this.duracaoDias = duracaoDias;
         this.valor = valor;
     }
 
-    public Pacote(Long id, String CNPJ, String destino, SimpleDateFormat dataPartida, int duracaoDias, int valor) {
+    public Pacote(Long id, String CNPJ, long destino, Date dataPartida, int duracaoDias, BigDecimal valor, String descricao) {
         this(CNPJ, destino, dataPartida, duracaoDias, valor);
         this.id = id;
+        this.descricao = descricao;
     }
 
     public Long getId() {
@@ -43,31 +53,6 @@ public class Pacote {
         this.CNPJ = CNPJ;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-	public String getSenha() {
-	    return senha;
-	}
-
-	public void setSenha(String senha) {
-	    this.senha = senha;
-	}
-
 	public String getDescricao() {
 	    return descricao;
 	}
@@ -75,6 +60,46 @@ public class Pacote {
 	public void setDescricao(String descricao) {
 	    this.descricao = descricao;
 	}
+
+    public long getDestino() {
+        return destino;
+    }
+
+    public void setDestino(long destino) {
+        this.destino = destino;
+    }
+
+    public Date getDataPartida() {
+        return dataPartida;
+    }
+
+    public void setDataPartida(Date dataPartida) {
+        this.dataPartida = dataPartida;
+    }
+
+    public int getDuracaoDias() {
+        return duracaoDias;
+    }
+
+    public void setDuracaoDias(int duracaoDias) {
+        this.duracaoDias = duracaoDias;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
+    public ArrayList<String> getFotos() {
+        return fotos;
+    }
+
+    public void setFotos(ArrayList<String> fotos) {
+        this.fotos = fotos;
+    }
 
 }
 

@@ -1,20 +1,24 @@
 package br.ufscar.dc.dsw.dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import br.ufscar.dc.dsw.domain.Destino;
 import br.ufscar.dc.dsw.domain.Pacote;
 
 public class PacoteDAO extends GenericDAO {
 	
 	  public void insert(Pacote pacote) {
 
-	        String sql = "INSERT INTO Pacote(cnpj, nome, email, senha, descricao) VALUES (?, ?, ?, ?, ?)";
+	        String sql = "INSERT INTO Pacote(cnpj, descricao) VALUES (?, ?, ?, ?, ?)";
 
 	        try {
 	            Connection conn = this.getConnection();
@@ -22,9 +26,6 @@ public class PacoteDAO extends GenericDAO {
 
 	            statement = conn.prepareStatement(sql);
 	            statement.setString(1, pacote.getCNPJ());
-	            statement.setString(2, pacote.getNome());
-	            statement.setString(3, pacote.getEmail());
-	            statement.setString(4, pacote.getSenha());
 	            statement.setString(5, pacote.getDescricao());
 	            statement.executeUpdate();
 
@@ -49,11 +50,13 @@ public class PacoteDAO extends GenericDAO {
 	            while (resultSet.next()) {
 	                long id = resultSet.getLong("id");
 	                String cnpj = resultSet.getString("cnpj");
-	                String nome = resultSet.getString("nome");
-	                String email = resultSet.getString("email");
-	                String senha = resultSet.getString("senha");
-	                String descricao = resultSet.getString("descricao");
-	                Pacote pacote = new Pacote(id, cnpj ,nome, email, senha, descricao);
+	                long destino = resultSet.getLong("destino");
+
+					Date dataPartida = resultSet.getDate("dataPartida");
+	                int duracaoDias = resultSet.getInt("duracaoDias");
+	                BigDecimal valor = resultSet.getBigDecimal("valor");
+					String descricao = resultSet.getString("descricao");
+	                Pacote pacote = new Pacote(id, cnpj, destino, dataPartida, duracaoDias, valor, descricao);
 	                listaPacotes.add(pacote);
 	            }
 
@@ -83,16 +86,16 @@ public class PacoteDAO extends GenericDAO {
 	    }
 
 	    public void update(Pacote pacote) {
-	        String sql = "UPDATE Pacote SET cnpj = ?, nome = ?, email = ?, senha = ?, descricao = ? WHERE id = ?";
+	        String sql = "UPDATE Pacote SET cnpj = ?, destino = ?, dataPartida = ?, duracaoDias = ?, descricao = ?, valor = ? WHERE id = ?";
 
 	        try {
 	            Connection conn = this.getConnection();
 	            PreparedStatement statement = conn.prepareStatement(sql);
 
 	            statement.setString(1, pacote.getCNPJ());
-	            statement.setString(2, pacote.getNome());
-	            statement.setString(3, pacote.getEmail());
-	            statement.setString(4, pacote.getSenha());
+	            statement.setLong(2, pacote.getDestino());
+	            statement.setDate(3, (java.sql.Date) pacote.getDataPartida());
+	            statement.setInt(4, pacote.getDuracaoDias());
 	            statement.setString(5, pacote.getDescricao());
 	            statement.setLong(6, pacote.getId());
 	            statement.executeUpdate();
@@ -104,63 +107,35 @@ public class PacoteDAO extends GenericDAO {
 	        }
 	    }
 
-	    public Pacote getbyID(Long id) {
-	        Pacote pacote = null;
+		public Pacote getbyID(Long id) {
+			Pacote pacote = null;
 
-	        String sql = "SELECT * from Pacote WHERE id = ?";
+			String sql = "SELECT * from Pacote WHERE id = ?";
 
-	        try {
-	            Connection conn = this.getConnection();
-	            PreparedStatement statement = conn.prepareStatement(sql);
+			try {
+				Connection conn = this.getConnection();
+				PreparedStatement statement = conn.prepareStatement(sql);
 
-	            statement.setLong(1, id);
-	            ResultSet resultSet = statement.executeQuery();
-	            if (resultSet.next()) {
-	                String cnpj = resultSet.getString("cnpj");
-	                String nome = resultSet.getString("nome");
-	                String email = resultSet.getString("email");
-	                String senha = resultSet.getString("senha");
-	                String descricao = resultSet.getString("descricao");
+				statement.setLong(1, id);
+				ResultSet resultSet = statement.executeQuery();
+				if (resultSet.next()) {
+					String cnpj = resultSet.getString("cnpj");
+					long destino = resultSet.getLong("destino");
 
-	                pacote = new Pacote(id, cnpj, nome, email, senha, descricao);
-	            }
+					Date dataPartida = resultSet.getDate("dataPartida");
+					int duracaoDias = resultSet.getInt("duracaoDias");
+					BigDecimal valor = resultSet.getBigDecimal("valor");
+					String descricao = resultSet.getString("descricao");
 
-	            resultSet.close();
-	            statement.close();
-	            conn.close();
-	        } catch (SQLException e) {
-	            throw new RuntimeException(e);
-	        }
-	        return pacote;
-	    }
-	    
-	    public Pacote getbyEmail(String email) {
-	        Pacote pacote = null;
+					pacote = new Pacote(id, cnpj, destino, dataPartida, duracaoDias, valor, descricao);
+				}
 
-	        String sql = "SELECT * from Pacote WHERE email = ?";
-
-	        try {
-	            Connection conn = this.getConnection();
-	            PreparedStatement statement = conn.prepareStatement(sql);
-
-	            statement.setString(1, email);
-	            ResultSet resultSet = statement.executeQuery();
-	            if (resultSet.next()) {
-	            	Long id = resultSet.getLong("id");
-	            	String cnpj = resultSet.getString("cnpj");
-	                String nome = resultSet.getString("nome");
-	                String senha = resultSet.getString("senha");
-	                String descricao = resultSet.getString("descricao");
-
-	                pacote = new Pacote(id, cnpj, nome, email, senha, descricao);
-	            }
-
-	            resultSet.close();
-	            statement.close();
-	            conn.close();
-	        } catch (SQLException e) {
-	            throw new RuntimeException(e);
-	        }
-	        return pacote;
-	    }	
+				resultSet.close();
+				statement.close();
+				conn.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+			return pacote;
+		}
 }

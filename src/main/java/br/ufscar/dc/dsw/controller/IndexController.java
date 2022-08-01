@@ -73,7 +73,7 @@ public class IndexController extends HttpServlet {
 		request.setAttribute("mensagens", erros);
         // request.setAttribute("pacotes", pacotes);
 
-		String URL = "/index.jsp";
+		String URL = "/login.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(URL);
 		rd.forward(request, response);
 	}

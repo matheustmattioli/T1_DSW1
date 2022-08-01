@@ -50,13 +50,14 @@ public class PacoteDAO extends GenericDAO {
 	            while (resultSet.next()) {
 	                long id = resultSet.getLong("id");
 	                String cnpj = resultSet.getString("cnpj");
-	                long destino = resultSet.getLong("destino");
+	                String destino = resultSet.getString("destino");
 
 					Date dataPartida = resultSet.getDate("dataPartida");
 	                int duracaoDias = resultSet.getInt("duracaoDias");
 	                BigDecimal valor = resultSet.getBigDecimal("valor");
 					String descricao = resultSet.getString("descricao");
-	                Pacote pacote = new Pacote(id, cnpj, destino, dataPartida, duracaoDias, valor, descricao);
+					String fotos = resultSet.getString("fotos");
+	                Pacote pacote = new Pacote(id, cnpj, destino, dataPartida, duracaoDias, valor, descricao, fotos);
 	                listaPacotes.add(pacote);
 	            }
 
@@ -93,7 +94,7 @@ public class PacoteDAO extends GenericDAO {
 	            PreparedStatement statement = conn.prepareStatement(sql);
 
 	            statement.setString(1, pacote.getCNPJ());
-	            statement.setLong(2, pacote.getDestino());
+	            statement.setString(2, pacote.getDestino());
 	            statement.setDate(3, (java.sql.Date) pacote.getDataPartida());
 	            statement.setInt(4, pacote.getDuracaoDias());
 	            statement.setString(5, pacote.getDescricao());
@@ -120,7 +121,7 @@ public class PacoteDAO extends GenericDAO {
 				ResultSet resultSet = statement.executeQuery();
 				if (resultSet.next()) {
 					String cnpj = resultSet.getString("cnpj");
-					long destino = resultSet.getLong("destino");
+					String destino = resultSet.getString("destino");
 
 					Date dataPartida = resultSet.getDate("dataPartida");
 					int duracaoDias = resultSet.getInt("duracaoDias");

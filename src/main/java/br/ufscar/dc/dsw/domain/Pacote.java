@@ -10,20 +10,20 @@ import java.util.Date;
 public class Pacote {
 	private Long id;
     private String CNPJ;
-    private long destino;
+    private String destino;
 
     private Date dataPartida;
     private int duracaoDias;	
     private BigDecimal valor;
     private String descricao;
     // Contains base64-encoded photos
-    private ArrayList<String> fotos;
+    private String fotos;
     
     public Pacote(Long id) {
         this.id = id;
     }
 
-    public Pacote(String CNPJ, long destino, Date dataPartida, int duracaoDias, BigDecimal valor) {
+    public Pacote(String CNPJ, String destino, Date dataPartida, int duracaoDias, BigDecimal valor) {
         this.CNPJ = CNPJ;
         this.destino = destino;
         this.dataPartida = dataPartida;
@@ -31,10 +31,17 @@ public class Pacote {
         this.valor = valor;
     }
 
-    public Pacote(Long id, String CNPJ, long destino, Date dataPartida, int duracaoDias, BigDecimal valor, String descricao) {
+    public Pacote(Long id, String CNPJ, String destino, Date dataPartida, int duracaoDias, BigDecimal valor, String descricao) {
         this(CNPJ, destino, dataPartida, duracaoDias, valor);
         this.id = id;
         this.descricao = descricao;
+    }
+
+    public Pacote(Long id, String CNPJ, String destino, Date dataPartida, int duracaoDias, BigDecimal valor, String descricao, String fotos) {
+        this(CNPJ, destino, dataPartida, duracaoDias, valor);
+        this.id = id;
+        this.descricao = descricao;
+        this.fotos = fotos;
     }
 
     public Long getId() {
@@ -61,11 +68,11 @@ public class Pacote {
 	    this.descricao = descricao;
 	}
 
-    public long getDestino() {
+    public String getDestino() {
         return destino;
     }
 
-    public void setDestino(long destino) {
+    public void setDestino(String destino) {
         this.destino = destino;
     }
 
@@ -93,11 +100,11 @@ public class Pacote {
         this.valor = valor;
     }
 
-    public ArrayList<String> getFotos() {
+    public String getFotos() {
         return fotos;
     }
 
-    public void setFotos(ArrayList<String> fotos) {
+    public void setFotos(String fotos) {
         this.fotos = fotos;
     }
 

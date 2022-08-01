@@ -50,7 +50,7 @@
                 <td>${pacote.dataPartida}</td>
                 <td>${pacote.valor} BTC</td>
                 <td>
-                    <img src="/images/example.png">
+                    <img src="images/exemple.png" width="64px">
                 </td>
             </tr>
         </c:forEach>

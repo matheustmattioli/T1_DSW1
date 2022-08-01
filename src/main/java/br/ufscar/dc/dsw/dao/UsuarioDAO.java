@@ -1,12 +1,12 @@
 package br.ufscar.dc.dsw.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import br.ufscar.dc.dsw.domain.Usuario;
@@ -26,7 +26,7 @@ public class UsuarioDAO extends GenericDAO {
             statement.setString(2, usuario.getEmail());
             statement.setString(3, usuario.getCpf());
             statement.setString(4, usuario.getSenha());
-            statement.setDate(5, (java.sql.Date) usuario.getNascimento());
+            statement.setDate(5, usuario.getNascimento());
             statement.setString(6, usuario.getPapel());
             statement.executeUpdate();
 
@@ -98,7 +98,7 @@ public class UsuarioDAO extends GenericDAO {
             statement.setString(2, usuario.getEmail());
             statement.setString(3, usuario.getCpf());
             statement.setString(4, usuario.getSenha());
-            statement.setDate(5, (java.sql.Date) usuario.getNascimento());
+            statement.setDate(5, usuario.getNascimento());
             statement.setString(6, usuario.getPapel());
             statement.executeUpdate();
 

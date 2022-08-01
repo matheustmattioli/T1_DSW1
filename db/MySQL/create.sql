@@ -25,8 +25,21 @@ senha varchar(64) not null,
 descricao varchar(256),
 primary key (id));
 
+create table Pacote(
+id bigint not null auto_increment, 
+cnpj varchar(14) not null unique, 
+destino varchar(256) not null, 
+dataPartida date not null, 
+duracaoDias int not null,
+valor int not null,
+primary key (id));
+
 insert into Usuario(nome, email, cpf, senha, nascimento, papel) values ('Administrador', 'admin@email.com', '12345678910', 'admin', "2000-01-01" ,'ADM');
 
 insert into Usuario(nome, email, cpf, senha, sexo, nascimento, telefone, papel) values ('Usuario', 'usuario@email.com', '12345678920', 'user', 'F', "2000-01-01" , '123456789' ,'USR');
 
 insert into Agencia(cnpj, nome, email, senha, descricao) values ('12345678901234','Agencia X', 'agencia@email.com', 'agencia', 'Agencia de viagens bem bacana');
+
+insert into Pacote(cnpj, destino, dataPartida, duracaoDias, valor) values ('12345678901234', 'Batatais', '2011-09-23', 5, 1999);
+
+

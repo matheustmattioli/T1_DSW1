@@ -15,8 +15,8 @@ import br.ufscar.dc.dsw.domain.Agencia;
 import br.ufscar.dc.dsw.domain.Usuario;
 import br.ufscar.dc.dsw.util.Erro;
 
-@WebServlet(name = "Index", urlPatterns = { "/index.jsp" })
-public class IndexController extends HttpServlet {
+@WebServlet(name = "User", urlPatterns = { "/user.jsp", "/logout.jsp" })
+public class UserController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -71,9 +71,8 @@ public class IndexController extends HttpServlet {
 		request.getSession().invalidate();
 
 		request.setAttribute("mensagens", erros);
-        // request.setAttribute("pacotes", pacotes);
 
-		String URL = "/index.jsp";
+		String URL = "/login.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(URL);
 		rd.forward(request, response);
 	}

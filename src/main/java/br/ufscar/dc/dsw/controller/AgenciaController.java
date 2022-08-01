@@ -31,7 +31,7 @@ public class AgenciaController extends HttpServlet {
     	if (agencia == null) {
     		response.sendRedirect(request.getContextPath());
     	} else if (agencia.getCNPJ() != null) {
-    		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/agencia/index.jsp");
+    		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/agencia/user.jsp");
             dispatcher.forward(request, response);
     	} else {
     		erros.add("Acesso não autorizado!");

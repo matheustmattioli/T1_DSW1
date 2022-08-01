@@ -11,7 +11,8 @@
     <body>
     <h1>ROTES Viagens</h1>
     <h2> A rota dos seus sonhos ao seu alcance</h2>
-        <h1>Autenticação de Usuário</h1>
+    <h3><a href="index.jsp">Voltar ao Home</a></h3>
+        <h2>Autenticação de Usuário</h2>
         <c:if test="${mensagens.existeErros}">
             <div id="erro">
                 <ul>
@@ -21,7 +22,7 @@
                 </ul>
             </div>
         </c:if>
-        <form method="post" action="index.jsp">
+        <form method="post" action="user.jsp">
             <table>
                 <tr>
                     <th>Email: </th>

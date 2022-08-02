@@ -100,6 +100,7 @@ public class UsuarioDAO extends GenericDAO {
             statement.setString(4, usuario.getSenha());
             statement.setDate(5, (java.sql.Date) usuario.getNascimento());
             statement.setString(6, usuario.getPapel());
+            statement.setLong(7,  usuario.getId());
             statement.executeUpdate();
 
             statement.close();

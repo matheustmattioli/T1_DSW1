@@ -34,7 +34,9 @@
         <tr>
             <th>Pacote</th>
             <th>Descrição</th>
-            <th>Destinos</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>Pais</th>
             <th>Agência</th>
             <th>Data de Partida</th>
             <th>Valor</th>
@@ -45,7 +47,9 @@
             <tr>
                 <td>${pacote.id}</td>
                 <td>${pacote.descricao}</td>
-                <td>${pacote.destino}</td>
+                <td>${pacote.cidade}</td>
+                <td>${pacote.estado}</td>
+                <td>${pacote.pais}</td>
                 <td>${pacote.CNPJ}</td>
                 <td>${pacote.dataPartida}</td>
                 <td>${pacote.valor} BTC</td>

@@ -9,7 +9,9 @@ import java.util.List;
 public class Pacote {
 	private Long id;
     private String CNPJ;
-    private String destino;
+    private String cidade;
+    private String estado;
+    private String pais;
 
     private Date dataPartida;
     private int duracaoDias;	
@@ -20,16 +22,18 @@ public class Pacote {
         this.id = id;
     }
 
-    public Pacote(String CNPJ, String destino, Date dataPartida, int duracaoDias, BigDecimal valor) {
+    public Pacote(String CNPJ, String cidade, String estado, String pais, Date dataPartida, int duracaoDias, BigDecimal valor) {
         this.CNPJ = CNPJ;
-        this.destino = destino;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.pais = pais;
         this.dataPartida = dataPartida;
         this.duracaoDias = duracaoDias;
         this.valor = valor;
     }
 
-    public Pacote(Long id, String CNPJ, String destino, Date dataPartida, int duracaoDias, BigDecimal valor, String descricao) {
-        this(CNPJ, destino, dataPartida, duracaoDias, valor);
+    public Pacote(Long id, String CNPJ, String cidade, String estado, String pais, Date dataPartida, int duracaoDias, BigDecimal valor, String descricao) {
+        this(CNPJ, cidade, estado, pais, dataPartida, duracaoDias, valor);
         this.id = id;
         this.descricao = descricao;
     }
@@ -58,14 +62,30 @@ public class Pacote {
 	    this.descricao = descricao;
 	}
 
-    public String getDestino() {
-        return destino;
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setDestino(String destino) {
-        this.destino = destino;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+    
+    public String getEstado() {
+        return estado;
     }
 
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    public String getPais() {
+        return pais;
+    }
+    
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+    
     public Date getDataPartida() {
         return dataPartida;
     }

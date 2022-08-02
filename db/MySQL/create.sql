@@ -33,7 +33,6 @@ dataPartida date not null,
 duracaoDias int not null,
 valor double not null,
 descricao varchar(256),
-fotos TEXT,
 primary key (id));
 
 insert into Usuario(nome, email, cpf, senha, nascimento, papel) values ('Administrador', 'admin@email.com', '12345678910', 'admin', "2000-01-01" ,'ADM');
@@ -42,7 +41,7 @@ insert into Usuario(nome, email, cpf, senha, sexo, nascimento, telefone, papel) 
 
 insert into Agencia(cnpj, nome, email, senha, descricao) values ('12345678901234','Agencia X', 'agencia@email.com', 'agencia', 'Agencia de viagens bem bacana');
 
-insert into Pacote(cnpj, destino, dataPartida, duracaoDias, valor, descricao, fotos) values ('12345678901234', 'Batatais', '2011-09-23', 5, 1999, 'Lorem Ipsum', '/db/images/example.jpg');
+insert into Pacote(cnpj, destino, dataPartida, duracaoDias, valor, descricao) values ('12345678901234', 'Batatais', '2011-09-23', 5, 1999, 'Lorem Ipsum');
 
-insert into Pacote(cnpj, destino, dataPartida, duracaoDias, valor, descricao, fotos) values ('12345678904321', 'Bananais', '2021-09-23', 365, 42069, 'Depressao Dor Sofrimentos', '/db/images/example.jpg');
+insert into Pacote(cnpj, destino, dataPartida, duracaoDias, valor, descricao) values ('12345678904321', 'Bananais', '2021-09-23', 365, 42069, 'Depressao Dor Sofrimentos');
 

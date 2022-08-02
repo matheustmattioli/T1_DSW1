@@ -1,11 +1,10 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.lang.reflect.Array;
+import java.io.File;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 
 public class Pacote {
 	private Long id;
@@ -16,9 +15,7 @@ public class Pacote {
     private int duracaoDias;	
     private BigDecimal valor;
     private String descricao;
-    // Contains base64-encoded photos
-    private String fotos;
-    
+
     public Pacote(Long id) {
         this.id = id;
     }
@@ -35,13 +32,6 @@ public class Pacote {
         this(CNPJ, destino, dataPartida, duracaoDias, valor);
         this.id = id;
         this.descricao = descricao;
-    }
-
-    public Pacote(Long id, String CNPJ, String destino, Date dataPartida, int duracaoDias, BigDecimal valor, String descricao, String fotos) {
-        this(CNPJ, destino, dataPartida, duracaoDias, valor);
-        this.id = id;
-        this.descricao = descricao;
-        this.fotos = fotos;
     }
 
     public Long getId() {
@@ -100,13 +90,20 @@ public class Pacote {
         this.valor = valor;
     }
 
-    public String getFotos() {
-        return fotos;
-    }
+    public List<String> getFotosImages(String path){
+        List<String> aux = new ArrayList<String>();
 
-    public void setFotos(String fotos) {
-        this.fotos = fotos;
+        path = path + File.separator + this.id.toString();
+        List<String> imageList = new ArrayList<String>();
+        File dir = new File(path);
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (final File imageFile : files) {
+                imageList.add("images" + File.separator + this.id.toString() + File.separator + imageFile.getName());
+                aux.add(path + File.separator + imageFile.getName());
+            }
+        }
+        return imageList;
     }
-
 }
 

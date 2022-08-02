@@ -6,12 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.ufscar.dc.dsw.domain.Destino;
 import br.ufscar.dc.dsw.domain.Pacote;
 
 public class PacoteDAO extends GenericDAO {
@@ -56,8 +54,7 @@ public class PacoteDAO extends GenericDAO {
 	                int duracaoDias = resultSet.getInt("duracaoDias");
 	                BigDecimal valor = resultSet.getBigDecimal("valor");
 					String descricao = resultSet.getString("descricao");
-					String fotos = resultSet.getString("fotos");
-	                Pacote pacote = new Pacote(id, cnpj, destino, dataPartida, duracaoDias, valor, descricao, fotos);
+	                Pacote pacote = new Pacote(id, cnpj, destino, dataPartida, duracaoDias, valor, descricao);
 	                listaPacotes.add(pacote);
 	            }
 

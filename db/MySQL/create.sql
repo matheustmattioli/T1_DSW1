@@ -27,6 +27,7 @@ primary key (id));
 
 create table Pacote(
 id bigint not null auto_increment, 
+idAgencia bigint not null,
 cnpj varchar(14) not null unique, 
 cidade varchar(256) not null, 
 estado varchar(256) not null, 
@@ -35,7 +36,19 @@ dataPartida date not null,
 duracaoDias int not null,
 valor double not null,
 descricao varchar(256),
-primary key (id));
+primary key (id),
+foreign key (idAgencia) references Agencia (id) ON DELETE CASCADE ON UPDATE CASCADE);
+
+
+create table Proposta(
+    id bigint not null auto_increment,
+    idUsuario bigint not null,
+    idPacote bigint not null,
+    dataProposta date not null,
+    valor float,
+    primary key (id),
+    foreign key (idUsuario) references Usuario (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key (idPacote) references Pacote (id) ON DELETE CASCADE ON UPDATE CASCADE);
 
 insert into Usuario(nome, email, cpf, senha, nascimento, papel) values ('Administrador', 'admin@email.com', '12345678910', 'admin', "2000-01-01" ,'ADM');
 
@@ -43,7 +56,8 @@ insert into Usuario(nome, email, cpf, senha, sexo, nascimento, telefone, papel) 
 
 insert into Agencia(cnpj, nome, email, senha, descricao) values ('12345678901234','Agencia X', 'agencia@email.com', 'agencia', 'Agencia de viagens bem bacana');
 
-insert into Pacote(cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao) values ('12345678901234', 'Batatais', 'Sao Paulo', 'Brasil', '2011-09-23', 5, 1999, 'Lorem Ipsum');
+insert into Pacote(idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao) values (1, '12345678901234', 'Batatais', 'Sao Paulo', 'Brasil', '2011-09-23', 5, 1999, 'Lorem Ipsum');
 
-insert into Pacote(cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao) values ('12345678904321', 'Bananais', 'HUEHUE', 'Bostil', '2021-09-23', 365, 42069, 'Depressao Dor Sofrimentos');
+insert into Pacote(idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao) values (1, '12345678904321', 'Bananais', 'HUEHUE', 'Bostil', '2021-09-23', 365, 42069, 'Depressao Dor Sofrimentos');
 
+insert into Proposta(idUsuario, idPacote, dataProposta, valor) values (1, 1, "2011-09-21", 1);

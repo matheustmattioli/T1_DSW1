@@ -16,15 +16,22 @@ public class PacoteDAO extends GenericDAO {
 	
 	  public void insert(Pacote pacote) {
 
-	        String sql = "INSERT INTO Pacote(cnpj, descricao) VALUES (?, ?, ?, ?, ?)";
+	        String sql = "INSERT INTO Pacote(idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	        try {
 	            Connection conn = this.getConnection();
 	            PreparedStatement statement = conn.prepareStatement(sql);;
 
 	            statement = conn.prepareStatement(sql);
-	            statement.setString(1, pacote.getCNPJ());
-	            statement.setString(5, pacote.getDescricao());
+	            statement.setLong(1, pacote.getIdAgencia());
+				statement.setString(2, pacote.getCNPJ());
+				statement.setString(3, pacote.getCidade());
+				statement.setString(4, pacote.getEstado());
+				statement.setString(5, pacote.getPais());
+				statement.setDate(6, (java.sql.Date) pacote.getDataPartida());
+				statement.setInt(7, pacote.getDuracaoDias());
+				statement.setBigDecimal(8, pacote.getValor());
+	            statement.setString(9, pacote.getDescricao());
 	            statement.executeUpdate();
 
 	            statement.close();
@@ -46,7 +53,8 @@ public class PacoteDAO extends GenericDAO {
 
 	            ResultSet resultSet = statement.executeQuery(sql);
 	            while (resultSet.next()) {
-	                long id = resultSet.getLong("id");
+	                Long id = resultSet.getLong("id");
+					Long idAgencia = resultSet.getLong("idAgencia");
 	                String cnpj = resultSet.getString("cnpj");
 	                String cidade = resultSet.getString("cidade");
 	                String estado = resultSet.getString("estado");
@@ -56,7 +64,7 @@ public class PacoteDAO extends GenericDAO {
 	                int duracaoDias = resultSet.getInt("duracaoDias");
 	                BigDecimal valor = resultSet.getBigDecimal("valor");
 					String descricao = resultSet.getString("descricao");
-	                Pacote pacote = new Pacote(id, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao);
+	                Pacote pacote = new Pacote(id, idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao);
 	                listaPacotes.add(pacote);
 	            }
 
@@ -70,7 +78,7 @@ public class PacoteDAO extends GenericDAO {
 	    }
 
 	    public void delete(Pacote pacote) {
-	        String sql = "DELETE FROM Usuario where id = ?";
+	        String sql = "DELETE FROM Pacote where id = ?";
 
 	        try {
 	            Connection conn = this.getConnection();
@@ -86,20 +94,21 @@ public class PacoteDAO extends GenericDAO {
 	    }
 
 	    public void update(Pacote pacote) {
-	        String sql = "UPDATE Pacote SET cnpj = ?, cidade = ?, estado = ?, pais = ? dataPartida = ?, duracaoDias = ?, descricao = ?, valor = ? WHERE id = ?";
+	        String sql = "UPDATE Pacote SET idAgencia = ?, cnpj = ?, cidade = ?, estado = ?, pais = ? dataPartida = ?, duracaoDias = ?, descricao = ?, valor = ? WHERE id = ?";
 
 	        try {
 	            Connection conn = this.getConnection();
 	            PreparedStatement statement = conn.prepareStatement(sql);
 
-	            statement.setString(1, pacote.getCNPJ());
-	            statement.setString(2, pacote.getCidade());
-	            statement.setString(3, pacote.getEstado());
-	            statement.setString(4, pacote.getPais());
-	            statement.setDate(5, (java.sql.Date) pacote.getDataPartida());
-	            statement.setInt(6, pacote.getDuracaoDias());
-	            statement.setString(7, pacote.getDescricao());
-	            statement.setLong(8, pacote.getId());
+				statement.setLong(1, pacote.getIdAgencia());
+	            statement.setString(2, pacote.getCNPJ());
+	            statement.setString(3, pacote.getCidade());
+	            statement.setString(4, pacote.getEstado());
+	            statement.setString(5, pacote.getPais());
+	            statement.setDate(6, (java.sql.Date) pacote.getDataPartida());
+	            statement.setInt(7, pacote.getDuracaoDias());
+	            statement.setString(8, pacote.getDescricao());
+	            statement.setLong(9, pacote.getId());
 	            statement.executeUpdate();
 
 	            statement.close();
@@ -121,6 +130,7 @@ public class PacoteDAO extends GenericDAO {
 				statement.setLong(1, id);
 				ResultSet resultSet = statement.executeQuery();
 				if (resultSet.next()) {
+					Long idAgencia = resultSet.getLong("idAgencia");
 					String cnpj = resultSet.getString("cnpj");
 					String cidade = resultSet.getString("cidade");
 	                String estado = resultSet.getString("estado");
@@ -132,7 +142,7 @@ public class PacoteDAO extends GenericDAO {
 					BigDecimal valor = resultSet.getBigDecimal("valor");
 					String descricao = resultSet.getString("descricao");
 
-					pacote = new Pacote(id, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao);
+					pacote = new Pacote(id, idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao);
 				}
 
 				resultSet.close();
@@ -143,4 +153,8 @@ public class PacoteDAO extends GenericDAO {
 			}
 			return pacote;
 		}
+
+	// Pegar por idAgencia
+	// Listar todas as agencias que tem esse pacote
+	
 }

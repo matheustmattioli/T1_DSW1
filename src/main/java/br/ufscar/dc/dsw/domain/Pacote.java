@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Pacote {
 	private Long id;
+    private Long idAgencia; // utilizado para listar agencias com esse pacote
     private String CNPJ;
     private String cidade;
     private String estado;
@@ -22,7 +23,8 @@ public class Pacote {
         this.id = id;
     }
 
-    public Pacote(String CNPJ, String cidade, String estado, String pais, Date dataPartida, int duracaoDias, BigDecimal valor) {
+    public Pacote(Long idAgencia, String CNPJ, String cidade, String estado, String pais, Date dataPartida, int duracaoDias, BigDecimal valor) {
+        this.idAgencia = idAgencia;
         this.CNPJ = CNPJ;
         this.cidade = cidade;
         this.estado = estado;
@@ -32,8 +34,8 @@ public class Pacote {
         this.valor = valor;
     }
 
-    public Pacote(Long id, String CNPJ, String cidade, String estado, String pais, Date dataPartida, int duracaoDias, BigDecimal valor, String descricao) {
-        this(CNPJ, cidade, estado, pais, dataPartida, duracaoDias, valor);
+    public Pacote(Long id, Long idAgencia, String CNPJ, String cidade, String estado, String pais, Date dataPartida, int duracaoDias, BigDecimal valor, String descricao) {
+        this(idAgencia, CNPJ, cidade, estado, pais, dataPartida, duracaoDias, valor);
         this.id = id;
         this.descricao = descricao;
     }
@@ -124,6 +126,14 @@ public class Pacote {
             }
         }
         return imageList;
+    }
+
+    public Long getIdAgencia() {
+        return idAgencia;
+    }
+
+    public void setIdAgencia(Long idAgencia) {
+        this.idAgencia = idAgencia;
     }
 }
 

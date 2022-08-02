@@ -29,7 +29,7 @@
             </div>
         </c:if>
     <h2>Pacotes disponíveis:</h2>
-    <table style="border-spacing:10px;">
+    <table>
         <thead>
         <tr>
             <th>Pacote</th>
@@ -50,7 +50,11 @@
                 <td>${pacote.dataPartida}</td>
                 <td>${pacote.valor} BTC</td>
                 <td>
-                    <img src="images/exemple.png" width="64px">
+                    <div id="images-container">
+                        <c:forEach var="image" items='${pacote.getFotosImages(pageContext.servletContext.getRealPath("images"))}'>
+                           <img src="${image}" width="64px">
+                        </c:forEach>
+                    </div>
                 </td>
             </tr>
         </c:forEach>

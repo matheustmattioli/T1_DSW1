@@ -35,9 +35,9 @@
 	<tr>
 		<td><label for="sexo">Sexo</label></td>
 		<td><select id="sexo" name="sexo">
-				<c:forEach items="Feminino, Masculino, Outro" var="x" >
-					<option value="x"> ${x} </option>
-				</c:forEach>
+			<option value="F"> Feminino </option>
+			<option value="M"> Masculino </option>
+			<option value="O"> Outro </option>
 		</select></td>
 	</tr>
 	<tr>
@@ -47,13 +47,12 @@
 	</tr>
 	<tr>
 		<td><label for="telefone">Telefone</label></td>
-		<td><input type="tel" id="preco" name="preco" required
-			min="0.01" step="any" size="5" value="${livro.preco}" /></td>
+		<td><input type="tel" id="telefone" name="telefone" required value="${usuario.telefone}" /></td>
 	</tr>
 	<tr>
 		<td><label for="senha">Senha</label></td>
 		<td><input type="password" id="senha" name="senha" required
-		 value="${usuarii.senha}" /></td>
+		 value="${usuario.senha}" /></td>
 	</tr>
 	<tr>
 		<td><label for="papel">Papel</label></td>

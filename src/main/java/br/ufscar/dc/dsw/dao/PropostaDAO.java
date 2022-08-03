@@ -130,10 +130,130 @@ public class PropostaDAO extends GenericDAO{
             throw new RuntimeException(e);
         }
         return proposta;
-        // GET BY USUARIO
-        // LISTAR POR USUARIO TB
-        // Pegar por pacote
-        // Listar por pacote tb
+    }
+        
+    
+    public Proposta getbyIDUsuario(Long idUsuario) {
+		Proposta proposta = null;
+
+		String sql = "SELECT * from Proposta WHERE id = ?";
+
+		try {
+			Connection conn = this.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+
+			statement.setLong(1, idUsuario);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				Long id = resultSet.getLong("id");
+                Long idPacote = resultSet.getLong("idPacote");
+                Date dataProposta = resultSet.getDate("dataPartida");
+                Float valor = resultSet.getFloat("valor");
+                proposta = new Proposta(id, idUsuario, idPacote, dataProposta, valor);
+			}
+
+			resultSet.close();
+			statement.close();
+			conn.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return proposta;
+	}
+
+    // LISTAR PROPOSTAS USUARIO
+    public List<Proposta> getAllbyIDUsuario(Long idUsuario) {
+
+        List<Proposta> listaPropostasUsuario = new ArrayList<>();
+
+        String sql = "SELECT * from Proposta u";
+
+        try {
+            Connection conn = this.getConnection();
+            Statement statement = conn.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Long idUsuario_db = resultSet.getLong("idUsuario");
+                if (idUsuario == idUsuario_db) {
+                    Long id = resultSet.getLong("id");
+                    Long idPacote = resultSet.getLong("idPacote");
+                    Date dataProposta = resultSet.getDate("dataPartida");
+                    Float valor = resultSet.getFloat("valor");
+                    Proposta proposta = new Proposta(id, idUsuario_db, idPacote, dataProposta, valor);
+                    listaPropostasUsuario.add(proposta);
+                }
+                
+            }
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listaPropostasUsuario;
+    }
+
+
+    public Proposta getbyIDPacote(Long idPacote) {
+		Proposta proposta = null;
+
+		String sql = "SELECT * from Proposta WHERE id = ?";
+
+		try {
+			Connection conn = this.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+
+			statement.setLong(1, idPacote);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				Long id = resultSet.getLong("id");
+                Long idUsuario = resultSet.getLong("idUsuario");
+                Date dataProposta = resultSet.getDate("dataPartida");
+                Float valor = resultSet.getFloat("valor");
+                proposta = new Proposta(id, idUsuario, idPacote, dataProposta, valor);
+			}
+
+			resultSet.close();
+			statement.close();
+			conn.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return proposta;
+	}
+    
+    // LISTAR PROPOSTAS DO PACOTE
+    public List<Proposta> getAllbyIDPacote(Long idPacote) {
+
+        List<Proposta> listaPropostasPacotes = new ArrayList<>();
+
+        String sql = "SELECT * from Proposta u";
+
+        try {
+            Connection conn = this.getConnection();
+            Statement statement = conn.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Long idPacote_db = resultSet.getLong("idPacote");
+                if (idPacote == idPacote_db) {
+                    Long id = resultSet.getLong("id");
+                    Long idUsuario = resultSet.getLong("idUsuario");
+                    Date dataProposta = resultSet.getDate("dataPartida");
+                    Float valor = resultSet.getFloat("valor");
+                    Proposta proposta = new Proposta(id, idUsuario, idPacote_db, dataProposta, valor);
+                    listaPropostasPacotes.add(proposta);
+                }
+                
+            }
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listaPropostasPacotes;
     }
 
 }

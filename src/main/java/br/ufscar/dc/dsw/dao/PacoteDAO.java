@@ -155,10 +155,10 @@ public class PacoteDAO extends GenericDAO {
 		return pacote;
 	}
 
-	public Agencia getbyidAgencia(Long idAgencia) {
-		Agencia agencia = null;
+	public Pacote getbyIDAgencia(Long idAgencia) {
+		Pacote pacote = null;
 
-		String sql = "SELECT * from Agencia WHERE id = ?";
+		String sql = "SELECT * from Pacote WHERE id = ?";
 
 		try {
 			Connection conn = this.getConnection();
@@ -169,12 +169,17 @@ public class PacoteDAO extends GenericDAO {
 			if (resultSet.next()) {
 				Long id = resultSet.getLong("id");
 				String cnpj = resultSet.getString("cnpj");
-				String nome = resultSet.getString("nome");
-				String email = resultSet.getString("email");
-				String senha = resultSet.getString("senha");
+				String cidade = resultSet.getString("cidade");
+				String estado = resultSet.getString("estado");
+				String pais = resultSet.getString("pais");
+				
+
+				Date dataPartida = resultSet.getDate("dataPartida");
+				int duracaoDias = resultSet.getInt("duracaoDias");
+				BigDecimal valor = resultSet.getBigDecimal("valor");
 				String descricao = resultSet.getString("descricao");
 
-				agencia = new Agencia(id, cnpj, nome, email, senha, descricao);
+				pacote = new Pacote(id, idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao);
 			}
 
 			resultSet.close();
@@ -183,10 +188,10 @@ public class PacoteDAO extends GenericDAO {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		return agencia;
+		return pacote;
 	}
-	
-	public List<Pacote> getAllbyAgencia(Long idAgencia) {
+
+	public List<Pacote> getAllbyIDAgencia(Long idAgencia) {
 
 		List<Pacote> listaPacotesAgencia = new ArrayList<>();
 

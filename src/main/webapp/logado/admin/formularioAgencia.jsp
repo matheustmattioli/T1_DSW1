@@ -5,26 +5,26 @@
 <html>
 
 <head>
-<title>ROTES Cadastro</title>
+<title>ROTES Cadastro Agência</title>
 </head>
 
 <body>
 	<div align="center">
-		<h1>Gerenciamento de Usuários</h1>
+		<h1>Gerenciamento de Agências</h1>
 		<h2>
-			<a href="lista">Lista de Usuários</a>
+			<a href="lista">Lista de Agências</a>
 		</h2>
 	</div>
 	<div align="center">
 		<c:choose>
-			<c:when test="${usuario != null}">
+			<c:when test="${agencia != null}">
 				<form action="atualizacao" method="post">
-					<%@include file="campos.jsp"%>
+					<%@include file="camposAgencia.jsp"%>
 				</form>
 			</c:when>
 			<c:otherwise>
-				<form action="insercao?tipo=usuario" method="post">
-					<%@include file="campos.jsp"%>
+				<form action="insercao?tipo=agencia" method="post">
+					<%@include file="camposAgencia.jsp"%>
 				</form>
 			</c:otherwise>
 		</c:choose>

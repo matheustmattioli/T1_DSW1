@@ -12,7 +12,10 @@
         <p>Olá ${sessionScope.usuarioLogado.nome}</p>
         <ul>
             <li>
-            	<a href="${pageContext.request.contextPath}/admin/cadastro">Criar Novo Usuário</a>
+            	<a href="${pageContext.request.contextPath}/admin/cadastro?tipo=usuario">Criar novo Usuário</a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/admin/cadastro?tipo=agencia">Criar nova Agência</a>
             </li>
             <li>
                 <a href="${pageContext.request.contextPath}/logout.jsp">Sair</a>

@@ -13,7 +13,6 @@ import br.ufscar.dc.dsw.domain.Agencia;
 public class AgenciaDAO extends GenericDAO {
 	
 	public void insert(Agencia agencia) {
-
 		String sql = "INSERT INTO Agencia(cnpj, nome, email, senha, descricao) VALUES (?, ?, ?, ?, ?)";
 
 		try {

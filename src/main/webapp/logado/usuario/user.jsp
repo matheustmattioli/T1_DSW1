@@ -1,6 +1,6 @@
 <%@ page import="br.ufscar.dc.dsw.dao.PacoteDAO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="br.ufscar.dc.dsw.domain.Pacote" %>]
+<%@ page import="br.ufscar.dc.dsw.domain.Pacote" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>

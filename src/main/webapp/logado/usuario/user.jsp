@@ -15,6 +15,8 @@
                 <a href="${pageContext.request.contextPath}/logout.jsp">Sair</a>
             </li>
         </ul>
+        <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotesUsuario.jsp" />
         <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotes.jsp" />  
+        Comprar novo pacote:   
     </body>
 </html>

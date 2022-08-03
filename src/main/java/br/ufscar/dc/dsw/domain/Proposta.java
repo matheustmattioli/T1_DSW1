@@ -1,6 +1,6 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Proposta {
     private Long id;
@@ -9,12 +9,16 @@ public class Proposta {
     private Date dataProposta;
     private Float valor;
     
-    public Proposta(Long id, Long idUsuario, Long idPacote, Date dataproposta, Float valor) {
-        this.id = id;
+    public Proposta(Long idUsuario, Long idPacote, Date dataproposta, Float valor) {
         this.idUsuario = idUsuario;
         this.idPacote = idPacote;
         this.dataProposta = dataproposta;
         this.valor = valor;    
+    }
+
+    public Proposta(Long id, Long idUsuario, Long idPacote, Date dataproposta, Float valor) {
+        this(idUsuario, idPacote, dataproposta, valor);
+        this.id = id;
     }
 
     public Long getId() {

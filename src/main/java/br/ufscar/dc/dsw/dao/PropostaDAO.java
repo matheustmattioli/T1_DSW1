@@ -13,18 +13,17 @@ import java.util.List;
 public class PropostaDAO extends GenericDAO{
 
     public void insert(Proposta proposta) {
-        String sql = "INSERT INTO Proposta(id, idUsuario, idPacote, dataProposta, valor) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Proposta(idUsuario, idPacote, dataProposta, valor) VALUES (?, ?, ?, ?)";
         
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);;
 
             statement = conn.prepareStatement(sql);
-            statement.setLong(1, proposta.getId());
-            statement.setLong(2, proposta.getIdUsuario());
-            statement.setLong(3, proposta.getIdPacote());
-            statement.setDate(4, (java.sql.Date) proposta.getDataProposta());
-            statement.setFloat(5, proposta.getValor());
+            statement.setLong(1, proposta.getIdUsuario());
+            statement.setLong(2, proposta.getIdPacote());
+            statement.setDate(3, (java.sql.Date) proposta.getDataProposta());
+            statement.setFloat(4, proposta.getValor());
             statement.executeUpdate();
 
             statement.close();
@@ -115,8 +114,8 @@ public class PropostaDAO extends GenericDAO{
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                Long idUsuario = resultSet.getLong("idUsuario");
-                Long idPacote = resultSet.getLong("idPacote");
+                long idUsuario = resultSet.getLong("idUsuario");
+                long idPacote = resultSet.getLong("idPacote");
                 Date dataProposta = resultSet.getDate("dataProposta");
                 Float valor = resultSet.getFloat("valor");
 
@@ -145,9 +144,9 @@ public class PropostaDAO extends GenericDAO{
 			statement.setLong(1, idUsuario);
 			ResultSet resultSet = statement.executeQuery();
 			if (resultSet.next()) {
-				Long id = resultSet.getLong("id");
-                Long idPacote = resultSet.getLong("idPacote");
-                Date dataProposta = resultSet.getDate("dataPartida");
+				long id = resultSet.getLong("id");
+                long idPacote = resultSet.getLong("idPacote");
+                Date dataProposta = resultSet.getDate("dataProposta");
                 Float valor = resultSet.getFloat("valor");
                 proposta = new Proposta(id, idUsuario, idPacote, dataProposta, valor);
 			}
@@ -176,10 +175,11 @@ public class PropostaDAO extends GenericDAO{
             while (resultSet.next()) {
                 Long idUsuario_db = resultSet.getLong("idUsuario");
                 if (idUsuario == idUsuario_db) {
-                    Long id = resultSet.getLong("id");
-                    Long idPacote = resultSet.getLong("idPacote");
-                    Date dataProposta = resultSet.getDate("dataPartida");
+                    long id = resultSet.getLong("id");
+                    long idPacote = resultSet.getLong("idPacote");
+                    Date dataProposta = resultSet.getDate("dataProposta");
                     Float valor = resultSet.getFloat("valor");
+                    
                     Proposta proposta = new Proposta(id, idUsuario_db, idPacote, dataProposta, valor);
                     listaPropostasUsuario.add(proposta);
                 }

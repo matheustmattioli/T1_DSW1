@@ -1,38 +1,41 @@
 package br.ufscar.dc.dsw.domain;
 
-import java.lang.reflect.Array;
+import java.io.File;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 
 public class Pacote {
 	private Long id;
+    private Long idAgencia; // utilizado para listar agencias com esse pacote
     private String CNPJ;
-    private long destino;
+    private String cidade;
+    private String estado;
+    private String pais;
 
     private Date dataPartida;
     private int duracaoDias;	
     private BigDecimal valor;
     private String descricao;
-    // Contains base64-encoded photos
-    private ArrayList<String> fotos;
-    
+
     public Pacote(Long id) {
         this.id = id;
     }
 
-    public Pacote(String CNPJ, long destino, Date dataPartida, int duracaoDias, BigDecimal valor) {
+    public Pacote(Long idAgencia, String CNPJ, String cidade, String estado, String pais, Date dataPartida, int duracaoDias, BigDecimal valor) {
+        this.idAgencia = idAgencia;
         this.CNPJ = CNPJ;
-        this.destino = destino;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.pais = pais;
         this.dataPartida = dataPartida;
         this.duracaoDias = duracaoDias;
         this.valor = valor;
     }
 
-    public Pacote(Long id, String CNPJ, long destino, Date dataPartida, int duracaoDias, BigDecimal valor, String descricao) {
-        this(CNPJ, destino, dataPartida, duracaoDias, valor);
+    public Pacote(Long id, Long idAgencia, String CNPJ, String cidade, String estado, String pais, Date dataPartida, int duracaoDias, BigDecimal valor, String descricao) {
+        this(idAgencia, CNPJ, cidade, estado, pais, dataPartida, duracaoDias, valor);
         this.id = id;
         this.descricao = descricao;
     }
@@ -61,14 +64,30 @@ public class Pacote {
 	    this.descricao = descricao;
 	}
 
-    public long getDestino() {
-        return destino;
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setDestino(long destino) {
-        this.destino = destino;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+    
+    public String getEstado() {
+        return estado;
     }
 
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    public String getPais() {
+        return pais;
+    }
+    
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+    
     public Date getDataPartida() {
         return dataPartida;
     }
@@ -93,13 +112,28 @@ public class Pacote {
         this.valor = valor;
     }
 
-    public ArrayList<String> getFotos() {
-        return fotos;
+    public List<String> getFotosImages(String path){
+        List<String> aux = new ArrayList<String>();
+
+        path = path + File.separator + this.id.toString();
+        List<String> imageList = new ArrayList<String>();
+        File dir = new File(path);
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (final File imageFile : files) {
+                imageList.add("images" + File.separator + this.id.toString() + File.separator + imageFile.getName());
+                aux.add(path + File.separator + imageFile.getName());
+            }
+        }
+        return imageList;
     }
 
-    public void setFotos(ArrayList<String> fotos) {
-        this.fotos = fotos;
+    public Long getIdAgencia() {
+        return idAgencia;
     }
 
+    public void setIdAgencia(Long idAgencia) {
+        this.idAgencia = idAgencia;
+    }
 }
 

@@ -1,6 +1,10 @@
 package br.ufscar.dc.dsw.controller;
 
+import br.ufscar.dc.dsw.dao.PacoteDAO;
+import br.ufscar.dc.dsw.domain.Pacote;
+
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,8 +26,10 @@ private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		//request.setAttribute("pacotes", pacotes);
-		
+		PacoteDAO pacoteDao = new PacoteDAO();
+		List<Pacote> pacotes = pacoteDao.getAll();
+		request.setAttribute("pacotes", pacotes);
+
 		String URL = "/home.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(URL);
 		rd.forward(request, response);

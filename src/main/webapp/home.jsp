@@ -1,3 +1,7 @@
+<%@ page import="java.io.IOException" %>
+<%@ page import="javax.imageio.ImageIO" %>
+<%@ page import="java.awt.image.BufferedImage" %>
+<%@ page import="java.io.File" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -9,6 +13,9 @@
         <link href="${pageContext.request.contextPath}/layout.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+    <%
+        String contextPath = request.getContextPath().replace("/", "");
+    %>
     <h1>ROTES Viagens</h1>
     <h2> A rota dos seus sonhos ao seu alcance</h2>
     <h3>Deseja <a href="login.jsp">logar?</a></h3>
@@ -21,6 +28,6 @@
                 </ul>
             </div>
         </c:if>
-    
+        <jsp:include page="${renderRequest.getContextPath()}/util/ListaPacotes.jsp" />  
     </body>
 </html>

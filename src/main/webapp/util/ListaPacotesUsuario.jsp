@@ -31,30 +31,26 @@
         <th>Fotos</th>
     </tr>
     </thead>
-    <c:forEach var="pacote" items="${PacoteDAO().getAll()}">
-        <c:forEach var="proposta" items="${PropostaDAO().getAll()}">
-            <c:if test = "${proposta.idUsuario == sessionScope.usuarioLogado.id}">
-                <tr>
-                    <td>${pacote.id}</td>
-                    <td>${pacote.descricao}</td>
-                    <td>${pacote.cidade}</td>
-                    <td>${pacote.estado}</td>
-                    <td>${pacote.pais}</td>
-                    <td>${pacote.CNPJ}</td>
-                    <td>${pacote.dataPartida}</td>
-                    <td>${pacote.valor} BTC</td>
-                    <td>
-                        <div id="images-container">
-                            <c:forEach var="image"
-                                    items='${pacote.getFotosImages(pageContext.servletContext.getRealPath("images"),
-                                                                    pageContext.request.contextPath)}'
-                            >
-                                <img src="${image}" width="64px">
-                            </c:forEach>
-                        </div>
-                    </td>
-                </tr>
-            </c:if>
-        </c:forEach>
+    <c:forEach var="proposta" items="${PropostaDAO().getAllbyIDUsuario(sessionScope.usuarioLogado.id)}">
+        <tr>
+            <td>${PacoteDAO().getbyID(proposta.idPacote).id}</td>
+            <td>${PacoteDAO().getbyID(proposta.idPacote).descricao}</td>
+            <td>${PacoteDAO().getbyID(proposta.idPacote).cidade}</td>
+            <td>${PacoteDAO().getbyID(proposta.idPacote).estado}</td>
+            <td>${PacoteDAO().getbyID(proposta.idPacote).pais}</td>
+            <td>${PacoteDAO().getbyID(proposta.idPacote).CNPJ}</td>
+            <td>${PacoteDAO().getbyID(proposta.idPacote).dataPartida}</td>
+            <td>${PacoteDAO().getbyID(proposta.idPacote).valor} BTC</td>
+            <td>
+                <div id="images-container">
+                    <c:forEach var="image"
+                            items='${pacote.getFotosImages(pageContext.servletContext.getRealPath("images"),
+                                                            pageContext.request.contextPath)}'
+                    >
+                        <img src="${image}" width="64px">
+                    </c:forEach>
+                </div>
+            </td>
+        </tr>
     </c:forEach>
 </table>

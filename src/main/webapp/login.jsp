@@ -11,7 +11,7 @@
     <body>
     <h1>ROTES Viagens</h1>
     <h2> A rota dos seus sonhos ao seu alcance</h2>
-    <h3><a href="/ROTES/">Voltar ao Home</a></h3>
+    <h3><a href="${pageContext.request.contextPath}">Voltar ao Home</a></h3>
         <h2>Autenticação de Usuário</h2>
         <c:if test="${mensagens.existeErros}">
             <div id="erro">

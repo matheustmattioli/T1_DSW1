@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Menu do Sistema</title>
-        <link href="${renderRequest.getContextPath()}/layout.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/layout.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <h1>Página do Administrador</h1>
@@ -13,7 +13,8 @@
         <ul>
             <li>
             	<a href="${pageContext.request.contextPath}/admin/cadastro">Criar Novo Usuário</a>
-            	<br>
+            </li>
+            <li>
                 <a href="${pageContext.request.contextPath}/logout.jsp">Sair</a>
             </li>
         </ul>

@@ -112,7 +112,7 @@ public class Pacote {
         this.valor = valor;
     }
 
-    public List<String> getFotosImages(String path){
+    public List<String> getFotosImages(String path, String context){
         List<String> aux = new ArrayList<String>();
 
         path = path + File.separator + this.id.toString();
@@ -121,8 +121,7 @@ public class Pacote {
         File[] files = dir.listFiles();
         if (files != null) {
             for (final File imageFile : files) {
-                imageList.add("images" + File.separator + this.id.toString() + File.separator + imageFile.getName());
-                aux.add(path + File.separator + imageFile.getName());
+                imageList.add(context + File.separator + "images" + File.separator + this.id.toString() + File.separator + imageFile.getName());
             }
         }
         return imageList;

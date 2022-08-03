@@ -2,6 +2,9 @@
 <%@ page import="javax.imageio.ImageIO" %>
 <%@ page import="java.awt.image.BufferedImage" %>
 <%@ page import="java.io.File" %>
+<%@ page import="br.ufscar.dc.dsw.dao.PacoteDAO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="br.ufscar.dc.dsw.domain.Pacote" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -10,6 +13,7 @@
     String contextPath = request.getContextPath().replace("/", "");
 %>
 
+<p>Context: <%= contextPath %></p>
 <h2>Pacotes disponíveis:</h2>
 <table>
     <thead>
@@ -25,7 +29,7 @@
         <th>Fotos</th>
     </tr>
     </thead>
-    <c:forEach var="pacote" items="${requestScope.pacotes}">
+    <c:forEach var="pacote" items="${PacoteDAO().getAll()}">
         <tr>
             <td>${pacote.id}</td>
             <td>${pacote.descricao}</td>
@@ -37,7 +41,10 @@
             <td>${pacote.valor} BTC</td>
             <td>
                 <div id="images-container">
-                    <c:forEach var="image" items='${pacote.getFotosImages(pageContext.servletContext.getRealPath("images"))}'>
+                    <c:forEach var="image"
+                               items='${pacote.getFotosImages(pageContext.servletContext.getRealPath("images"),
+                                                              pageContext.request.contextPath)}'
+                    >
                         <img src="${image}" width="64px">
                     </c:forEach>
                 </div>

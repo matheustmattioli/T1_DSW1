@@ -18,7 +18,7 @@
 	<div align="center">
 		<c:choose>
 			<c:when test="${usuario != null}">
-				<form action="atualizacao" method="post">
+				<form action="edicao" method="post">
 					<%@include file="campos.jsp"%>
 				</form>
 			</c:when>

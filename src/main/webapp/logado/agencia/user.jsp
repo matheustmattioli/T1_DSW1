@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>ROTES - Home</title>
-        <link href="${renderRequest.getContextPath()}/layout.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/layout.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <h1>Página da Agência</h1>

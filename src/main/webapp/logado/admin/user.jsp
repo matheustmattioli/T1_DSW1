@@ -18,6 +18,7 @@
                 <a href="${pageContext.request.contextPath}/logout.jsp">Sair</a>
             </li>
         </ul>
+        <jsp:include page="${renderRequest.getContextPath()}/util/ListaUsuarios.jsp" />  
         <jsp:include page="${renderRequest.getContextPath()}/util/ListaPacotes.jsp" />  
     </body>
 </html>

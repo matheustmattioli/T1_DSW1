@@ -209,7 +209,7 @@ public class PropostaDAO extends GenericDAO{
 			if (resultSet.next()) {
 				Long id = resultSet.getLong("id");
                 Long idUsuario = resultSet.getLong("idUsuario");
-                Date dataProposta = resultSet.getDate("dataPartida");
+                Date dataProposta = resultSet.getDate("dataProposta");
                 Float valor = resultSet.getFloat("valor");
                 proposta = new Proposta(id, idUsuario, idPacote, dataProposta, valor);
 			}
@@ -240,7 +240,7 @@ public class PropostaDAO extends GenericDAO{
                 if (idPacote == idPacote_db) {
                     Long id = resultSet.getLong("id");
                     Long idUsuario = resultSet.getLong("idUsuario");
-                    Date dataProposta = resultSet.getDate("dataPartida");
+                    Date dataProposta = resultSet.getDate("dataProposta");
                     Float valor = resultSet.getFloat("valor");
                     Proposta proposta = new Proposta(id, idUsuario, idPacote_db, dataProposta, valor);
                     listaPropostasPacotes.add(proposta);

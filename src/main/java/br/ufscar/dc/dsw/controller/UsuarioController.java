@@ -23,9 +23,12 @@ public class UsuarioController extends HttpServlet {
 
 	private PropostaDAO propostaDAO;
 
+	private String tablePath;
+
 	@Override
 	public void init() {
 		propostaDAO = new PropostaDAO();
+		tablePath = "/util/ListaPacotes.jsp";
 	}
 
     @Override
@@ -42,6 +45,16 @@ public class UsuarioController extends HttpServlet {
 		}
 
 		try {
+			switch (action) {
+				case "/pacotes-usuario":
+					tablePath = "/util/ListaPacotes.jsp";
+					break;
+				case "/pacotes-adquiridos":
+					tablePath = "/util/ListaPacotesUsuario.jsp";				
+					break;
+				default:
+					break;
+				}
 			switch (action) {
 			case "/comprar":
 				comprar(request, response);
@@ -69,7 +82,15 @@ public class UsuarioController extends HttpServlet {
 		Date dataAtual = new Date(LocalDate.now().toEpochDay());
 
 		Proposta proposta = new Proposta(usuario.getId(), Long.valueOf(pacote).longValue(), dataAtual, Float.valueOf(valorStr).floatValue());
-		propostaDAO.insert(proposta);
+		if(propostaDAO.getAllbyIDPacote(Long.valueOf(pacote).longValue()) == null)
+			propostaDAO.insert(proposta);
+		else{
+			Erro erros = new Erro();
+			erros.add("Você já comprou esse pacote!");
+			request.setAttribute("mensagens", erros);
+			RequestDispatcher rd = request.getRequestDispatcher("/usuario/user.jsp");
+			rd.forward(request, response);
+		}
 		response.sendRedirect("lista");
 	}
 
@@ -93,6 +114,7 @@ public class UsuarioController extends HttpServlet {
     	if (usuario == null) {
     		response.sendRedirect(request.getContextPath());
     	} else if (usuario.getPapel().equals("USR")) {
+			request.setAttribute("tablePath", tablePath);
     		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/usuario/user.jsp");
             dispatcher.forward(request, response);
 		} else {

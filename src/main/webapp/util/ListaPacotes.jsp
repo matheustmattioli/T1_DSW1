@@ -3,6 +3,7 @@
 <%@ page import="java.awt.image.BufferedImage" %>
 <%@ page import="java.io.File" %>
 <%@ page import="br.ufscar.dc.dsw.dao.PacoteDAO" %>
+<%@ page import="br.ufscar.dc.dsw.domain.Usuario" %>
 <%@ page import="java.util.List" %>
 <%@ page import="br.ufscar.dc.dsw.domain.Pacote" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,7 +13,11 @@
 <%
     String contextPath = request.getContextPath().replace("/", "");
 %>
-
+<c:if test="${sessionScope.usuarioLogado.getPapel().equals('USR')}">
+<form action="pacotes-adquiridos" method="post">
+    <input type="submit" value="Mostrar apenas pacotes adquiridos" />
+</form>
+</c:if>
 <h2>Pacotes disponíveis:</h2>
 <table>
     <thead>

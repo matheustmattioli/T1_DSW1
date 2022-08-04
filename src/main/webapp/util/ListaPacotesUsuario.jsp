@@ -19,6 +19,11 @@
     <script src="${pageContext.request.contextPath.concat('/js/formEdit.js')}"></script>
 </head>
 <body>
+    <c:if test="${sessionScope.usuarioLogado.getPapel().equals('USR')}">
+    <form action="pacotes-usuario" method="post">
+        <input type="submit" value="Mostrar todos os pacotes" />
+    </form>
+    </c:if>
     <h2>Pacotes adquiridos:</h2>
     <table>
         <thead>

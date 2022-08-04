@@ -19,8 +19,15 @@
                 <a href="${pageContext.request.contextPath}/logout.jsp">Sair</a>
             </li>
         </ul>
-        <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotesUsuario.jsp" />
-        <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotes.jsp" />  
+        <c:if test="${mensagens.existeErros}">
+            <div id="erro">
+                <ul>
+                    <c:forEach var="erro" items="${mensagens.erros}">
+                        <li> ${erro} </li>
+                        </c:forEach>
+                </ul>
+            </div>
+        </c:if>
         <br/>
         <form action="comprar" method="post">
             <table>
@@ -44,5 +51,8 @@
                 </tr>
             </table>
         </form>
+        <br/>
+            <jsp:include page="${renderRequest.getContextPath()}/${sessionScope.tablePath}" />
+        <br/>
     </body>
 </html>

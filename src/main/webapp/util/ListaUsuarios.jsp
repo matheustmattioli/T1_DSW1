@@ -44,6 +44,9 @@
                     <button onclick='requestUsuarioEdit("<%= contextPath %>", ${usuario.id})'>
                         Editar
                     </button>
+                    <button onclick='requestUsuarioDelete("<%= contextPath %>", ${usuario.id})'>
+                        Deletar
+                    </button>
                 </td>
             </tr>
         </c:forEach>

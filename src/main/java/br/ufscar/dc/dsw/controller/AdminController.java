@@ -60,6 +60,9 @@ public class AdminController extends HttpServlet {
 			case "/atualiza":
 				atualiza(request, response);
 				break;
+			case "/deletar":
+				deletar(request, response);
+				break;
 			default:
 				home(request, response);
 				break;
@@ -192,6 +195,20 @@ public class AdminController extends HttpServlet {
 
 			Agencia agencia = new Agencia(id, cnpj, nome, email, senha, descricao);
 			agenciaDAO.update(agencia);
+		}
+		response.sendRedirect("lista");
+	}
+
+	private void deletar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String tipo = request.getParameter("tipo");
+		Long id = Long.parseLong(request.getParameter("id"));
+
+		if (tipo.equals("usuario")) {
+			Usuario usuario = new Usuario(id);
+			usuarioDAO.delete(usuario);
+		} else if (tipo.equals("agencia")) {
+			Agencia agencia = new Agencia(id);
+			agenciaDAO.delete(agencia);
 		}
 		response.sendRedirect("lista");
 	}

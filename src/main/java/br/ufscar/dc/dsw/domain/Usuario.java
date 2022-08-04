@@ -14,6 +14,11 @@ public class Usuario {
 	private String senha;
 	private String papel;
 
+	public Usuario(Long id) {
+		this.id = id;
+		this.cpf = "";
+	}
+
 	public Usuario(Long id, String cpf) {
 		this.cpf = cpf;
 		this.id = id;

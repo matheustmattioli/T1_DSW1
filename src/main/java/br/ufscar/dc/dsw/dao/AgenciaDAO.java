@@ -66,7 +66,7 @@ public class AgenciaDAO extends GenericDAO {
 	}
 
 	public void delete(Agencia agencia) {
-		String sql = "DELETE FROM Usuario where id = ?";
+		String sql = "DELETE FROM Agencia where id = ?";
 
 		try {
 			Connection conn = this.getConnection();

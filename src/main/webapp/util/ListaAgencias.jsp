@@ -41,6 +41,9 @@
                     <button onclick='requestAgenciaEdit("<%= contextPath %>", ${agencia.id})'>
                         Editar
                     </button>
+                    <button onclick='requestAgenciaDelete("<%= contextPath %>", ${agencia.id})'>
+                        Deletar
+                    </button>
                 </td>
             </tr>
         </c:forEach>

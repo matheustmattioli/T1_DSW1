@@ -131,35 +131,6 @@ public class PropostaDAO extends GenericDAO{
         return proposta;
     }
         
-    
-    public Proposta getbyIDUsuario(Long idUsuario) {
-		Proposta proposta = null;
-
-		String sql = "SELECT * from Proposta WHERE id = ?";
-
-		try {
-			Connection conn = this.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-
-			statement.setLong(1, idUsuario);
-			ResultSet resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				long id = resultSet.getLong("id");
-                long idPacote = resultSet.getLong("idPacote");
-                Date dataProposta = resultSet.getDate("dataProposta");
-                Float valor = resultSet.getFloat("valor");
-                proposta = new Proposta(id, idUsuario, idPacote, dataProposta, valor);
-			}
-
-			resultSet.close();
-			statement.close();
-			conn.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		return proposta;
-	}
-
     // LISTAR PROPOSTAS USUARIO
     public List<Proposta> getAllbyIDUsuario(Long idUsuario) {
 
@@ -194,34 +165,6 @@ public class PropostaDAO extends GenericDAO{
         return listaPropostasUsuario;
     }
 
-
-    public Proposta getbyIDPacote(Long idPacote) {
-		Proposta proposta = null;
-
-		String sql = "SELECT * from Proposta WHERE id = ?";
-
-		try {
-			Connection conn = this.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-
-			statement.setLong(1, idPacote);
-			ResultSet resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				Long id = resultSet.getLong("id");
-                Long idUsuario = resultSet.getLong("idUsuario");
-                Date dataProposta = resultSet.getDate("dataPartida");
-                Float valor = resultSet.getFloat("valor");
-                proposta = new Proposta(id, idUsuario, idPacote, dataProposta, valor);
-			}
-
-			resultSet.close();
-			statement.close();
-			conn.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		return proposta;
-	}
     
     // LISTAR PROPOSTAS DO PACOTE
     public List<Proposta> getAllbyIDPacote(Long idPacote) {
@@ -240,7 +183,7 @@ public class PropostaDAO extends GenericDAO{
                 if (idPacote == idPacote_db) {
                     Long id = resultSet.getLong("id");
                     Long idUsuario = resultSet.getLong("idUsuario");
-                    Date dataProposta = resultSet.getDate("dataPartida");
+                    Date dataProposta = resultSet.getDate("dataProposta");
                     Float valor = resultSet.getFloat("valor");
                     Proposta proposta = new Proposta(id, idUsuario, idPacote_db, dataProposta, valor);
                     listaPropostasPacotes.add(proposta);

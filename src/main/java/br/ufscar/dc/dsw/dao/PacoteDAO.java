@@ -154,42 +154,6 @@ public class PacoteDAO extends GenericDAO {
 		return pacote;
 	}
 
-	public Pacote getbyIDAgencia(Long idAgencia) {
-		Pacote pacote = null;
-
-		String sql = "SELECT * from Pacote WHERE id = ?";
-
-		try {
-			Connection conn = this.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-
-			statement.setLong(1, idAgencia);
-			ResultSet resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				Long id = resultSet.getLong("id");
-				String cnpj = resultSet.getString("cnpj");
-				String cidade = resultSet.getString("cidade");
-				String estado = resultSet.getString("estado");
-				String pais = resultSet.getString("pais");
-				
-
-				Date dataPartida = resultSet.getDate("dataPartida");
-				int duracaoDias = resultSet.getInt("duracaoDias");
-				BigDecimal valor = resultSet.getBigDecimal("valor");
-				String descricao = resultSet.getString("descricao");
-
-				pacote = new Pacote(id, idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao);
-			}
-
-			resultSet.close();
-			statement.close();
-			conn.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		return pacote;
-	}
-
 	public List<Pacote> getAllbyIDAgencia(Long idAgencia) {
 
 		List<Pacote> listaPacotesAgencia = new ArrayList<>();
@@ -204,6 +168,7 @@ public class PacoteDAO extends GenericDAO {
 			while (resultSet.next()) {
 				Long idAgencia_db = resultSet.getLong("idAgencia");
 				if (idAgencia == idAgencia_db) {
+					// System.out.println(idAgencia_db);
 					Long id = resultSet.getLong("id");
 					String cnpj = resultSet.getString("cnpj");
 					String cidade = resultSet.getString("cidade");

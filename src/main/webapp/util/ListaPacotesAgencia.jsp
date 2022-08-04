@@ -29,28 +29,26 @@
         <th>Fotos</th>
     </tr>
     </thead>
-    <c:forEach var="pacote" items="${PacoteDAO().getAll()}">
-        <c:if test = "${pacote.idAgencia == sessionScope.usuarioLogado.id}">
-            <tr>
-                <td>${pacote.id}</td>
-                <td>${pacote.descricao}</td>
-                <td>${pacote.cidade}</td>
-                <td>${pacote.estado}</td>
-                <td>${pacote.pais}</td>
-                <td>${pacote.CNPJ}</td>
-                <td>${pacote.dataPartida}</td>
-                <td>${pacote.valor} BTC</td>
-                <td>
-                    <div id="images-container">
-                        <c:forEach var="image"
-                                items='${pacote.getFotosImages(pageContext.servletContext.getRealPath("images"),
-                                                                pageContext.request.contextPath)}'
-                        >
-                            <img src="${image}" width="64px">
-                        </c:forEach>
-                    </div>
-                </td>
-            </tr>
-        </c:if>
+    <c:forEach var="pacote" items="${PacoteDAO().getAllbyIDAgencia(sessionScope.usuarioLogado.id)}">
+        <tr>
+            <td>${pacote.id}</td>
+            <td>${pacote.descricao}</td>
+            <td>${pacote.cidade}</td>
+            <td>${pacote.estado}</td>
+            <td>${pacote.pais}</td>
+            <td>${pacote.CNPJ}</td>
+            <td>${pacote.dataPartida}</td>
+            <td>${pacote.valor} BTC</td>
+            <td>
+                <div id="images-container">
+                    <c:forEach var="image"
+                            items='${pacote.getFotosImages(pageContext.servletContext.getRealPath("images"),
+                                                            pageContext.request.contextPath)}'
+                    >
+                        <img src="${image}" width="64px">
+                    </c:forEach>
+                </div>
+            </td>
+        </tr>
     </c:forEach>
 </table>

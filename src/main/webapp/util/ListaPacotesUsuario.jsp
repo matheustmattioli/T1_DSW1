@@ -15,42 +15,53 @@
     String contextPath = request.getContextPath().replace("/", "");
 %>
 
-<p>Context: <%= contextPath %></p>
-<h2>Pacotes adquiridos:</h2>
-<table>
-    <thead>
-    <tr>
-        <th>Pacote</th>
-        <th>Descrição</th>
-        <th>Cidade</th>
-        <th>Estado</th>
-        <th>Pais</th>
-        <th>Agência</th>
-        <th>Data de Partida</th>
-        <th>Valor</th>
-        <th>Fotos</th>
-    </tr>
-    </thead>
-    <c:forEach var="proposta" items="${PropostaDAO().getAllbyIDUsuario(sessionScope.usuarioLogado.id)}">
+<head>
+    <script src="${pageContext.request.contextPath.concat('/js/formEdit.js')}"></script>
+</head>
+<body>
+    <h2>Pacotes adquiridos:</h2>
+    <table>
+        <thead>
         <tr>
-            <td>${PacoteDAO().getbyID(proposta.idPacote).id}</td>
-            <td>${PacoteDAO().getbyID(proposta.idPacote).descricao}</td>
-            <td>${PacoteDAO().getbyID(proposta.idPacote).cidade}</td>
-            <td>${PacoteDAO().getbyID(proposta.idPacote).estado}</td>
-            <td>${PacoteDAO().getbyID(proposta.idPacote).pais}</td>
-            <td>${PacoteDAO().getbyID(proposta.idPacote).CNPJ}</td>
-            <td>${PacoteDAO().getbyID(proposta.idPacote).dataPartida}</td>
-            <td>${PacoteDAO().getbyID(proposta.idPacote).valor} BTC</td>
-            <td>
-                <div id="images-container">
-                    <c:forEach var="image"
-                            items='${pacote.getFotosImages(pageContext.servletContext.getRealPath("images"),
-                                                            pageContext.request.contextPath)}'
-                    >
-                        <img src="${image}" width="64px">
-                    </c:forEach>
-                </div>
-            </td>
+            <th>Pacote</th>
+            <th>Descrição</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>Pais</th>
+            <th>Agência</th>
+            <th>Data de Partida</th>
+            <th>Valor</th>
+            <th>Fotos</th>
+            <th></th>
         </tr>
-    </c:forEach>
-</table>
+        </thead>
+        <c:forEach var="proposta" items="${PropostaDAO().getAllbyIDUsuario(sessionScope.usuarioLogado.id)}">
+            <tr>
+                <td>${PacoteDAO().getbyID(proposta.idPacote).id}</td>
+                <td>${PacoteDAO().getbyID(proposta.idPacote).descricao}</td>
+                <td>${PacoteDAO().getbyID(proposta.idPacote).cidade}</td>
+                <td>${PacoteDAO().getbyID(proposta.idPacote).estado}</td>
+                <td>${PacoteDAO().getbyID(proposta.idPacote).pais}</td>
+                <td>${PacoteDAO().getbyID(proposta.idPacote).CNPJ}</td>
+                <td>${PacoteDAO().getbyID(proposta.idPacote).dataPartida}</td>
+                <td>${PacoteDAO().getbyID(proposta.idPacote).valor} BTC</td>
+                <td>
+                    <div id="images-container">
+                        <c:forEach var="image"
+                                items='${PacoteDAO().getbyID(proposta.idPacote)
+                                         .getFotosImages(pageContext.servletContext.getRealPath("images"),
+                                                         pageContext.request.contextPath)}'
+                        >
+                            <img src="${image}" width="64px">
+                        </c:forEach>
+                    </div>
+                </td>
+                <td>
+                    <button onclick='requestRemovePacoteUsuario("<%= contextPath %>", ${proposta.id})'>
+                        Remover
+                    </button>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+</body>

@@ -46,6 +46,9 @@ public class UsuarioController extends HttpServlet {
 			case "/comprar":
 				comprar(request, response);
 				break;
+			case "/deletar":
+				deletar(request, response);
+				break;
 			default:
 				home(request, response);
 				break;
@@ -67,6 +70,19 @@ public class UsuarioController extends HttpServlet {
 
 		Proposta proposta = new Proposta(usuario.getId(), Long.valueOf(pacote).longValue(), dataAtual, Float.valueOf(valorStr).floatValue());
 		propostaDAO.insert(proposta);
+		response.sendRedirect("lista");
+	}
+
+	private void deletar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		request.setCharacterEncoding("UTF-8");
+
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+
+		Long propostaId = Long.parseLong(request.getParameter("id"));
+
+		Proposta proposta = new Proposta(propostaId);
+		propostaDAO.delete(proposta);
 		response.sendRedirect("lista");
 	}
 

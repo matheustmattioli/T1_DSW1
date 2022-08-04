@@ -13,3 +13,7 @@ function requestAgenciaEdit(context, agencia) {
 function requestAgenciaDelete(context, agencia) {
     window.location.assign("/" + context + "/admin/deletar?tipo=agencia&id=" + agencia);
 }
+
+function requestRemovePacoteUsuario(context, idPacote) {
+    window.location.assign("/" + context + "/usuario/deletar?id=" + idPacote);
+}

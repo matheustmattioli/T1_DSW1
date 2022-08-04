@@ -13,7 +13,6 @@
     String contextPath = request.getContextPath().replace("/", "");
 %>
 
-<p>Context: <%= contextPath %></p>
 <h2>Pacotes disponíveis:</h2>
 <table>
     <thead>

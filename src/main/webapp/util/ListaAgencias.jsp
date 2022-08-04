@@ -17,7 +17,6 @@
     <script src="${pageContext.request.contextPath.concat('/js/formEdit.js')}"></script>
 </head>
 <body>
-    <p>Context: <%= contextPath %></p>
     <h2>Agencias:</h2>
     <table>
         <thead>

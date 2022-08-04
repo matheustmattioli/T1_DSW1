@@ -8,7 +8,11 @@ public class Proposta {
     private Long idPacote;
     private Date dataProposta;
     private Float valor;
-    
+
+    public Proposta(Long id) {
+        this.id = id;
+    }
+
     public Proposta(Long idUsuario, Long idPacote, Date dataproposta, Float valor) {
         this.idUsuario = idUsuario;
         this.idPacote = idPacote;

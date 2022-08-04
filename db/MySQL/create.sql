@@ -60,4 +60,6 @@ insert into Pacote(idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDi
 
 insert into Pacote(idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao) values (1, '12345678901234', 'Bananais', 'HUEHUE', 'Bostil', '2021-09-23', 365, 42069, 'Depressao Dor Sofrimentos');
 
+insert into Pacote(idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao) values (1, '12345678901234', 'Sao Carros', 'Sao Paulo', 'Brasil', '2022-09-23', 365, 42069, 'Depressao Dor Sofrimentos');
+
 insert into Proposta(idUsuario, idPacote, dataProposta, valor) values (1, 1, "2011-09-21", 1);

@@ -13,7 +13,6 @@
     String contextPath = request.getContextPath().replace("/", "");
 %>
 
-<p>Context: <%= contextPath %></p>
 <h2>Pacotes da ${sessionScope.usuarioLogado.nome}:</h2>
 <table>
     <thead>
@@ -42,10 +41,10 @@
             <td>
                 <div id="images-container">
                     <c:forEach var="image"
-                            items='${pacote.getFotosImages(pageContext.servletContext.getRealPath("images"),
-                                                            pageContext.request.contextPath)}'
+                    items='${pacote.getFotosImages(pageContext.servletContext.getRealPath("images"),
+                    pageContext.request.contextPath)}'
                     >
-                        <img src="${image}" width="64px">
+                    <img src="${image}" width="64px">
                     </c:forEach>
                 </div>
             </td>

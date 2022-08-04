@@ -16,6 +16,6 @@
             </li>
         </ul>
         <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotesAgencia.jsp" /> 
-        <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotes.jsp" />  
+        <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotesAgenciaDisponiveis.jsp" />  
     </body>
 </html>

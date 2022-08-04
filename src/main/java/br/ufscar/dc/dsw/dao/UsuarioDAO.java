@@ -90,19 +90,21 @@ public class UsuarioDAO extends GenericDAO {
     }
 
     public void update(Usuario usuario) {
-        String sql = "UPDATE Usuario SET nome = ?, email = ?, cpf = ?, senha = ?, nascimento = ?, papel = ? WHERE id = ?";
+        String sql = "UPDATE Usuario SET nome = ?, email = ?, senha = ?, nascimento = ?, papel = ?, cpf = ?, telefone = ? WHERE id = ?";
 
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
+            System.out.println("ajisjaisjas");
 
             statement.setString(1, usuario.getNome());
             statement.setString(2, usuario.getEmail());
-            statement.setString(3, usuario.getCpf());
-            statement.setString(4, usuario.getSenha());
-            statement.setDate(5, usuario.getNascimento());
-            statement.setString(6, usuario.getPapel());
-            statement.setLong(7,  usuario.getId());
+            statement.setString(3, usuario.getSenha());
+            statement.setDate(4, usuario.getNascimento());
+            statement.setString(5, usuario.getPapel());
+            statement.setString(6,  usuario.getCpf());
+            statement.setString(7,  usuario.getTelefone());
+            statement.setLong(8,  usuario.getId());
             statement.executeUpdate();
 
             statement.close();

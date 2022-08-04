@@ -57,6 +57,9 @@ public class AdminController extends HttpServlet {
 			case "/edicao":
 				apresentaFormEdicao(request, response);
 				break;
+			case "/atualiza":
+				atualiza(request, response);
+				break;
 			default:
 				home(request, response);
 				break;
@@ -116,13 +119,50 @@ public class AdminController extends HttpServlet {
 	private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Long id = Long.parseLong(request.getParameter("id"));
-		Usuario usuario = usuarioDAO.getbyID(id);
-		request.setAttribute("usuario", usuario);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/formulario.jsp");
-		dispatcher.forward(request, response);
+		String tipo = request.getParameter("tipo");
+		if (tipo.equals("usuario")) {
+			Usuario usuario = usuarioDAO.getbyID(id);
+			request.setAttribute("usuario", usuario);
+		} else if (tipo.equals("agencia")) {
+			Agencia agencia = agenciaDAO.getbyID(id);
+			request.setAttribute("agencia", agencia);
+		}
+		this.apresentaFormCadastro(request, response);
 	}
 
 	private void insere(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+
+		String tipo = request.getParameter("tipo");
+
+		String nome = request.getParameter("nome");
+		if (tipo.equals("usuario")) {
+			String email = request.getParameter("email");
+			String cpf = request.getParameter("cpf");
+			String sexo = request.getParameter("sexo");
+			Date nascimento = null;
+			if (request.getParameter("nascimento") != null) {
+				nascimento = Date.valueOf(request.getParameter("nascimento"));
+			}
+			String telefone = request.getParameter("telefone");
+			String senha = request.getParameter("senha");
+			String papel = request.getParameter("papel");
+
+			Usuario usuario = new Usuario(nome, email, cpf, sexo, nascimento, telefone, senha, papel);
+			usuarioDAO.insert(usuario);
+		} else if (tipo.equals("agencia")) {
+			String email = request.getParameter("email");
+			String cnpj = request.getParameter("cnpj");
+			String senha = request.getParameter("senha");
+			String descricao = request.getParameter("descricao");
+
+			Agencia agencia = new Agencia(cnpj, nome, email, senha, descricao);
+			agenciaDAO.insert(agencia);
+		}
+		response.sendRedirect("lista");
+	}
+
+	private void atualiza(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
 		String tipo = request.getParameter("tipo");
@@ -138,18 +178,20 @@ public class AdminController extends HttpServlet {
 			String telefone = request.getParameter("telefone");
 			String senha = request.getParameter("senha");
 			String papel = request.getParameter("papel");
+			Long id = Long.parseLong(request.getParameter("id"));
 
-			Usuario usuario = new Usuario(nome, email, cpf, sexo, nascimento, telefone, senha, papel);
-			usuarioDAO.insert(usuario);
+			Usuario usuario = new Usuario(id, nome, email, cpf, sexo, nascimento, telefone, senha, papel);
+			usuarioDAO.update(usuario);
 		} else if (tipo.equals("agencia")) {
 			String nome = request.getParameter("nome");
 			String email = request.getParameter("email");
 			String cnpj = request.getParameter("cnpj");
 			String senha = request.getParameter("senha");
 			String descricao = request.getParameter("descricao");
+			Long id = Long.parseLong(request.getParameter("id"));
 
-			Agencia agencia = new Agencia(cnpj, nome, email, senha, descricao);
-			agenciaDAO.insert(agencia);
+			Agencia agencia = new Agencia(id, cnpj, nome, email, senha, descricao);
+			agenciaDAO.update(agencia);
 		}
 		response.sendRedirect("lista");
 	}

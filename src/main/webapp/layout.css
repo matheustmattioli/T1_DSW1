@@ -16,3 +16,8 @@ table, tr, td, th {
     grid-template-columns: 1fr 1fr;
     grid-gap: 8px;
 }
+
+.disabled {
+    cursor: not-allowed;
+    background-color: lightgray;
+}

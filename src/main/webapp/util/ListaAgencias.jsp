@@ -13,25 +13,36 @@
     String contextPath = request.getContextPath().replace("/", "");
 %>
 
-<p>Context: <%= contextPath %></p>
-<h2>Agencias:</h2>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Agencia</th>
-        <th>CNPJ</th>
-        <th>Email</th>
-        <th>Descrição</th>
-    </tr>
-    </thead>
-    <c:forEach var="agencia" items="${AgenciaDAO().getAll()}">
+<head>
+    <script src="${pageContext.request.contextPath.concat('/js/formEdit.js')}"></script>
+</head>
+<body>
+    <p>Context: <%= contextPath %></p>
+    <h2>Agencias:</h2>
+    <table>
+        <thead>
         <tr>
-            <td>${agencia.id}</td>
-            <td>${agencia.nome}</td>
-            <td>${agencia.CNPJ}</td>
-            <td>${agencia.email}</td>
-            <td>${agencia.descricao}</td>
+            <th>ID</th>
+            <th>Agencia</th>
+            <th>CNPJ</th>
+            <th>Email</th>
+            <th>Descrição</th>
+            <td></td>
         </tr>
-    </c:forEach>
-</table>
+        </thead>
+        <c:forEach var="agencia" items="${AgenciaDAO().getAll()}">
+            <tr>
+                <td>${agencia.id}</td>
+                <td>${agencia.nome}</td>
+                <td>${agencia.CNPJ}</td>
+                <td>${agencia.email}</td>
+                <td>${agencia.descricao}</td>
+                <td>
+                    <button onclick='requestAgenciaEdit("<%= contextPath %>", ${agencia.id})'>
+                        Editar
+                    </button>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+</body>

@@ -113,4 +113,9 @@ public class Usuario {
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
+
+	@Override
+	public String toString() {
+		return "id:" + id.toString() + " telefone:" + telefone.toString();
+	}
 }

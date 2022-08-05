@@ -205,8 +205,7 @@ public class PacoteDAO extends GenericDAO {
 
 		List<Pacote> pacotes = getAll();
 		
-		pacotes = pacotes.stream().filter(x -> x.getCidade() == destino).filter(x -> x.getEstado() == destino).filter(x -> x.getPais() == destino).toList();
-		
+		pacotes = pacotes.stream().filter(x -> x.getCidade() == destino).filter(x -> x.getEstado() == destino).filter(x -> x.getPais() == destino).collect(Collectors.toList());
 		return pacotes;
 	}
 }

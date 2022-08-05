@@ -1,6 +1,7 @@
 package br.ufscar.dc.dsw.controller;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.sql.Date;
 
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.ufscar.dc.dsw.dao.PacoteDAO;
 import br.ufscar.dc.dsw.dao.PropostaDAO;
+import br.ufscar.dc.dsw.domain.Pacote;
 import br.ufscar.dc.dsw.domain.Proposta;
 import br.ufscar.dc.dsw.domain.Usuario;
 import br.ufscar.dc.dsw.util.Erro;
@@ -22,10 +25,12 @@ public class UsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private PropostaDAO propostaDAO;
+	private PacoteDAO pacoteDAO;
 
 	@Override
 	public void init() {
 		propostaDAO = new PropostaDAO();
+		pacoteDAO = new PacoteDAO();
 	}
 
 	@Override
@@ -86,10 +91,20 @@ public class UsuarioController extends HttpServlet {
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
 
 		Long propostaId = Long.parseLong(request.getParameter("id"));
-
-		Proposta proposta = new Proposta(propostaId);
-		propostaDAO.delete(proposta);
-		response.sendRedirect("lista");
+		
+		Proposta proposta = propostaDAO.getbyID(propostaId);
+		Pacote pacote = pacoteDAO.getbyID(proposta.getIdPacote());
+		
+		java.util.Date date = new java.util.Date();
+		if ((pacote.getDataPartida().getTime() - date.getTime())/1000 > 432000) {
+			propostaDAO.delete(proposta);
+			request.setAttribute("prazoEsgotado", false);
+			response.sendRedirect("home");
+		} else {
+			request.setAttribute("prazoEsgotado", true);
+			response.sendRedirect("home");
+		}
+		
 	}
 
 	private void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

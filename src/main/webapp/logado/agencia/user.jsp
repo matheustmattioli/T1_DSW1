@@ -16,17 +16,17 @@
 		<a class="navbar-brand" href="#"> ROTES Viagens - A rota dos seus
 			sonhos ao seu alcance</a><a class="btn btn-outline-primary"
 			href="${pageContext.request.contextPath}/logout.jsp">Logout</a>
-			</nav>
-		<div class="container">
-			<br>
-			<h1>Olá, ${sessionScope.usuarioLogado.nome}</h1>
-			<br>
-			<a class="btn btn-primary btn-lg btn-block"
-			href="${pageContext.request.contextPath}/agencia/cadastro">Criar Novo Pacote</a>
-			<br><br>
-		</div>
-			<jsp:include
-				page="${renderRequest.getContextPath()}//util/ListaPacotesAgencia.jsp" />
-			<br>
+	</nav>
+	<div class="container">
+		<br>
+		<h1>Olá, ${sessionScope.usuarioLogado.nome}</h1>
+		<br>
+		<a class="btn btn-primary btn-lg btn-block"
+		href="${pageContext.request.contextPath}/agencia/cadastro">Criar Novo Pacote</a>
+		<br><br>
+		<jsp:include
+			page="${renderRequest.getContextPath()}//util/ListaPacotesAgencia.jsp" />
+		<br>
+	</div>
 </body>
 </html>

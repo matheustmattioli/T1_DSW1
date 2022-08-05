@@ -26,6 +26,7 @@
         </c:when>    
         <c:otherwise>
     <h2>Pacotes adquiridos</h2>
+    <br/>
     <table class="table">
         <thead>
         <tr>

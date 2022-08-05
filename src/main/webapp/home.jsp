@@ -17,7 +17,6 @@
 			seu alcance</a><a class="btn btn-outline-primary"
 			href="login.jsp">Logar</a>
 	</nav>
-    <div class="container-fluid">
     <%
         String contextPath = request.getContextPath().replace("/", "");
     %>
@@ -27,18 +26,16 @@
     <br>
     <h2>Compre os melhores pacotes de viagem sem complicação</h2>
     <br>
-        <jsp:include page="${renderRequest.getContextPath()}/util/ListaPacotes.jsp" /> 
-        
-                <c:if test="${mensagens.existeErros}">
-            <div id="erro">
-                <ul>
-                    <c:forEach var="erro" items="${mensagens.erros}">
-                        <li> ${erro} </li>
-                    </c:forEach>
-                </ul>
-            </div>
-        </c:if>
+    <jsp:include page="${renderRequest.getContextPath()}/util/ListaPacotes.jsp" /> 
+    <c:if test="${mensagens.existeErros}">
+        <div id="erro">
+            <ul>
+                <c:forEach var="erro" items="${mensagens.erros}">
+                    <li> ${erro} </li>
+                </c:forEach>
+            </ul>
         </div>
-        </div>
+    </c:if>
+    </div>
     </body>
 </html>

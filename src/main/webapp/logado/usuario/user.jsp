@@ -1,4 +1,5 @@
 <%@ page import="br.ufscar.dc.dsw.dao.PacoteDAO" %>
+<%@ page import="br.ufscar.dc.dsw.dao.AgenciaDAO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="br.ufscar.dc.dsw.domain.Pacote" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>

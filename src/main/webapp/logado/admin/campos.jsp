@@ -39,7 +39,7 @@
 			<label for="cpf">CPF (sem pontos ou traços)</label>
 				<c:choose>
 					<c:when test="${usuario == null}">
-						<input class="form-control" type="text" id="cpf" name="cpf" size="11" required
+						<input class="form-control" type="text" id="cpf" name="cpf" maxlength="11" required
 							   value="${usuario.cpf}"/>
 					</c:when>
 					<c:otherwise>

@@ -3,6 +3,7 @@
 <%@ page import="java.awt.image.BufferedImage"%>
 <%@ page import="java.io.File"%>
 <%@ page import="br.ufscar.dc.dsw.dao.PacoteDAO"%>
+<%@ page import="br.ufscar.dc.dsw.dao.AgenciaDAO" %>
 <%@ page import="java.util.List"%>
 <%@ page import="br.ufscar.dc.dsw.domain.Pacote"%>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
@@ -38,7 +39,7 @@ String contextPath = request.getContextPath().replace("/", "");
 						${pacote.estado} ${pacote.pais}</li>
 					<li class="list-group-item">Data de partida:
 						${pacote.dataPartida}</li>
-					<li class="list-group-item">Agência: ${pacote.CNPJ}</li>
+					<li class="list-group-item">Agência: ${AgenciaDAO().getByCNPJ(pacote.CNPJ).nome}</li>
 					<li class="list-group-item">Valor: ${pacote.valor} BCT</li>
 				</ul>
 				<div class="card-body">

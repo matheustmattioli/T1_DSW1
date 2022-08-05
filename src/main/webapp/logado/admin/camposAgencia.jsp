@@ -37,11 +37,11 @@
 			<td>
 			<c:choose>
 					<c:when test="${agencia == null}">
-						<input class="form-control" type="text" id="cnpj" name="cnpj" size="11" required
+						<input class="form-control" type="text" id="cnpj" name="cnpj" maxlength="14" required
 							   value="${agencia.CNPJ}"/>
 					</c:when>
 					<c:otherwise>
-						<input class="form-control" type="text" id="cnpj" name="cnpj" size="11" required
+						<input class="form-control" type="text" id="cnpj" name="cnpj" maxlength="14"required
 							   value="${agencia.CNPJ}" readonly="true" class="disabled"/>
 					</c:otherwise>
 				</c:choose>

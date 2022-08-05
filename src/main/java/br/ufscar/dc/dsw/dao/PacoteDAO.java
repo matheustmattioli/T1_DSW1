@@ -131,7 +131,7 @@ public class PacoteDAO extends GenericDAO {
 			ResultSet resultSet = statement.executeQuery();
 			if (resultSet.next()) {
 				Long idAgencia = resultSet.getLong("idAgencia");
-				String cnpj = resultSet.getString("cnpj");
+				String cnpj = resultSet.getString("CNPJ");
 				String cidade = resultSet.getString("cidade");
 				String estado = resultSet.getString("estado");
 				String pais = resultSet.getString("pais");

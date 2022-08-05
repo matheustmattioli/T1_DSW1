@@ -15,10 +15,15 @@
 
 <head>
     <script src="${pageContext.request.contextPath.concat('/js/formEdit.js')}"></script>
+     <link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+	crossorigin="anonymous">
 </head>
 <body>
-    <h2>Agencias:</h2>
-    <table>
+    <h2>Agencias</h2>
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th>ID</th>
@@ -26,7 +31,7 @@
             <th>CNPJ</th>
             <th>Email</th>
             <th>Descrição</th>
-            <td></td>
+            <td>Ações</td>
         </tr>
         </thead>
         <c:forEach var="agencia" items="${AgenciaDAO().getAll()}">
@@ -37,10 +42,10 @@
                 <td>${agencia.email}</td>
                 <td>${agencia.descricao}</td>
                 <td>
-                    <button onclick='requestAgenciaEdit("<%= contextPath %>", ${agencia.id})'>
+                    <button class="btn btn-primary" onclick='requestAgenciaEdit("<%= contextPath %>", ${agencia.id})'>
                         Editar
                     </button>
-                    <button onclick='requestAgenciaDelete("<%= contextPath %>", ${agencia.id})'>
+                    <button class="btn btn-danger" onclick='requestAgenciaDelete("<%= contextPath %>", ${agencia.id})'>
                         Deletar
                     </button>
                 </td>

@@ -11,13 +11,14 @@ import java.util.List;
 import br.ufscar.dc.dsw.domain.Agencia;
 
 public class AgenciaDAO extends GenericDAO {
-	
+
 	public void insert(Agencia agencia) {
 		String sql = "INSERT INTO Agencia(cnpj, nome, email, senha, descricao) VALUES (?, ?, ?, ?, ?)";
 
 		try {
 			Connection conn = this.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);;
+			PreparedStatement statement = conn.prepareStatement(sql);
+			;
 
 			statement = conn.prepareStatement(sql);
 			statement.setString(1, agencia.getCNPJ());
@@ -52,7 +53,7 @@ public class AgenciaDAO extends GenericDAO {
 				String email = resultSet.getString("email");
 				String senha = resultSet.getString("senha");
 				String descricao = resultSet.getString("descricao");
-				Agencia agencia = new Agencia(id, cnpj ,nome, email, senha, descricao);
+				Agencia agencia = new Agencia(id, cnpj, nome, email, senha, descricao);
 				listaAgencias.add(agencia);
 			}
 
@@ -132,7 +133,7 @@ public class AgenciaDAO extends GenericDAO {
 		}
 		return agencia;
 	}
-	
+
 	public Agencia getbyEmail(String email) {
 		Agencia agencia = null;
 
@@ -161,5 +162,36 @@ public class AgenciaDAO extends GenericDAO {
 			throw new RuntimeException(e);
 		}
 		return agencia;
-	}	
+	}
+
+	public Agencia getByCNPJ(String cnpj) {
+		Agencia agencia = null;
+
+		String sql = "SELECT * from Agencia WHERE CNPJ = ?";
+
+		try {
+			Connection conn = this.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+
+			statement.setString(1, cnpj);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				Long id = resultSet.getLong("id");
+				String email = resultSet.getString("email");
+				String nome = resultSet.getString("nome");
+				String senha = resultSet.getString("senha");
+				String descricao = resultSet.getString("descricao");
+
+				agencia = new Agencia(id, cnpj, nome, email, senha, descricao);
+			}
+
+			resultSet.close();
+			statement.close();
+			conn.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return agencia;
+	}
 }

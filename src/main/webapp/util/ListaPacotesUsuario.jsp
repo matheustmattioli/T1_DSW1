@@ -5,6 +5,7 @@
 <%@ page import="br.ufscar.dc.dsw.dao.PropostaDAO" %>
 <%@ page import="br.ufscar.dc.dsw.domain.Proposta" %>
 <%@ page import="br.ufscar.dc.dsw.dao.PacoteDAO" %>
+<%@ page import="br.ufscar.dc.dsw.dao.AgenciaDAO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="br.ufscar.dc.dsw.domain.Pacote" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
@@ -19,13 +20,13 @@
     <script src="${pageContext.request.contextPath.concat('/js/formEdit.js')}"></script>
 </head>
 <body>
-    <c:if test="${sessionScope.usuarioLogado.getPapel().equals('USR')}">
-    <form action="pacotes-usuario" method="post">
-        <input type="submit" value="Mostrar todos os pacotes" />
-    </form>
-    </c:if>
-    <h2>Pacotes adquiridos:</h2>
-    <table>
+    <c:choose>
+        <c:when test="${PropostaDAO().getAllbyIDUsuario(sessionScope.usuarioLogado.id).size() == '0'}">
+            <h2>Você não adquiriu nenhum pacote ainda. Bora viajar? :D </h2>
+        </c:when>    
+        <c:otherwise>
+    <h2>Pacotes adquiridos</h2>
+    <table class="table">
         <thead>
         <tr>
             <th>Pacote</th>
@@ -37,7 +38,7 @@
             <th>Data de Partida</th>
             <th>Valor</th>
             <th>Fotos</th>
-            <th></th>
+            <th>Ações</th>
         </tr>
         </thead>
         <c:forEach var="proposta" items="${PropostaDAO().getAllbyIDUsuario(sessionScope.usuarioLogado.id)}">
@@ -47,11 +48,10 @@
                 <td>${PacoteDAO().getbyID(proposta.idPacote).cidade}</td>
                 <td>${PacoteDAO().getbyID(proposta.idPacote).estado}</td>
                 <td>${PacoteDAO().getbyID(proposta.idPacote).pais}</td>
-                <td>${PacoteDAO().getbyID(proposta.idPacote).CNPJ}</td>
+                <td>${AgenciaDAO().getByCNPJ(PacoteDAO().getbyID(proposta.idPacote).CNPJ).nome}</td>
                 <td>${PacoteDAO().getbyID(proposta.idPacote).dataPartida}</td>
                 <td>${PacoteDAO().getbyID(proposta.idPacote).valor} BTC</td>
                 <td>
-                    <div id="images-container">
                         <c:forEach var="image"
                                 items='${PacoteDAO().getbyID(proposta.idPacote)
                                          .getFotosImages(pageContext.servletContext.getRealPath("images"),
@@ -62,11 +62,13 @@
                     </div>
                 </td>
                 <td>
-                    <button onclick='requestRemovePacoteUsuario("<%= contextPath %>", ${proposta.id})'>
-                        Remover
+                    <button class="btn btn-danger" onclick='requestRemovePacoteUsuario("<%= contextPath %>", ${proposta.id})'>
+                        Cancelar
                     </button>
                 </td>
             </tr>
         </c:forEach>
     </table>
+    </c:otherwise>
+</c:choose>
 </body>

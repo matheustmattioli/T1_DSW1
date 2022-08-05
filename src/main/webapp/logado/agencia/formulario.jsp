@@ -5,32 +5,30 @@
 <html>
 
 <head>
-<title>ROTES Cadastro Agência</title>
+<title>ROTES Cadastro</title>
 </head>
 
 <body>
 	<div align="center">
 	<br><br>
-		<h1>Gerenciamento de Agências</h1>
+		<h1>Gerenciamento de Pacotes</h1>
 		<h2>
-			<a href="lista">Lista de Agências</a>
+			<a href="lista">Lista de Pacotes</a>
 		</h2>
 	</div>
-	<br>
-	<div align="center">
+
 		<c:choose>
-			<c:when test="${agencia != null}">
-				<form action="atualiza?tipo=agencia&id=${agencia.id}" method="post">
-					<%@include file="camposAgencia.jsp"%>
+			<c:when test="${o != null}">idPacote
+				<form action="atualiza?id=${pacote.id}" method="post">
+					<%@include file="campos.jsp"%>
 				</form>
 			</c:when>
 			<c:otherwise>
-				<form action="insercao?tipo=agencia" method="post">
-					<%@include file="camposAgencia.jsp"%>
+				<form action="insercao" method="post">
+					<%@include file="campos.jsp"%>
 				</form>
 			</c:otherwise>
 		</c:choose>
-	</div>
 	<c:if test="${!empty requestScope.mensagens}">
 		<ul class="erro">
 			<c:forEach items="${requestScope.mensagens}" var="mensagem">

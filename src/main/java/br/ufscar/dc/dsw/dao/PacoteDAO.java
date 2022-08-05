@@ -6,9 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import br.ufscar.dc.dsw.domain.Pacote;
 
@@ -71,20 +74,25 @@ public class PacoteDAO extends GenericDAO {
 			resultSet.close();
 			statement.close();
 			conn.close();
+			
+			Date hoje = Date.from(Instant.now());
+			
+			listaPacotes = listaPacotes.stream().filter(x -> x.getDataPartida().after(hoje)).collect(Collectors.toList());
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 		return listaPacotes;
 	}
 
-	public void delete(Pacote pacote) {
+	public void delete(Long id) {
 		String sql = "DELETE FROM Pacote where id = ?";
 
 		try {
 			Connection conn = this.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 
-			statement.setLong(1, pacote.getId());
+			statement.setLong(1, id);
 			statement.executeUpdate();
 
 			statement.close();
@@ -131,43 +139,7 @@ public class PacoteDAO extends GenericDAO {
 			ResultSet resultSet = statement.executeQuery();
 			if (resultSet.next()) {
 				Long idAgencia = resultSet.getLong("idAgencia");
-				String cnpj = resultSet.getString("cnpj");
-				String cidade = resultSet.getString("cidade");
-				String estado = resultSet.getString("estado");
-				String pais = resultSet.getString("pais");
-				
-
-				Date dataPartida = resultSet.getDate("dataPartida");
-				int duracaoDias = resultSet.getInt("duracaoDias");
-				BigDecimal valor = resultSet.getBigDecimal("valor");
-				String descricao = resultSet.getString("descricao");
-
-				pacote = new Pacote(id, idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao);
-			}
-
-			resultSet.close();
-			statement.close();
-			conn.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		return pacote;
-	}
-
-	public Pacote getbyIDAgencia(Long idAgencia) {
-		Pacote pacote = null;
-
-		String sql = "SELECT * from Pacote WHERE id = ?";
-
-		try {
-			Connection conn = this.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-
-			statement.setLong(1, idAgencia);
-			ResultSet resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				Long id = resultSet.getLong("id");
-				String cnpj = resultSet.getString("cnpj");
+				String cnpj = resultSet.getString("CNPJ");
 				String cidade = resultSet.getString("cidade");
 				String estado = resultSet.getString("estado");
 				String pais = resultSet.getString("pais");
@@ -204,6 +176,7 @@ public class PacoteDAO extends GenericDAO {
 			while (resultSet.next()) {
 				Long idAgencia_db = resultSet.getLong("idAgencia");
 				if (idAgencia == idAgencia_db) {
+					// System.out.println(idAgencia_db);
 					Long id = resultSet.getLong("id");
 					String cnpj = resultSet.getString("cnpj");
 					String cidade = resultSet.getString("cidade");
@@ -226,5 +199,14 @@ public class PacoteDAO extends GenericDAO {
 			throw new RuntimeException(e);
 		}
 		return listaPacotesAgencia;
+	}
+	
+	public List<Pacote> getAllDestino(String destino) {
+
+		List<Pacote> pacotes = getAll();
+		
+		pacotes = pacotes.stream().filter(x -> x.getCidade() == destino).filter(x -> x.getEstado() == destino).filter(x -> x.getPais() == destino).toList();
+		
+		return pacotes;
 	}
 }

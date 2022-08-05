@@ -3,11 +3,14 @@
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <head>
-	<link href="${pageContext.request.contextPath}/layout.css" rel="stylesheet" type="text/css"/>
+		<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+	crossorigin="anonymous">
 </head>
 <body>
 	<table>
-		<caption>
 			<c:choose>
 				<c:when test="${agencia != null}">
 					<h2>Edição</h2>
@@ -16,18 +19,17 @@
 					<h2>Cadastro</h2>
 				</c:otherwise>
 			</c:choose>
-		</caption>
 		<c:if test="${agencia != null}">
 			<input type="hidden" name="id" value="${agencia.id}" />
 		</c:if>
 		<tr>
 			<td><label for="nome">Nome</label></td>
-			<td><input type="text" id="nome" name="nome"
+			<td><input class="form-control" type="text" id="nome" name="nome"
 				required value="${agencia.nome}" /></td>
 		</tr>
 		<tr>
 			<td><label for="email">Email</label></td>
-			<td><input type="email" id="email" name="email" required
+			<td><input class="form-control" type="email" id="email" name="email" required
 				value="${agencia.email}" /></td>
 		</tr>
 		<tr>
@@ -35,11 +37,11 @@
 			<td>
 			<c:choose>
 					<c:when test="${agencia == null}">
-						<input type="text" id="cnpj" name="cnpj" size="11" required
+						<input class="form-control" type="text" id="cnpj" name="cnpj" maxlength="14" required
 							   value="${agencia.CNPJ}"/>
 					</c:when>
 					<c:otherwise>
-						<input type="text" id="cnpj" name="cnpj" size="11" required
+						<input class="form-control" type="text" id="cnpj" name="cnpj" maxlength="14"required
 							   value="${agencia.CNPJ}" readonly="true" class="disabled"/>
 					</c:otherwise>
 				</c:choose>
@@ -47,15 +49,18 @@
 		</tr>
 		<tr>
 			<td><label for="senha">Senha</label></td>
-			<td><input type="password" id="senha" name="senha" required
+			<td><input class="form-control" type="password" id="senha" name="senha" required
 			 value="${agencia.senha}" /></td>
 		</tr>
 		<tr>
 			<td><label for="descricao">Descrição (máximo de 256 caracteres)</label></td>
-			<td><textarea name="descricao" id="descricao" placeholder="Insira sua descrição aqui...">${agencia.descricao}</textarea></td>
+			<td><textarea class="form-control" name="descricao" id="descricao" placeholder="Insira sua descrição aqui...">${agencia.descricao}</textarea></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center"><input type="submit" value="Salvar Dados" /></td>
+		<tr>
+		<td></td>
+		</tr>
+			<td colspan="2" align="center"><input type="submit" class="btn btn-primary" value="Salvar Dados" /></td>
 		</tr>
 	</table>
 </body>

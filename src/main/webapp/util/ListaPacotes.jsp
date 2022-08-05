@@ -15,7 +15,14 @@ String contextPath = request.getContextPath().replace("/", "");
 %>
 
 <head>
-	
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>ROTES</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </head>
 </head>
 <body>
 <h2>Pacotes disponíveis</h2>
@@ -24,19 +31,19 @@ String contextPath = request.getContextPath().replace("/", "");
 	<c:forEach var="pacote" items="${PacoteDAO().getAll()}">
 		<div class="col-3">
 			<div class="card">
-				<div class="carousel slide" id="fotos" data-ride="carousel">
+				<div class="carousel slide" id="fotos_${pacote.id}" data-ride="carousel">
 					<div class="carousel-inner" role="listbox">
 						<c:forEach var="image" items='${pacote.getFotosImages(pageContext.servletContext.getRealPath("images"), pageContext.request.contextPath)}' varStatus="status">
-								<div class="carousel-item <c:if test='${status.first}'>active</c:if>" data-target="#fotos">
+								<div class="carousel-item <c:if test='${status.first}'>active</c:if>" data-target="#fotos_${pacote.id}">
 									<img class ="d-block w-100" src="${image}">
 								</div>
 						</c:forEach>
 					</div>
-					<a class="carousel-control-prev" href="#fotos" role="button" data-slide="prev">
+					<a class="carousel-control-prev" href="#fotos_${pacote.id}" role="button" data-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 						<span class="sr-only">Previous</span>
 					</a>
-					<a class="carousel-control-next" href="#fotos" role="button" data-slide="next">
+					<a class="carousel-control-next" href="#fotos_${pacote.id}" role="button" data-slide="next">
 						<span class="carousel-control-next-icon" aria-hidden="true"></span>
 						<span class="sr-only">Next</span>
 					</a>

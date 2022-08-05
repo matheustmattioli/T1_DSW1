@@ -22,3 +22,10 @@ table, tr, td, th {
     cursor: not-allowed;
     background-color: lightgray;
 }
+
+.img-resize {
+    float: left;
+    width:  100px!important;
+    height: 100px!important;
+    object-fit: cover;
+}

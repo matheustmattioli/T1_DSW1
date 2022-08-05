@@ -17,18 +17,20 @@
 	crossorigin="anonymous">
     </head>
     <body>
-      <nav class="navbar navbar-light bg-light px-4 justify-content-between">
-		<a class="navbar-brand" href="#"> ROTES Viagens - A rota dos seus sonhos ao
-			seu alcance</a><a class="btn btn-outline-primary"
-			href="${pageContext.request.contextPath}/logout.jsp">Logout</a>
-	</nav>
-	<br>
-    <div class="container-fluid">
-        <h1>Olá, ${sessionScope.usuarioLogado.nome}</h1>
+        <nav class="navbar navbar-light bg-light px-4 justify-content-between">
+            <a class="navbar-brand" href="#"> ROTES Viagens - A rota dos seus sonhos ao
+                seu alcance</a><a class="btn btn-outline-primary"
+                href="${pageContext.request.contextPath}/logout.jsp">Logout</a>
+        </nav>
         <br>
-        <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotesUsuario.jsp" />
-        <br><br>
-        <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotes.jsp" /> 
+        <div class="container-fluid">
+            <h1>Olá, ${sessionScope.usuarioLogado.nome}</h1>
+            <br/>
+            <br/>
+                <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotesUsuario.jsp" />
+                <br><br>
+                <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotes.jsp" /> 
+            <br/>
         </div>
     </body>
 </html>

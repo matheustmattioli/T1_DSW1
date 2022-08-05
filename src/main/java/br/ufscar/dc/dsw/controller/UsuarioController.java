@@ -78,9 +78,16 @@ public class UsuarioController extends HttpServlet {
 		String valorStr = request.getParameter("valor");
 		Date dataAtual = new Date(LocalDate.now().toEpochDay());
 
-		Proposta proposta = new Proposta(usuario.getId(), Long.valueOf(pacote).longValue(), dataAtual,
-				Float.valueOf(valorStr).floatValue());
-		propostaDAO.insert(proposta);
+		Proposta proposta = new Proposta(usuario.getId(), Long.valueOf(pacote).longValue(), dataAtual, Float.valueOf(valorStr).floatValue());
+		if(propostaDAO.getAllbyIDPacote(Long.valueOf(pacote).longValue()) == null)
+			propostaDAO.insert(proposta);
+		else{
+			Erro erros = new Erro();
+			erros.add("Você já comprou esse pacote!");
+			request.setAttribute("mensagens", erros);
+			RequestDispatcher rd = request.getRequestDispatcher("/usuario/user.jsp");
+			rd.forward(request, response);
+		}
 		response.sendRedirect("lista");
 	}
 

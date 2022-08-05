@@ -97,21 +97,21 @@ public class AgenciaController extends HttpServlet {
 	
 	private void deletar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			Long id = Long.parseLong(request.getParameter("idPacote"));
+			Long id = Long.parseLong(request.getParameter("id"));
 			pacoteDAO.delete(id);
 			response.sendRedirect("lista");
 	}
 	
 	private void atualiza(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			Long id = Long.parseLong(request.getParameter("idPacote"));
+			Long id = Long.parseLong(request.getParameter("id"));
 			pacoteDAO.update(pacoteDAO.getbyID(id));
 			response.sendRedirect("lista");
 	}
 
 	private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Long id = Long.parseLong(request.getParameter("idPacote"));
+		Long id = Long.parseLong(request.getParameter("id"));
 			Pacote pacote = pacoteDAO.getbyID(id);
 			request.setAttribute("pacote", pacote);
 			

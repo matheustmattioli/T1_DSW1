@@ -23,6 +23,7 @@
 </head>
 <body>
     <h2>Agencias</h2>
+    <br/>
     <table class="table table-bordered">
         <thead>
         <tr>

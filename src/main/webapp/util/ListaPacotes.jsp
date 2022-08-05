@@ -1,12 +1,11 @@
-<%@ page import="java.io.IOException" %>
-<%@ page import="javax.imageio.ImageIO" %>
-<%@ page import="java.awt.image.BufferedImage" %>
-<%@ page import="java.io.File" %>
-<%@ page import="br.ufscar.dc.dsw.dao.PacoteDAO" %>
+<%@ page import="java.io.IOException"%>
+<%@ page import="javax.imageio.ImageIO"%>
+<%@ page import="java.awt.image.BufferedImage"%>
+<%@ page import="java.io.File"%>
+<%@ page import="br.ufscar.dc.dsw.dao.PacoteDAO"%>
 <%@ page import="br.ufscar.dc.dsw.dao.AgenciaDAO" %>
-<%@ page import="br.ufscar.dc.dsw.domain.Usuario" %>
-<%@ page import="java.util.List" %>
-<%@ page import="br.ufscar.dc.dsw.domain.Pacote" %>
+<%@ page import="java.util.List"%>
+<%@ page import="br.ufscar.dc.dsw.domain.Pacote"%>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -15,29 +14,33 @@
 String contextPath = request.getContextPath().replace("/", "");
 %>
 
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
-	crossorigin="anonymous">
-
-
+<head>
+	
+</head>
+<body>
 <h2>Pacotes disponíveis</h2>
 <br>
-<c:if test="${mensagens.existeErros && (sessionScope.usuarioLogado.papel == 'USR')}">
-	<div class="alert alert-warning" role="alert">
-		<c:forEach var="erro" items="${mensagens.erros}">
-			${erro}
-		</c:forEach>
-	</div>
-	<br/>
-</c:if>
 <div class="row">
 	<c:forEach var="pacote" items="${PacoteDAO().getAll()}">
 		<div class="col-3">
 			<div class="card">
-				<img class="card-img-top"
-					src="${pacote.getFotosImages(pageContext.servletContext.getRealPath("images"), pageContext.request.contextPath)[0]}">
+				<div class="carousel slide" id="fotos" data-ride="carousel">
+					<div class="carousel-inner" role="listbox">
+						<c:forEach var="image" items='${pacote.getFotosImages(pageContext.servletContext.getRealPath("images"), pageContext.request.contextPath)}' varStatus="status">
+								<div class="carousel-item <c:if test='${status.first}'>active</c:if>" data-target="#fotos">
+									<img class ="d-block w-100" src="${image}">
+								</div>
+						</c:forEach>
+					</div>
+					<a class="carousel-control-prev" href="#fotos" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#fotos" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>	
 				<div class="card-body">
 					<h5 class="card-title">Pacote para ${pacote.cidade}
 						${pacote.pais}</h5>
@@ -62,12 +65,10 @@ String contextPath = request.getContextPath().replace("/", "");
 											type="submit" class="btn btn-primary" value="Comprar"/>
 									</form>
 						</c:when>
-						<c:otherwise>
-							<button href=# class="btn btn-outline-primary">Ver mais</button>
-						</c:otherwise>
 					</c:choose>
 				</div>
 			</div>
 		</div>
 	</c:forEach>
 </div>
+</body>

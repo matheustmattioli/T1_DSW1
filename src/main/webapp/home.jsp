@@ -27,9 +27,6 @@
     <br>
     <h2>Compre os melhores pacotes de viagem sem complicação</h2>
     <br>
-    <a class="btn btn-lg btn-primary"
-			href="login.jsp"> Faça login aqui </a>
-			<br><br>
         <jsp:include page="${renderRequest.getContextPath()}/util/ListaPacotes.jsp" /> 
         
                 <c:if test="${mensagens.existeErros}">

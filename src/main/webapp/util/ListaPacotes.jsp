@@ -24,6 +24,14 @@ String contextPath = request.getContextPath().replace("/", "");
 
 <h2>Pacotes disponíveis</h2>
 <br>
+<c:if test="${mensagens.existeErros}">
+	<div class="alert alert-warning" role="alert">
+		<c:forEach var="erro" items="${mensagens.erros}">
+			${erro}
+		</c:forEach>
+	</div>
+</c:if>
+<br/>
 <div class="row">
 	<c:forEach var="pacote" items="${PacoteDAO().getAll()}">
 		<div class="col-3">

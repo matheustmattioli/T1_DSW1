@@ -23,12 +23,9 @@ public class UsuarioController extends HttpServlet {
 
 	private PropostaDAO propostaDAO;
 
-	private String tablePath;
-
 	@Override
 	public void init() {
 		propostaDAO = new PropostaDAO();
-		tablePath = "/util/ListaPacotes.jsp";
 	}
 
 	@Override
@@ -46,16 +43,6 @@ public class UsuarioController extends HttpServlet {
 		}
 
 		try {
-			switch (action) {
-				case "/pacotes-usuario":
-					tablePath = "/util/ListaPacotes.jsp";
-					break;
-				case "/pacotes-adquiridos":
-					tablePath = "/util/ListaPacotesUsuario.jsp";				
-					break;
-				default:
-					break;
-				}
 			switch (action) {
 			case "/comprar":
 				comprar(request, response);

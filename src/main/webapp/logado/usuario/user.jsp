@@ -25,45 +25,11 @@
         <br>
         <div class="container-fluid">
             <h1>Olá, ${sessionScope.usuarioLogado.nome}</h1>
-            <ul>
-                <li>
-                    <a href="${pageContext.request.contextPath}/logout.jsp">Sair</a>
-                </li>
-            </ul>
-            <c:if test="${mensagens.existeErros}">
-                <div id="erro">
-                    <ul>
-                        <c:forEach var="erro" items="${mensagens.erros}">
-                            <li> ${erro} </li>
-                            </c:forEach>
-                    </ul>
-                </div>
-            </c:if>
             <br/>
-            <form action="comprar" method="post">
-                <table>
-                    <tr>
-                        <td>Comprar novo pacote:</td>
-                        <td>
-                            <select id="pacoteDesejado" name="pacoteDesejado">
-                                <c:forEach var="pacote" items="${PacoteDAO().getAll()}">
-                                    <option value="${pacote.id}"> Pacote ${pacote.id} </option>
-                                </c:forEach>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Valor: </td>
-                        <td><input type="currency" id="valor" name="valor" required
-                            value="0" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" value="Comprar" /></td>
-                    </tr>
-                </table>
-            </form>
             <br/>
-                <jsp:include page="${renderRequest.getContextPath()}/${sessionScope.tablePath}" />
+                <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotesUsuario.jsp" />
+                <br><br>
+                <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotes.jsp" /> 
             <br/>
         </div>
     </body>

@@ -1,11 +1,12 @@
-<%@ page import="java.io.IOException"%>
-<%@ page import="javax.imageio.ImageIO"%>
-<%@ page import="java.awt.image.BufferedImage"%>
-<%@ page import="java.io.File"%>
-<%@ page import="br.ufscar.dc.dsw.dao.PacoteDAO"%>
+<%@ page import="java.io.IOException" %>
+<%@ page import="javax.imageio.ImageIO" %>
+<%@ page import="java.awt.image.BufferedImage" %>
+<%@ page import="java.io.File" %>
+<%@ page import="br.ufscar.dc.dsw.dao.PacoteDAO" %>
 <%@ page import="br.ufscar.dc.dsw.dao.AgenciaDAO" %>
-<%@ page import="java.util.List"%>
-<%@ page import="br.ufscar.dc.dsw.domain.Pacote"%>
+<%@ page import="br.ufscar.dc.dsw.domain.Usuario" %>
+<%@ page import="java.util.List" %>
+<%@ page import="br.ufscar.dc.dsw.domain.Pacote" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -23,6 +24,14 @@ String contextPath = request.getContextPath().replace("/", "");
 
 <h2>Pacotes disponíveis</h2>
 <br>
+<c:if test="${mensagens.existeErros}">
+	<div class="alert alert-warning" role="alert">
+		<c:forEach var="erro" items="${mensagens.erros}">
+			${erro}
+		</c:forEach>
+	</div>
+</c:if>
+<br/>
 <div class="row">
 	<c:forEach var="pacote" items="${PacoteDAO().getAll()}">
 		<div class="col-3">

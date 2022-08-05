@@ -20,12 +20,12 @@
     <script src="${pageContext.request.contextPath.concat('/js/formEdit.js')}"></script>
 </head>
 <body>
-<c:choose>
-    <c:when test="${PropostaDAO().getAllbyIDUsuario(sessionScope.usuarioLogado.id).size() == '0'}">
-        <h2>Você não adquiriu nenhum pacote ainda. Bora viajar? :D </h2>
-    </c:when>    
-    <c:otherwise>
-<h2>Pacotes adquiridos</h2>
+    <c:choose>
+        <c:when test="${PropostaDAO().getAllbyIDUsuario(sessionScope.usuarioLogado.id).size() == '0'}">
+            <h2>Você não adquiriu nenhum pacote ainda. Bora viajar? :D </h2>
+        </c:when>    
+        <c:otherwise>
+    <h2>Pacotes adquiridos</h2>
     <table class="table">
         <thead>
         <tr>

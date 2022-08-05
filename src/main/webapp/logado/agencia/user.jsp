@@ -17,14 +17,16 @@
 			sonhos ao seu alcance</a><a class="btn btn-outline-primary"
 			href="${pageContext.request.contextPath}/logout.jsp">Logout</a>
 			</nav>
-		<div class="container-fluid">
+		<div class="container">
 			<br>
 			<h1>Olá, ${sessionScope.usuarioLogado.nome}</h1>
 			<br>
+			<a class="btn btn-primary btn-lg btn-block"
+			href="${pageContext.request.contextPath}/agencia/cadastro">Criar Novo Pacote</a>
+			<br><br>
 		</div>
-		<div class="container">
 			<jsp:include
-				page="${renderRequest.getContextPath()}//util/ListaPacotesAgencia.jsp" /></div>
+				page="${renderRequest.getContextPath()}//util/ListaPacotesAgencia.jsp" />
 			<br>
 </body>
 </html>

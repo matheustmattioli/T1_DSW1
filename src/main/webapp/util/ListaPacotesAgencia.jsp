@@ -13,8 +13,8 @@
 String contextPath = request.getContextPath().replace("/", "");
 %>
 
-<h2>Pacotes da ${sessionScope.usuarioLogado.nome}</h2>
 <div class="container">
+<h2>Pacotes da ${sessionScope.usuarioLogado.nome}</h2>
 	<div class="row">
 		<c:forEach var="pacote"
 			items="${PacoteDAO().getAllbyIDAgencia(sessionScope.usuarioLogado.id)}">
@@ -36,7 +36,8 @@ String contextPath = request.getContextPath().replace("/", "");
 						<li class="list-group-item">Valor: ${pacote.valor} BCT</li>
 					</ul>
 					<div class="card-body">
-						<a href=# class="btn btn-primary"> Ver mais </a>
+						<button class="btn btn-primary" onclick='requestPacoteEdit("<%= contextPath %>", ${pacote.id})'> Editar </button>
+						<button class="btn btn-danger" onclick='requestPacoteDelete("<%= contextPath %>", ${pacote.id})'> Deletar </button>
 					</div>
 				</div>
 			</div>

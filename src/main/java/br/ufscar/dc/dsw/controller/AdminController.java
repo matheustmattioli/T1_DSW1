@@ -41,7 +41,7 @@ public class AdminController extends HttpServlet {
 			throws ServletException, IOException {
 
 		String action = request.getPathInfo();
-		
+
 		if (action == null) {
 			action = "";
 		}
@@ -72,17 +72,28 @@ public class AdminController extends HttpServlet {
 		}
 	}
 
-	private Boolean isAdmin(HttpServletRequest request) {
-		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
-		if (usuario != null) {
-			return usuario.getPapel().equals("ADM");
-		} else {
-			return false;
+	private Boolean isAdmin(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+			if (usuario != null) {
+				return usuario.getPapel().equals("ADM");
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			Erro erros = new Erro();
+			erros.add("Acesso não autorizado!");
+			request.setAttribute("mensagens", erros);
+			RequestDispatcher rd = request.getRequestDispatcher("/noAuth.jsp");
+			rd.forward(request, response);
 		}
+
+		return false;
 	}
 
 	private void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (isAdmin(request)) {
+		if (isAdmin(request, response)) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/user.jsp");
 			dispatcher.forward(request, response);
 		} else {
@@ -102,7 +113,7 @@ public class AdminController extends HttpServlet {
 
 	private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (isAdmin(request)) {
+		if (isAdmin(request, response)) {
 			String tipo = request.getParameter("tipo").toString();
 			if (tipo.equals("usuario")) {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/admin/formulario.jsp");
@@ -165,7 +176,8 @@ public class AdminController extends HttpServlet {
 		response.sendRedirect("lista");
 	}
 
-	private void atualiza(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void atualiza(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
 		String tipo = request.getParameter("tipo");
@@ -199,7 +211,8 @@ public class AdminController extends HttpServlet {
 		response.sendRedirect("lista");
 	}
 
-	private void deletar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void deletar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String tipo = request.getParameter("tipo");
 		Long id = Long.parseLong(request.getParameter("id"));
 

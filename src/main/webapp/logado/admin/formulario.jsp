@@ -10,12 +10,13 @@
 
 <body>
 	<div align="center">
+	<br><br>
 		<h1>Gerenciamento de Usuários</h1>
 		<h2>
 			<a href="lista">Lista de Usuários</a>
 		</h2>
 	</div>
-	<div align="center">
+
 		<c:choose>
 			<c:when test="${usuario != null}">
 				<form action="atualiza?tipo=usuario&id=${usuario.id}" method="post">
@@ -28,7 +29,6 @@
 				</form>
 			</c:otherwise>
 		</c:choose>
-	</div>
 	<c:if test="${!empty requestScope.mensagens}">
 		<ul class="erro">
 			<c:forEach items="${requestScope.mensagens}" var="mensagem">

@@ -10,11 +10,13 @@
 
 <body>
 	<div align="center">
+	<br><br>
 		<h1>Gerenciamento de Agências</h1>
 		<h2>
 			<a href="lista">Lista de Agências</a>
 		</h2>
 	</div>
+	<br>
 	<div align="center">
 		<c:choose>
 			<c:when test="${agencia != null}">

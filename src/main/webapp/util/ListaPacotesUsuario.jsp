@@ -19,8 +19,13 @@
     <script src="${pageContext.request.contextPath.concat('/js/formEdit.js')}"></script>
 </head>
 <body>
-    <h2>Pacotes adquiridos:</h2>
-    <table>
+<c:choose>
+    <c:when test="${PropostaDAO().getAllbyIDUsuario(sessionScope.usuarioLogado.id).size() == '0'}">
+        <h2>Você não adquiriu nenhum pacote ainda. Bora viajar? :D </h2>
+    </c:when>    
+    <c:otherwise>
+<h2>Pacotes adquiridos</h2>
+    <table class="table">
         <thead>
         <tr>
             <th>Pacote</th>
@@ -32,7 +37,7 @@
             <th>Data de Partida</th>
             <th>Valor</th>
             <th>Fotos</th>
-            <th></th>
+            <th>Ações</th>
         </tr>
         </thead>
         <c:forEach var="proposta" items="${PropostaDAO().getAllbyIDUsuario(sessionScope.usuarioLogado.id)}">
@@ -57,11 +62,13 @@
                     </div>
                 </td>
                 <td>
-                    <button onclick='requestRemovePacoteUsuario("<%= contextPath %>", ${proposta.id})'>
+                    <button class="btn btn-danger" onclick='requestRemovePacoteUsuario("<%= contextPath %>", ${proposta.id})'>
                         Remover
                     </button>
                 </td>
             </tr>
         </c:forEach>
     </table>
+    </c:otherwise>
+</c:choose>
 </body>

@@ -2,20 +2,29 @@
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>ROTES - Home</title>
-        <link href="${pageContext.request.contextPath}/layout.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body>
-        <h1>Página da Agência</h1>
-        <p>Olá, ${sessionScope.usuarioLogado.nome}</p>
-        <ul>
-            <li>
-                <a href="${pageContext.request.contextPath}/logout.jsp">Sair</a>
-            </li>
-        </ul>
-        <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotesAgencia.jsp" /> 
-        <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotes.jsp" />  
-    </body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ROTES - Página da Agência</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+	crossorigin="anonymous">
+</head>
+<body>
+	<nav class="navbar navbar-light bg-light px-4 justify-content-between">
+		<a class="navbar-brand" href="#"> ROTES Viagens - A rota dos seus
+			sonhos ao seu alcance</a><a class="btn btn-outline-primary"
+			href="${pageContext.request.contextPath}/logout.jsp">Logout</a>
+			</nav>
+		<div class="container-fluid">
+			<br>
+			<h1>Olá, ${sessionScope.usuarioLogado.nome}</h1>
+			<br>
+		</div>
+		<div class="container">
+			<jsp:include
+				page="${renderRequest.getContextPath()}//util/ListaPacotesAgencia.jsp" /></div>
+			<br>
+</body>
 </html>

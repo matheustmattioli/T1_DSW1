@@ -1,44 +1,52 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>ROTES - Autenticação de Usuário</title>
-        <link href="${pageContext.request.contextPath}/layout.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body>
-    <h1>ROTES Viagens</h1>
-    <h2> A rota dos seus sonhos ao seu alcance</h2>
-    <h3><a href="${pageContext.request.contextPath}">Voltar ao Home</a></h3>
-        <h2>Autenticação de Usuário</h2>
-        <c:if test="${mensagens.existeErros}">
-            <div id="erro">
-                <ul>
-                    <c:forEach var="erro" items="${mensagens.erros}">
-                        <li> ${erro} </li>
-                        </c:forEach>
-                </ul>
-            </div>
-        </c:if>
-        <form method="post" action="user.jsp">
-            <table>
-                <tr>
-                    <th>Email: </th>
-                    <td><input type="text" name="email"
-                               value="${param.email}"/></td>
-                </tr>
-                <tr>
-                    <th>Senha: </th>
-                    <td><input type="password" name="senha" /></td>
-                </tr>
-                <tr>
-                    <td colspan="2"> 
-                        <input type="submit" name="bOK" value="Entrar"/>
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ROTES - Autenticação de Usuário</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+	crossorigin="anonymous">
+</head>
+<body>
+	<nav class="navbar navbar-light bg-light px-4 justify-content-between">
+		<a class="navbar-brand">ROTES Viagens - A rota dos seus sonhos ao
+			seu alcance</a> <a class="btn btn-outline-primary"
+			href="${pageContext.request.contextPath}">Home</a>
+	</nav>
+	<br><br>
+	<div class="d-flex justify-content-center pt-4">
+			<div class="d-inline-flex p-4">
+				<img src="images/rotes.png" width="200" height="200">
+			</div>
+			<div class="col-4">
+				<h2>Autenticação de Usuário</h2>
+				<form method="post" action="user.jsp">
+					<div class="form-group">
+						<label for="basic-url">Email</label>
+						<div class="input-group mb-3">
+							<input class="form-control" type="text" name="email"
+								value="${param.email}" required/>
+						</div>
+						<label for="basic-url">Senha</label>
+						<div class="input-group mb-3">
+							<input class="form-control" type="password" name="senha" required/>
+						</div>
+						<input type="submit" class="btn btn-primary" name="bOK"
+							value="Entrar" />
+					</div>
+					<br>
+				</form>
+				<c:if test="${mensagens.existeErros}">
+					<c:forEach var="erro" items="${mensagens.erros}">
+						<div class="alert alert-danger" role="alert">${erro}</div>
+					</c:forEach>
+				</c:if>
+			</div>
+		</div>
+</body>
 </html>

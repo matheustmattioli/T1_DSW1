@@ -4,11 +4,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <head>
-	<link href="${pageContext.request.contextPath}/layout.css" rel="stylesheet" type="text/css"/>
+	<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+	crossorigin="anonymous">
 </head>
 <body>
-	<table>
-		<caption>
+<div class="container w-50 p-3">
 			<c:choose>
 				<c:when test="${usuario != null}">
 								<h2>Edição</h2>
@@ -17,66 +20,66 @@
 								<h2>Cadastro</h2>
 							</c:otherwise>
 			</c:choose>
-		</caption>
 		<c:if test="${usuario != null}">
 			<input type="hidden" name="id" value="${usuario.id}" />
 		</c:if>
-		<tr>
-			<td><label for="nome">Nome</label></td>
-			<td><input type="text" id="nome" name="nome"
-				required value="${usuario.nome}" /></td>
-		</tr>
-		<tr>
-			<td><label for="email">Email</label></td>
-			<td><input type="email" id="email" name="email" required
-				value="${usuario.email}" /></td>
-		</tr>
-		<tr>
-			<td><label for="cpf">CPF (sem pontos ou traços)</label></td>
-			<td>
+		 <div class="form-group">
+			<label for="nome">Nome</label>
+			<input class="form-control" type="text" id="nome" name="nome"
+				required value="${usuario.nome}" />
+		</div>
+		<br>
+		 <div class="form-group">
+			<label for="email">Email</label>
+			<input class="form-control" type="email" id="email" name="email" required
+				value="${usuario.email}" />
+				</div>
+				<br>
+				 <div class="form-group">
+			<label for="cpf">CPF (sem pontos ou traços)</label>
 				<c:choose>
 					<c:when test="${usuario == null}">
-						<input type="text" id="cpf" name="cpf" size="11" required
+						<input class="form-control" type="text" id="cpf" name="cpf" size="11" required
 							   value="${usuario.cpf}"/>
 					</c:when>
 					<c:otherwise>
-						<input type="text" id="cpf" name="cpf" size="11" required
+						<input type="text" class="form-control" id="cpf" name="cpf" size="11" required
 							   value="${usuario.cpf}" readonly="true" class='disabled'/>
 					</c:otherwise>
 				</c:choose>
-			</td>
-		</tr>
-		<tr>
-			<td><label for="sexo">Sexo</label></td>
-			<td><select id="sexo" name="sexo">
+				</div>
+				<br>
+				 <div class="form-group">
+				<label for="sexo">Sexo</label>
+				<select class="form-control" id="sexo" name="sexo">
 				<option value="F"> Feminino </option>
 				<option value="M"> Masculino </option>
 				<option value="O"> Outro </option>
-			</select></td>
-		</tr>
-		<tr>
-			<td><label for="nascimento">Data de Nascimento</label></td>
-			<td><input type="date" id="nascimento" name="nascimento" required
-				min="1500" value="${usuario.nascimento}" /></td>
-		</tr>
-		<tr>
-			<td><label for="telefone">Telefone</label></td>
-			<td><input type="tel" id="telefone" name="telefone" required value="${usuario.telefone}" /></td>
-		</tr>
-		<tr>
-			<td><label for="senha">Senha</label></td>
-			<td><input type="password" id="senha" name="senha" required
-			 value="${usuario.senha}" /></td>
-		</tr>
-		<tr>
-			<td><label for="papel">Papel</label></td>
-			<td><select id="papel" name="papel">
+			</select>
+			</div>
+			<br>
+			 <div class="form-group">
+				<label for="nascimento">Data de Nascimento</label>
+				<input  class="form-control" type="date" id="nascimento" name="nascimento" required
+				min="1500" value="${usuario.nascimento}" /></div>
+				<br>
+				 <div class="form-group">
+				<label for="telefone">Telefone</label>
+				<input class="form-control" type="tel" id="telefone" name="telefone" required value="${usuario.telefone}" /></div>
+				<br>
+				 <div class="form-group">
+				<label for="senha">Senha</label>
+				<input  class="form-control" type="password" id="senha" name="senha" required
+			 	value="${usuario.senha}" /></div>
+			 	<br>
+			 	 <div class="form-group">
+				<label for="papel">Papel</label>
+				<select  class="form-control" id="papel" name="papel">
 						<option value="USR"> Cliente </option>
 						<option value="ADM"> Administrador </option>
-			</select></td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center"><input type="submit" value="Salvar Dados" /></td>
-		</tr>
-	</table>
+			</select>
+			</div>
+			<br>
+			<input class="btn btn-primary" type="submit" value="Salvar Dados" />
+			</div>
 </body>

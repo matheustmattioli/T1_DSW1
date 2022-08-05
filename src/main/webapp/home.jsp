@@ -10,16 +10,29 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>ROTES</title>
-        <link href="${pageContext.request.contextPath}/layout.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+    <nav class="navbar navbar-light bg-light px-4 justify-content-between">
+		<a class="navbar-brand" href="${pageContext.request.contextPath}"> ROTES Viagens - A rota dos seus sonhos ao
+			seu alcance</a><a class="btn btn-outline-primary"
+			href="login.jsp">Logar</a>
+	</nav>
+    <div class="container-fluid">
     <%
         String contextPath = request.getContextPath().replace("/", "");
     %>
+    <br><br>
+    <div class="container justify-content-center p-2">
     <h1>ROTES Viagens</h1>
-    <h2> A rota dos seus sonhos ao seu alcance</h2>
-    <h3>Deseja <a href="login.jsp">logar?</a></h3>
-        <c:if test="${mensagens.existeErros}">
+    <br>
+    <h2>Compre os melhores pacotes de viagem sem complicação</h2>
+    <br>
+    <a class="btn btn-lg btn-primary"
+			href="login.jsp"> Faça login aqui </a>
+			<br><br>
+        <jsp:include page="${renderRequest.getContextPath()}/util/ListaPacotes.jsp" /> 
+        
+                <c:if test="${mensagens.existeErros}">
             <div id="erro">
                 <ul>
                     <c:forEach var="erro" items="${mensagens.erros}">
@@ -28,6 +41,7 @@
                 </ul>
             </div>
         </c:if>
-        <jsp:include page="${renderRequest.getContextPath()}/util/ListaPacotes.jsp" />  
+        </div>
+        </div>
     </body>
 </html>

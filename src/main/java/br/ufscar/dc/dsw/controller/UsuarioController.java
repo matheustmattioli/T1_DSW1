@@ -19,7 +19,7 @@ import br.ufscar.dc.dsw.util.Erro;
 @WebServlet(urlPatterns = "/usuario/*")
 public class UsuarioController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	private PropostaDAO propostaDAO;
 
@@ -28,15 +28,16 @@ public class UsuarioController extends HttpServlet {
 		propostaDAO = new PropostaDAO();
 	}
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
-    }
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String action = request.getPathInfo();
-		
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String action = request.getPathInfo();
+
 		if (action == null) {
 			action = "";
 		}
@@ -54,12 +55,16 @@ public class UsuarioController extends HttpServlet {
 				break;
 			}
 		} catch (RuntimeException | IOException | ServletException e) {
-			throw new ServletException(e);
-		}		
-    }
+			Erro erros = new Erro();
+			erros.add(e.getMessage());
+			request.setAttribute("mensagens", erros);
+			RequestDispatcher rd = request.getRequestDispatcher("/erro.jsp");
+			rd.forward(request, response);
+		}
+	}
 
-	private void comprar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
+	private void comprar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
@@ -68,13 +73,14 @@ public class UsuarioController extends HttpServlet {
 		String valorStr = request.getParameter("valor");
 		Date dataAtual = new Date(LocalDate.now().toEpochDay());
 
-		Proposta proposta = new Proposta(usuario.getId(), Long.valueOf(pacote).longValue(), dataAtual, Float.valueOf(valorStr).floatValue());
+		Proposta proposta = new Proposta(usuario.getId(), Long.valueOf(pacote).longValue(), dataAtual,
+				Float.valueOf(valorStr).floatValue());
 		propostaDAO.insert(proposta);
 		response.sendRedirect("lista");
 	}
 
-	private void deletar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
+	private void deletar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
@@ -86,18 +92,26 @@ public class UsuarioController extends HttpServlet {
 		response.sendRedirect("lista");
 	}
 
-	private void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
-		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
-    	
-    	if (usuario == null) {
-    		response.sendRedirect(request.getContextPath());
-    	} else if (usuario.getPapel().equals("USR")) {
-    		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/usuario/user.jsp");
-            dispatcher.forward(request, response);
-		} else {
-			acessoNegado(request, response);
-		}   	
+	private void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Erro erros = new Erro();
+		try {
+			Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+
+			if (usuario == null) {
+				response.sendRedirect(request.getContextPath());
+			} else if (usuario.getPapel() != null && usuario.getPapel().equals("USR")) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/usuario/user.jsp");
+				dispatcher.forward(request, response);
+			} else {
+				acessoNegado(request, response);
+			}
+
+		} catch (Exception e) {
+			erros.add(e.getMessage());
+			request.setAttribute("mensagens", erros);
+			RequestDispatcher rd = request.getRequestDispatcher("/erro.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	private void acessoNegado(HttpServletRequest request, HttpServletResponse response)

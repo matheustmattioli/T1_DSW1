@@ -13,10 +13,15 @@
 %>
 <head>
     <script src="${pageContext.request.contextPath.concat('/js/formEdit.js')}"></script>
+    <link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+	crossorigin="anonymous">
 </head>
 <body>
-    <h2>Usuarios:</h2>
-    <table>
+    <h2>Usuarios</h2>
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th>ID</th>
@@ -27,7 +32,7 @@
             <th>Nascimento</th>
             <th>Telefone</th>
             <th>Papel</th>
-            <th></th>
+            <th>Ações</th>
         </tr>
         </thead>
         <c:forEach var="usuario" items="${UsuarioDAO().getAll()}">
@@ -41,10 +46,10 @@
                 <td>${usuario.telefone}</td>
                 <td>${usuario.papel}</td>
                 <td>
-                    <button onclick='requestUsuarioEdit("<%= contextPath %>", ${usuario.id})'>
+                    <button class="btn btn-primary" onclick='requestUsuarioEdit("<%= contextPath %>", ${usuario.id})'>
                         Editar
                     </button>
-                    <button onclick='requestUsuarioDelete("<%= contextPath %>", ${usuario.id})'>
+                    <button class="btn btn-danger" onclick='requestUsuarioDelete("<%= contextPath %>", ${usuario.id})'>
                         Deletar
                     </button>
                 </td>

@@ -13,8 +13,7 @@
 String contextPath = request.getContextPath().replace("/", "");
 %>
 
-
-<h2>Pacotes da ${sessionScope.usuarioLogado.nome}:</h2>
+<h2>Pacotes da ${sessionScope.usuarioLogado.nome}</h2>
 <div class="container">
 	<div class="row">
 		<c:forEach var="pacote"

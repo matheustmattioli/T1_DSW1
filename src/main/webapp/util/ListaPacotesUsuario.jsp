@@ -63,18 +63,9 @@
                     </div>
                 </td>
                 <td>
-                <c:choose>
-                <c:when test='${session.prazoEsgotado")}'>
-                    <button class="btn btn-primary" onclick='requestRemovePacoteUsuario("<%= contextPath %>", ${proposta.id})' disabled="true">
-                        Cancelar
-                    </button>
-                    </c:when>
-                    <c:otherwise>
 							<button class="btn btn-danger" onclick='requestRemovePacoteUsuario("<%= contextPath %>", ${proposta.id})' >
                         Cancelar
                     </button>
-                    </c:otherwise>
-                    </c:choose>
                 </td>
             </tr>
         </c:forEach>

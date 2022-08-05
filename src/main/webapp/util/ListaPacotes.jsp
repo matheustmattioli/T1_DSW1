@@ -54,9 +54,9 @@ String contextPath = request.getContextPath().replace("/", "");
 					<li class="list-group-item">Agência: ${AgenciaDAO().getByCNPJ(pacote.CNPJ).nome}</li>
 					<li class="list-group-item">Valor: ${pacote.valor} BCT</li>
 				</ul>
-				<div class="card-body">
 					<c:choose>
 						<c:when test="${sessionScope.usuarioLogado.papel == 'USR'}">
+						<div class="card-body">
 									<form id="formulario${pacote.id}" method="post"
 										action="comprar">
 										<input type="hidden" name="pacoteDesejado"
@@ -64,9 +64,9 @@ String contextPath = request.getContextPath().replace("/", "");
 											name="valor" value="${pacote.valor}" required /> <input
 											type="submit" class="btn btn-primary" value="Comprar"/>
 									</form>
+									</div>
 						</c:when>
 					</c:choose>
-				</div>
 			</div>
 		</div>
 	</c:forEach>

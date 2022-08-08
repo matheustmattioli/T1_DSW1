@@ -63,7 +63,7 @@
                     </div>
                 </td>
                 <td>
-							<button class="btn btn-danger" onclick='requestRemovePacoteUsuario("<%= contextPath %>", ${proposta.id})' >
+                    <button class="btn btn-danger" onclick='requestRemovePacoteUsuario("<%= contextPath %>", ${proposta.id})' >
                         Cancelar
                     </button>
                 </td>

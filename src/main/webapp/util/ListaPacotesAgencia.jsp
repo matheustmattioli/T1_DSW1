@@ -43,7 +43,7 @@ String contextPath = request.getContextPath().replace("/", "");
 						<li class="list-group-item">Data de partida:
 							${pacote.dataPartida}</li>
 						<li class="list-group-item">Agência: ${pacote.CNPJ}</li>
-						<li class="list-group-item">Valor: ${pacote.valor} BCT</li>
+						<li class="list-group-item">Valor: ${pacote.valor} BTC</li>
 					</ul>
 					<div class="card-body">
 						<button class="btn btn-primary" onclick='requestPacoteEdit("<%= contextPath %>", ${pacote.id})'> Editar </button>

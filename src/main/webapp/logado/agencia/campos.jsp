@@ -23,36 +23,42 @@
 			<h2>Cadastro</h2>
 		</c:otherwise>
 	</c:choose>
-	<c:if test="${pacote != null}">
-		<input type="hidden" name="id" value="${pacote.id}" />
-	</c:if>
+	<c:choose>
+		<c:when test="${pacote != null}">
+			<input type="hidden" name="id" value="${pacote.id}" />
+			<input type="hidden" name="idAgencia" value="${pacote.idAgencia}">
+			<input type="hidden" name="cnpj" value="${pacote.CNPJ}">
+		</c:when>
+		<c:otherwise>
+			<input type="hidden" name="idAgencia" value="${sessionScope.usuarioLogado.id}">
+			<input type="hidden" name="cnpj" value="${AgenciaDAO().getbyID(sessionScope.usuarioLogado.id).CNPJ}">
+		</c:otherwise>
+	</c:choose>
 <%--	private Date dataPartida;--%>
 <%--	private int duracaoDias;--%>
 <%--	private BigDecimal valor;--%>
 <%--	private String descricao;--%>
-	<input type="hidden" name="idAgencia" value="${sessionScope.usuarioLogado.id}">
-	<input type="hidden" name="cnpj" value="${AgenciaDAO().getbyID(sessionScope.usuarioLogado.id).CNPJ}">
 
 	<label class="p-2 mt-2" for="cidade">Cidade</label>
-	<input class="p-1" type="text" id="cidade" name="cidade" required>
+	<input class="p-1" type="text" id="cidade" name="cidade" value="${pacote.cidade}" required>
 
 	<label class="p-2 mt-2" for="estado">Estado</label>
-	<input class="p-1" type="text" id="estado" name="estado" required>
+	<input class="p-1" type="text" id="estado" name="estado" value="${pacote.estado}" required>
 
 	<label class="p-2 mt-2" for="pais">País</label>
-	<input class="p-1" type="text" id="pais" name="pais" required>
+	<input class="p-1" type="text" id="pais" name="pais" value="${pacote.pais}" required>
 
 	<label class="p-2 mt-2" for="dataPartida">Data de Partida</label>
-	<input class="p-1" type="date" id="dataPartida" name="dataPartida" required>
+	<input class="p-1" type="date" id="dataPartida" name="dataPartida" value="${pacote.dataPartida}" required>
 
-	<label class="p-2 mt-2" for="duracao">Duração</label>
-	<input class="p-1" type="number" id="duracao" name="duracao" required>
+	<label class="p-2 mt-2" for="duracao">Duração (dias)</label>
+	<input class="p-1" type="number" id="duracao" name="duracao" value="${pacote.duracaoDias}" required>
 
 	<label class="p-2 mt-2" for="valor">Valor</label>
-	<input class="p-1" type="number" id="valor" name="valor" required>
+	<input class="p-1" type="number" id="valor" name="valor" value="${pacote.valor}" required>
 
 	<label class="p-2 mt-2" for="descricao">Descrição (máximo de 256 caracteres)</label>
-	<textarea class="p-1" id="descricao" name="descricao" placeholder="Coloque uma descrição bem bacana!"></textarea>
+	<textarea class="p-1" id="descricao" name="descricao" placeholder="Coloque uma descrição bem bacana!">${pacote.descricao}</textarea>
 
 	<input class="mt-4 btn btn-primary" type="submit" value="Salvar Dados" />
 </div>

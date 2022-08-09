@@ -1,6 +1,7 @@
 package br.ufscar.dc.dsw.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -97,35 +98,52 @@ public class AgenciaController extends HttpServlet {
 	
 	private void deletar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			Long id = Long.parseLong(request.getParameter("id"));
-			pacoteDAO.delete(id);
-			response.sendRedirect("lista");
+		Long id = Long.parseLong(request.getParameter("id"));
+		pacoteDAO.delete(id);
+		response.sendRedirect("lista");
 	}
 	
 	private void atualiza(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			Long id = Long.parseLong(request.getParameter("id"));
-			pacoteDAO.update(pacoteDAO.getbyID(id));
-			response.sendRedirect("lista");
+		Long id = Long.parseLong(request.getParameter("id"));
+		pacoteDAO.update(pacoteDAO.getbyID(id));
+		response.sendRedirect("lista");
 	}
 
 	private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Long id = Long.parseLong(request.getParameter("id"));
-			Pacote pacote = pacoteDAO.getbyID(id);
-			request.setAttribute("pacote", pacote);
+		Pacote pacote = pacoteDAO.getbyID(id);
+		request.setAttribute("pacote", pacote);
 			
 		this.apresentaFormCadastro(request, response);
 	}
 	
 	private void apresentaFormCadastro(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/agencia/formulario.jsp");
-				dispatcher.forward(request, response);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/agencia/formulario.jsp");
+		dispatcher.forward(request, response);
 	}
 	
 	private void insercao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+
+		Long idAgencia = Long.valueOf(request.getParameter("idAgencia"));
+		String cnpjAgencia = request.getParameter("cnpj");
+		String cidade = request.getParameter("cidade");
+		String estado = request.getParameter("estado");
+		String pais = request.getParameter("pais");
+		Date dataPartida = Date.valueOf(request.getParameter("dataPartida"));
+		Integer duracaoDias = Integer.valueOf(request.getParameter("duracao"));
+		BigDecimal valor = BigDecimal.valueOf(Double.valueOf(request.getParameter("valor")));
+		String descricao = request.getParameter("descricao");
+
+		Pacote pacote = new Pacote(
+				idAgencia, cnpjAgencia, cidade,
+				estado, pais, dataPartida,
+				duracaoDias, valor, descricao
+		);
+		pacoteDAO.insert(pacote);
 		response.sendRedirect("lista");
 	}
 

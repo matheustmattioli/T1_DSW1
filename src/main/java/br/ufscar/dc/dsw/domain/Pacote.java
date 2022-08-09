@@ -40,6 +40,11 @@ public class Pacote {
         this.descricao = descricao;
     }
 
+    public Pacote(Long idAgencia, String CNPJ, String cidade, String estado, String pais, Date dataPartida, int duracaoDias, BigDecimal valor, String descricao) {
+        this(idAgencia, CNPJ, cidade, estado, pais, dataPartida, duracaoDias, valor);
+        this.descricao = descricao;
+    }
+
     public Long getId() {
         return id;
     }

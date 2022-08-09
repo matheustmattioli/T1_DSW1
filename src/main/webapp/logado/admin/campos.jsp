@@ -14,11 +14,11 @@
 <div class="container w-50 p-3">
 			<c:choose>
 				<c:when test="${usuario != null}">
-								<h2>Edição</h2>
-							</c:when>
+					<h2>Edição</h2>
+				</c:when>
 				<c:otherwise>
-								<h2>Cadastro</h2>
-							</c:otherwise>
+					<h2>Cadastro</h2>
+				</c:otherwise>
 			</c:choose>
 		<c:if test="${usuario != null}">
 			<input type="hidden" name="id" value="${usuario.id}" />

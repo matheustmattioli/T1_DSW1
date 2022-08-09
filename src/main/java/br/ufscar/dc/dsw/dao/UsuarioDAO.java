@@ -95,7 +95,6 @@ public class UsuarioDAO extends GenericDAO {
         try {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql);
-            System.out.println("ajisjaisjas");
 
             statement.setString(1, usuario.getNome());
             statement.setString(2, usuario.getEmail());

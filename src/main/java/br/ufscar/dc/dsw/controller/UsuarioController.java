@@ -3,6 +3,8 @@ package br.ufscar.dc.dsw.controller;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Iterator;
+import java.util.List;
 import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -78,18 +80,21 @@ public class UsuarioController extends HttpServlet {
 		String valorStr = request.getParameter("valor");
 		Date dataAtual = new Date(LocalDate.now().toEpochDay());
 
-		Proposta proposta = new Proposta(usuario.getId(), Long.valueOf(pacote).longValue(), dataAtual, Float.valueOf(valorStr).floatValue());
-		if (propostaDAO.getAllbyIDPacote(Long.valueOf(pacote).longValue()).isEmpty()) {
-			propostaDAO.insert(proposta);
-			response.sendRedirect("lista");
-		} else {
-			Erro erros = new Erro();
-			erros.add("Você já comprou esse pacote!");
-			request.setAttribute("mensagens", erros);
-			RequestDispatcher rd = request.getRequestDispatcher("/usuario/user.jsp");
-			rd.forward(request, response);
-			response.sendRedirect("lista");
-		}
+		Proposta proposta = new Proposta(usuario.getId(), Long.valueOf(pacote).longValue(), dataAtual, Float.valueOf(valorStr).floatValue(), 1);
+		// List<Proposta> propList = propostaDAO.getAllbyIDUsuario(usuario.getId());
+		// Iterator<Proposta> propListiterator = propList.iterator();
+		// Proposta proposta2;
+		
+
+		// while (propListiterator.hasNext()) {
+		// 	proposta2 = propListiterator.next();
+		// 	if (proposta2.getStatusProposta() == 0 && proposta2.getIdPacote() == Long.valueOf(pacote).longValue()) {
+		// 		propostaDAO.update(proposta);
+		// 		response.sendRedirect("lista");
+		// 	}
+		// }
+		propostaDAO.insert(proposta);
+		response.sendRedirect("lista");	
 	}
 
 	private void deletar(HttpServletRequest request, HttpServletResponse response)
@@ -105,7 +110,7 @@ public class UsuarioController extends HttpServlet {
 		
 		java.util.Date date = new java.util.Date();
 		if ((pacote.getDataPartida().getTime() - date.getTime())/1000 > 432000) {
-			propostaDAO.delete(proposta);
+			propostaDAO.updateStatus(proposta, 0);
 			request.setAttribute("prazoEsgotado", false);
 			response.sendRedirect("home");
 		} else {

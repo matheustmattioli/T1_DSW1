@@ -8,20 +8,22 @@ public class Proposta {
     private Long idPacote;
     private Date dataProposta;
     private Float valor;
+    private int statusProposta;
 
     public Proposta(Long id) {
         this.id = id;
     }
 
-    public Proposta(Long idUsuario, Long idPacote, Date dataproposta, Float valor) {
+    public Proposta(Long idUsuario, Long idPacote, Date dataproposta, Float valor, int statusProposta) {
         this.idUsuario = idUsuario;
         this.idPacote = idPacote;
         this.dataProposta = dataproposta;
         this.valor = valor;    
+        this.statusProposta = statusProposta;
     }
 
-    public Proposta(Long id, Long idUsuario, Long idPacote, Date dataproposta, Float valor) {
-        this(idUsuario, idPacote, dataproposta, valor);
+    public Proposta(Long id, Long idUsuario, Long idPacote, Date dataproposta, Float valor, int statusProposta) {
+        this(idUsuario, idPacote, dataproposta, valor, statusProposta);
         this.id = id;
     }
 
@@ -63,6 +65,14 @@ public class Proposta {
 
     public void setValor(Float valor) {
         this.valor = valor;
+    }
+
+    public int getStatusProposta() {
+        return statusProposta;
+    }
+
+    public void setStatusProposta(int statusProposta) {
+        this.statusProposta = statusProposta;
     }
 
 }

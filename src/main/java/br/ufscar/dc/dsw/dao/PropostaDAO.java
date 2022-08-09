@@ -13,7 +13,7 @@ import java.util.List;
 public class PropostaDAO extends GenericDAO{
 
     public void insert(Proposta proposta) {
-        String sql = "INSERT INTO Proposta(idUsuario, idPacote, dataProposta, valor) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Proposta(idUsuario, idPacote, dataProposta, valor, statusProposta) VALUES (?, ?, ?, ?, ?)";
         
         try {
             Connection conn = this.getConnection();
@@ -24,6 +24,7 @@ public class PropostaDAO extends GenericDAO{
             statement.setLong(2, proposta.getIdPacote());
             statement.setDate(3, (java.sql.Date) proposta.getDataProposta());
             statement.setFloat(4, proposta.getValor());
+            statement.setInt(5, proposta.getStatusProposta());
             statement.executeUpdate();
 
             statement.close();
@@ -34,7 +35,7 @@ public class PropostaDAO extends GenericDAO{
     }
 
     public void update(Proposta proposta) {
-        String sql = "UPDATE Proposta SET idUsuario = ?, idPacote = ?, dataProposta = ?, valor = ? WHERE id = ?";
+        String sql = "UPDATE Proposta SET idUsuario = ?, idPacote = ?, dataProposta = ?, valor = ?, statusProposta = ? WHERE id = ?";
 
         try {
             Connection conn = this.getConnection();
@@ -44,7 +45,8 @@ public class PropostaDAO extends GenericDAO{
             statement.setLong(2, proposta.getIdPacote());
             statement.setDate(3, (java.sql.Date) proposta.getDataProposta());
             statement.setFloat(4, proposta.getValor());
-            statement.setLong(5, proposta.getId());
+            statement.setInt(5, proposta.getStatusProposta());
+            statement.setLong(6, proposta.getId());
             statement.executeUpdate();
 
             statement.close();
@@ -54,11 +56,30 @@ public class PropostaDAO extends GenericDAO{
         }
     }
 
+    public void updateStatus(Proposta proposta, int statusProposta) {
+        String sql = "UPDATE Proposta SET statusProposta = ? WHERE id = ?";
+
+        try {
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, statusProposta);
+            statement.setLong(2, proposta.getId());
+            statement.executeUpdate();
+
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public List<Proposta> getAll() {
 
         List<Proposta> listaPropostas = new ArrayList<>();
 
-        String sql = "SELECT * from Proposta u";
+        String sql = "SELECT * from Proposta";
 
         try {
             Connection conn = this.getConnection();
@@ -71,9 +92,9 @@ public class PropostaDAO extends GenericDAO{
                 long idPacote = resultSet.getLong("idPacote");
                 Date dataProposta = resultSet.getDate("dataProposta");
                 Float valor = resultSet.getFloat("valor");
-
+                int statusProposta = resultSet.getInt("statusProposta");
                 
-                Proposta proposta = new Proposta(id, idUsuario, idPacote, dataProposta, valor);
+                Proposta proposta = new Proposta(id, idUsuario, idPacote, dataProposta, valor, statusProposta);
                 listaPropostas.add(proposta);
             }
 
@@ -118,8 +139,9 @@ public class PropostaDAO extends GenericDAO{
                 long idPacote = resultSet.getLong("idPacote");
                 Date dataProposta = resultSet.getDate("dataProposta");
                 Float valor = resultSet.getFloat("valor");
+                int statusProposta = resultSet.getInt("statusProposta");
 
-                proposta = new Proposta(id, idUsuario, idPacote, dataProposta, valor);
+                proposta = new Proposta(id, idUsuario, idPacote, dataProposta, valor, statusProposta);
             }
 
             resultSet.close();
@@ -132,7 +154,7 @@ public class PropostaDAO extends GenericDAO{
     }
         
     // LISTAR PROPOSTAS USUARIO
-    public List<Proposta> getAllbyIDUsuario(Long idUsuario) {
+    public List<Proposta> getAllActivebyIDUsuario(Long idUsuario) {
 
         List<Proposta> listaPropostasUsuario = new ArrayList<>();
 
@@ -145,13 +167,14 @@ public class PropostaDAO extends GenericDAO{
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 Long idUsuario_db = resultSet.getLong("idUsuario");
-                if (idUsuario == idUsuario_db) {
+                if (idUsuario == idUsuario_db && resultSet.getInt("statusProposta") == 1) {
                     long id = resultSet.getLong("id");
                     long idPacote = resultSet.getLong("idPacote");
                     Date dataProposta = resultSet.getDate("dataProposta");
                     Float valor = resultSet.getFloat("valor");
-                    
-                    Proposta proposta = new Proposta(id, idUsuario_db, idPacote, dataProposta, valor);
+                    int statusProposta = resultSet.getInt("statusProposta");
+
+                    Proposta proposta = new Proposta(id, idUsuario_db, idPacote, dataProposta, valor, statusProposta);
                     listaPropostasUsuario.add(proposta);
                 }
                 
@@ -165,6 +188,39 @@ public class PropostaDAO extends GenericDAO{
         return listaPropostasUsuario;
     }
 
+    public List<Proposta> getAllCancelledbyIDUsuario(Long idUsuario) {
+
+        List<Proposta> listaPropostasUsuario = new ArrayList<>();
+
+        String sql = "SELECT * from Proposta u";
+
+        try {
+            Connection conn = this.getConnection();
+            Statement statement = conn.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Long idUsuario_db = resultSet.getLong("idUsuario");
+                if (idUsuario == idUsuario_db && resultSet.getInt("statusProposta") == 0) {
+                    long id = resultSet.getLong("id");
+                    long idPacote = resultSet.getLong("idPacote");
+                    Date dataProposta = resultSet.getDate("dataProposta");
+                    Float valor = resultSet.getFloat("valor");
+                    int statusProposta = resultSet.getInt("statusProposta");
+
+                    Proposta proposta = new Proposta(id, idUsuario_db, idPacote, dataProposta, valor, statusProposta);
+                    listaPropostasUsuario.add(proposta);
+                }
+                
+            }
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listaPropostasUsuario;
+    }
     
     // LISTAR PROPOSTAS DO PACOTE
     public List<Proposta> getAllbyIDPacote(Long idPacote) {
@@ -185,7 +241,8 @@ public class PropostaDAO extends GenericDAO{
                     Long idUsuario = resultSet.getLong("idUsuario");
                     Date dataProposta = resultSet.getDate("dataProposta");
                     Float valor = resultSet.getFloat("valor");
-                    Proposta proposta = new Proposta(id, idUsuario, idPacote_db, dataProposta, valor);
+                    int statusProposta = resultSet.getInt("statusProposta");
+                    Proposta proposta = new Proposta(id, idUsuario, idPacote_db, dataProposta, valor, statusProposta);
                     listaPropostasPacotes.add(proposta);
                 }
                 

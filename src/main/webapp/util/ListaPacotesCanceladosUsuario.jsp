@@ -21,11 +21,11 @@
 </head>
 <body>
     <c:choose>
-        <c:when test="${PropostaDAO().getAllActivebyIDUsuario(sessionScope.usuarioLogado.id).size() == '0'}">
-            <h2>Você não adquiriu nenhum pacote ainda. Bora viajar? :D </h2>
+        <c:when test="${PropostaDAO().getAllCancelledbyIDUsuario(sessionScope.usuarioLogado.id).size() == '0'}">
+            <h2>Você não cancelou nenhum pacote.</h2>
         </c:when>    
         <c:otherwise>
-    <h2>Pacotes adquiridos</h2>
+    <h2>Pacotes Cancelados</h2>
     <br/>
     <table class="table">
         <thead>
@@ -42,7 +42,7 @@
             <th>Ações</th>
         </tr>
         </thead>
-        <c:forEach var="proposta" items="${PropostaDAO().getAllActivebyIDUsuario(sessionScope.usuarioLogado.id)}">
+        <c:forEach var="proposta" items="${PropostaDAO().getAllCancelledbyIDUsuario(sessionScope.usuarioLogado.id)}">
             <tr>
                 <td>${PacoteDAO().getbyID(proposta.idPacote).id}</td>
                 <td>${PacoteDAO().getbyID(proposta.idPacote).descricao}</td>
@@ -61,11 +61,6 @@
                             <img src="${image}" width="64px">
                         </c:forEach>
                     </div>
-                </td>
-                <td>
-                    <button class="btn btn-danger" onclick='requestRemovePacoteUsuario("<%= contextPath %>", ${proposta.id})' >
-                        Cancelar
-                    </button>
                 </td>
             </tr>
         </c:forEach>

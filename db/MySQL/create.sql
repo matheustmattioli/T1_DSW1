@@ -46,6 +46,7 @@ create table Proposta(
     idPacote bigint not null,
     dataProposta date not null,
     valor float,
+    statusProposta int not null,
     primary key (id),
     foreign key (idUsuario) references Usuario (id) ON DELETE CASCADE ON UPDATE CASCADE,
     foreign key (idPacote) references Pacote (id) ON DELETE CASCADE ON UPDATE CASCADE);
@@ -62,8 +63,11 @@ insert into Pacote(idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDi
 
 insert into Pacote(idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao) values (1, '12345678901234', 'Paris', 'Sla', 'França', '2022-09-21', 365, 3000, 'Torre Waffle uiui');
 
-insert into Proposta(idUsuario, idPacote, dataProposta, valor) values (1, 1, "2011-09-21", 1);
+insert into Proposta(idUsuario, idPacote, dataProposta, valor, statusProposta) values (1, 1, "2011-09-21", 1, 1);
 
 insert into Pacote(idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao) values (1, '12345678901234', 'Sao Carros', 'Sao Paulo', 'Brasil', '2022-09-23', 365, 42069, 'Depressao Dor Sofrimentos');
 
-insert into Proposta(idUsuario, idPacote, dataProposta, valor) values (1, 1, "2011-09-21", 1);
+insert into Proposta(idUsuario, idPacote, dataProposta, valor, statusProposta) values (1, 1, "2011-09-21", 1, 1);
+
+insert into Proposta(idUsuario, idPacote, dataProposta, valor, statusProposta) values (1, 2, "2011-09-21", 1, 0);
+

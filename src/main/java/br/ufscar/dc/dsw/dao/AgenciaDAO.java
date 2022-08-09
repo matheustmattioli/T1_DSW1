@@ -39,7 +39,7 @@ public class AgenciaDAO extends GenericDAO {
 
 		List<Agencia> listaAgencias = new ArrayList<>();
 
-		String sql = "SELECT * from Agencia u";
+		String sql = "SELECT * from Agencia";
 
 		try {
 			Connection conn = this.getConnection();

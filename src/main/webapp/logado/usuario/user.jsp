@@ -29,6 +29,8 @@
             <br/>
                 <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotesUsuario.jsp" />
                 <br><br>
+                <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotesCanceladosUsuario.jsp" />
+                <br><br>
                 <jsp:include page="${renderRequest.getContextPath()}//util/ListaPacotes.jsp" /> 
             <br/>
         </div>

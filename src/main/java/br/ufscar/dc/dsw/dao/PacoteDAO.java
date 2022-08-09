@@ -48,7 +48,7 @@ public class PacoteDAO extends GenericDAO {
 
 		List<Pacote> listaPacotes = new ArrayList<>();
 
-		String sql = "SELECT * from Pacote u";
+		String sql = "SELECT * from Pacote";
 
 		try {
 			Connection conn = this.getConnection();
@@ -166,7 +166,7 @@ public class PacoteDAO extends GenericDAO {
 
 		List<Pacote> listaPacotesAgencia = new ArrayList<>();
 
-		String sql = "SELECT * from Pacote u";
+		String sql = "SELECT * from Pacote";
 
 		try {
 			Connection conn = this.getConnection();

@@ -103,7 +103,7 @@ public class PacoteDAO extends GenericDAO {
 	}
 
 	public void update(Pacote pacote) {
-		String sql = "UPDATE Pacote SET idAgencia = ?, cnpj = ?, cidade = ?, estado = ?, pais = ? dataPartida = ?, duracaoDias = ?, valor = ?, descricao = ? WHERE id = ?";
+		String sql = "UPDATE Pacote SET idAgencia = ?, cnpj = ?, cidade = ?, estado = ?, pais = ?, dataPartida = ?, duracaoDias = ?, valor = ?, descricao = ? WHERE id = ?";
 
 		try {
 			Connection conn = this.getConnection();

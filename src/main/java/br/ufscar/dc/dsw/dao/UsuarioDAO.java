@@ -73,7 +73,7 @@ public class UsuarioDAO extends GenericDAO {
         return listaUsuarios;
     }
 
-    public void delete(Usuario usuario) {
+    public void delete(Usuario usuario) throws SQLException {
         String sql = "DELETE FROM Usuario where id = ?";
 
         try {
@@ -86,6 +86,7 @@ public class UsuarioDAO extends GenericDAO {
             statement.close();
             conn.close();
         } catch (SQLException e) {
+            throw e;
         }
     }
 

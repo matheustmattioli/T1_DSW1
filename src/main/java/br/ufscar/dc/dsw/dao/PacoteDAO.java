@@ -85,7 +85,7 @@ public class PacoteDAO extends GenericDAO {
 		return listaPacotes;
 	}
 
-	public void delete(Long id) {
+	public void delete(Long id) throws SQLException {
 		String sql = "DELETE FROM Pacote where id = ?";
 
 		try {
@@ -98,11 +98,12 @@ public class PacoteDAO extends GenericDAO {
 			statement.close();
 			conn.close();
 		} catch (SQLException e) {
+			throw e;
 		}
 	}
 
 	public void update(Pacote pacote) {
-		String sql = "UPDATE Pacote SET idAgencia = ?, cnpj = ?, cidade = ?, estado = ?, pais = ? dataPartida = ?, duracaoDias = ?, descricao = ?, valor = ? WHERE id = ?";
+		String sql = "UPDATE Pacote SET idAgencia = ?, cnpj = ?, cidade = ?, estado = ?, pais = ? dataPartida = ?, duracaoDias = ?, valor = ?, descricao = ? WHERE id = ?";
 
 		try {
 			Connection conn = this.getConnection();
@@ -115,8 +116,9 @@ public class PacoteDAO extends GenericDAO {
 			statement.setString(5, pacote.getPais());
 			statement.setDate(6, (java.sql.Date) pacote.getDataPartida());
 			statement.setInt(7, pacote.getDuracaoDias());
-			statement.setString(8, pacote.getDescricao());
-			statement.setLong(9, pacote.getId());
+			statement.setBigDecimal(8, pacote.getValor());
+			statement.setString(9, pacote.getDescricao());
+			statement.setLong(10, pacote.getId());
 			statement.executeUpdate();
 
 			statement.close();
@@ -208,4 +210,21 @@ public class PacoteDAO extends GenericDAO {
 		pacotes = pacotes.stream().filter(x -> x.getCidade() == destino).filter(x -> x.getEstado() == destino).filter(x -> x.getPais() == destino).collect(Collectors.toList());
 		return pacotes;
 	}
+
+	public List<Pacote> getAllAgencia(String cnpj) {
+
+		List<Pacote> pacotes = getAll();
+		
+		pacotes = pacotes.stream().filter(x -> x.getCNPJ() == cnpj).collect(Collectors.toList());
+		return pacotes;
+	}
+
+	public List<Pacote> getAllData(Date dataPartida) {
+
+		List<Pacote> pacotes = getAll();
+		
+		pacotes = pacotes.stream().filter(x -> x.getDataPartida() == dataPartida).collect(Collectors.toList());
+		return pacotes;
+	}
+	
 }

@@ -107,7 +107,7 @@ public class PropostaDAO extends GenericDAO{
         return listaPropostas;
     }
 
-    public void delete(Proposta proposta) {
+    public void delete(Proposta proposta) throws SQLException {
         String sql = "DELETE FROM Proposta where id = ?";
 
         try {
@@ -120,6 +120,7 @@ public class PropostaDAO extends GenericDAO{
             statement.close();
             conn.close();
         } catch (SQLException e) {
+            throw e;
         }
     }
 

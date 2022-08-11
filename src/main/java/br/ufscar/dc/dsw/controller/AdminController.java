@@ -2,6 +2,7 @@ package br.ufscar.dc.dsw.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -67,8 +68,12 @@ public class AdminController extends HttpServlet {
 				home(request, response);
 				break;
 			}
-		} catch (RuntimeException | IOException | ServletException e) {
-			throw new ServletException(e);
+		} catch (Exception e) {
+			Erro erros = new Erro();
+			erros.add(e.getMessage());
+			request.setAttribute("mensagens", erros);
+			RequestDispatcher rd = request.getRequestDispatcher("/erro.jsp");
+			rd.forward(request, response);
 		}
 	}
 
@@ -150,6 +155,7 @@ public class AdminController extends HttpServlet {
 		String tipo = request.getParameter("tipo");
 
 		String nome = request.getParameter("nome");
+		
 		if (tipo.equals("usuario")) {
 			String email = request.getParameter("email");
 			String cpf = request.getParameter("cpf");
@@ -212,7 +218,7 @@ public class AdminController extends HttpServlet {
 	}
 
 	private void deletar(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException, SQLException {
 		String tipo = request.getParameter("tipo");
 		Long id = Long.parseLong(request.getParameter("id"));
 

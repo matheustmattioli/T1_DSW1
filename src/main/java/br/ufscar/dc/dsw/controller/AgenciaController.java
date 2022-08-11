@@ -3,6 +3,7 @@ package br.ufscar.dc.dsw.controller;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -67,8 +68,12 @@ public class AgenciaController extends HttpServlet {
 				home(request, response);
 				break;
 			}
-		} catch (RuntimeException | IOException | ServletException e) {
-			throw new ServletException(e);
+		} catch (Exception e) {
+			Erro erros = new Erro();
+			erros.add(e.getMessage());
+			request.setAttribute("mensagens", erros);
+			RequestDispatcher rd = request.getRequestDispatcher("/erro.jsp");
+			rd.forward(request, response);
 		}
 	}
 	
@@ -97,7 +102,7 @@ public class AgenciaController extends HttpServlet {
 	}
 	
 	private void deletar(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException, SQLException {
 		Long id = Long.parseLong(request.getParameter("id"));
 		pacoteDAO.delete(id);
 		response.sendRedirect("lista");
@@ -106,6 +111,7 @@ public class AgenciaController extends HttpServlet {
 	private void atualiza(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Long id = Long.parseLong(request.getParameter("id"));
+		
 		pacoteDAO.update(pacoteDAO.getbyID(id));
 		response.sendRedirect("lista");
 	}

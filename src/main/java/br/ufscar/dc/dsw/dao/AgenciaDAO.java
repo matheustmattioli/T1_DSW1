@@ -66,7 +66,7 @@ public class AgenciaDAO extends GenericDAO {
 		return listaAgencias;
 	}
 
-	public void delete(Agencia agencia) {
+	public void delete(Agencia agencia) throws SQLException {
 		String sql = "DELETE FROM Agencia where id = ?";
 
 		try {
@@ -79,6 +79,7 @@ public class AgenciaDAO extends GenericDAO {
 			statement.close();
 			conn.close();
 		} catch (SQLException e) {
+			throw e;
 		}
 	}
 

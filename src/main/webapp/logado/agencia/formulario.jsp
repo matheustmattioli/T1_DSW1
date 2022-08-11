@@ -18,7 +18,7 @@
 	</div>
 
 		<c:choose>
-			<c:when test="${o != null}">idPacote
+			<c:when test="${pacote.id != null}">
 				<form action="atualiza?id=${pacote.id}" method="post">
 					<%@include file="campos.jsp"%>
 				</form>

@@ -61,7 +61,7 @@ public class UsuarioController extends HttpServlet {
 				home(request, response);
 				break;
 			}
-		} catch (RuntimeException | IOException | ServletException e) {
+		} catch (Exception e) {
 			Erro erros = new Erro();
 			erros.add(e.getMessage());
 			request.setAttribute("mensagens", erros);

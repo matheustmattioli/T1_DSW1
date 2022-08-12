@@ -25,13 +25,13 @@
 		</c:if>
 		 <div class="form-group">
 			<label for="nome">Nome</label>
-			<input class="form-control" type="text" id="nome" name="nome"
+			<input class="form-control" type="text" id="nome" name="nome" maxlength="256"
 				required value="${usuario.nome}" />
 		</div>
 		<br>
 		 <div class="form-group">
 			<label for="email">Email</label>
-			<input class="form-control" type="email" id="email" name="email" required
+			<input class="form-control" type="email" id="email" name="email" required maxlength="24"
 				value="${usuario.email}" />
 				</div>
 				<br>
@@ -39,7 +39,7 @@
 			<label for="cpf">CPF (sem pontos ou traços)</label>
 				<c:choose>
 					<c:when test="${usuario == null}">
-						<input class="form-control" type="text" id="cpf" name="cpf" maxlength="11" required
+						<input class="form-control" type="number" id="cpf" name="cpf" maxlength="11" minlength="11" required
 							   value="${usuario.cpf}"/>
 					</c:when>
 					<c:otherwise>
@@ -65,11 +65,11 @@
 				<br>
 				 <div class="form-group">
 				<label for="telefone">Telefone</label>
-				<input class="form-control" type="tel" id="telefone" name="telefone" required value="${usuario.telefone}" /></div>
+				<input class="form-control" type="number" id="telefone" name="telefone" minlength="8" required value="${usuario.telefone}" maxlength="11"/></div>
 				<br>
 				 <div class="form-group">
 				<label for="senha">Senha</label>
-				<input  class="form-control" type="password" id="senha" name="senha" required
+				<input  class="form-control" type="password" id="senha" name="senha" required maxlength="64"
 			 	value="${usuario.senha}" /></div>
 			 	<br>
 			 	 <div class="form-group">

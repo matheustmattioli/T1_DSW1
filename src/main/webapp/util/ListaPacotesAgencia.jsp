@@ -66,6 +66,7 @@ String contextPath = request.getContextPath().replace("/", "");
 							${pacote.estado} ${pacote.pais}</li>
 						<li class="list-group-item">Data de partida:
 							${pacote.dataPartida}</li>
+						<li class="list-group-item">Duração: ${pacote.duracaoDias} dias</li>
 						<li class="list-group-item">Agência: ${pacote.CNPJ}</li>
 						<li class="list-group-item">Valor: ${pacote.valor} BTC</li>
 					</ul>

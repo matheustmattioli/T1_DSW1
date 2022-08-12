@@ -40,25 +40,25 @@
 <%--	private String descricao;--%>
 
 	<label class="p-2 mt-2" for="cidade">Cidade</label>
-	<input class="p-1" type="text" id="cidade" name="cidade" value="${pacote.cidade}" required>
+	<input class="p-1" type="text" id="cidade" name="cidade" maxlength="256" value="${pacote.cidade}" required>
 
 	<label class="p-2 mt-2" for="estado">Estado</label>
-	<input class="p-1" type="text" id="estado" name="estado" value="${pacote.estado}" required>
+	<input class="p-1" type="text" id="estado" name="estado" maxlength="256" value="${pacote.estado}" required>
 
 	<label class="p-2 mt-2" for="pais">País</label>
-	<input class="p-1" type="text" id="pais" name="pais" value="${pacote.pais}" required>
+	<input class="p-1" type="text" id="pais" name="pais" maxlength="256" value="${pacote.pais}" required>
 
 	<label class="p-2 mt-2" for="dataPartida">Data de Partida</label>
 	<input class="p-1" type="date" id="dataPartida" name="dataPartida" value="${pacote.dataPartida}" required>
 
 	<label class="p-2 mt-2" for="duracao">Duração (dias)</label>
-	<input class="p-1" type="number" id="duracao" name="duracao" value="${pacote.duracaoDias}" required>
+	<input class="p-1" type="number" id="duracao" min="1" max="1000000000" name="duracao" value="${pacote.duracaoDias}" required>
 
-	<label class="p-2 mt-2" for="valor">Valor</label>
-	<input class="p-1" type="number" id="valor" name="valor" value="${pacote.valor}" required>
+	<label class="p-2 mt-2" for="valor">Valor (BTC)</label>
+	<input class="p-1" type="number" id="valor" min="0" max="1000000000" name="valor" value="${pacote.valor}" required>
 
 	<label class="p-2 mt-2" for="descricao">Descrição (máximo de 256 caracteres)</label>
-	<textarea class="p-1" id="descricao" name="descricao" placeholder="Coloque uma descrição bem bacana!">${pacote.descricao}</textarea>
+	<textarea class="p-1" id="descricao" name="descricao" maxlength="256" placeholder="Coloque uma descrição bem bacana!">${pacote.descricao}</textarea>
 
 	<input class="mt-4 btn btn-primary" type="submit" value="Salvar Dados" />
 </div>

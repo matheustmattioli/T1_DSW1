@@ -29,9 +29,11 @@ String contextPath = request.getContextPath().replace("/", "");
 <fieldset>
 	<form action="" method="post">
 		<h3>Filtrar</h3>
+		<c:choose><c:when test='${sessionScope.usuarioLogado.papel != "USR"}'>
 		<label for="filter">Filtrar por disponíveis</label>
 		<input type="checkbox" id="filter" name="filter">
 		<br>
+		</c:when></c:choose>
 		<label for="cnpj">CNPJ da agência</label>
 		<input type="number" name="cnpj" id="cnpj">
 		<br>
@@ -47,7 +49,7 @@ String contextPath = request.getContextPath().replace("/", "");
 <br>
 <br>
 <div class="row">
-	<c:forEach var="pacote" items='${PacoteDAO().getApplyFilters(pageContext.request.getParameter("destino"), pageContext.request.getParameter("cnpj"), pageContext.request.getParameter("data"), pageContext.request.getParameter("filter"))}'>
+	<c:forEach var="pacote" items='${sessionScope.usuarioLogado.papel == "USR" ? PacoteDAO().getApplyFilters(pageContext.request.getParameter("destino"), pageContext.request.getParameter("cnpj"), pageContext.request.getParameter("data"), "on") : PacoteDAO().getApplyFilters(pageContext.request.getParameter("destino"), pageContext.request.getParameter("cnpj"), pageContext.request.getParameter("data"), pageContext.request.getParameter("filter"))}'>
 		<div class="col-3">
 			<div class="card">
 				<div class="carousel slide" id="fotos_${pacote.id}" data-ride="carousel">
@@ -77,6 +79,7 @@ String contextPath = request.getContextPath().replace("/", "");
 						${pacote.estado} ${pacote.pais}</li>
 					<li class="list-group-item">Data de partida:
 						${pacote.dataPartida}</li>
+					<li class="list-group-item">Duração: ${pacote.duracaoDias} dias</li>
 					<li class="list-group-item">Agência: ${AgenciaDAO().getByCNPJ(pacote.CNPJ).nome}</li>
 					<li class="list-group-item">Valor: ${pacote.valor} BTC</li>
 				</ul>

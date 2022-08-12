@@ -26,9 +26,28 @@ String contextPath = request.getContextPath().replace("/", "");
 </head>
 <body>
 <h2>Pacotes disponíveis</h2>
+<fieldset>
+	<form action="" method="post">
+		<h3>Filtrar</h3>
+		<label for="filter">Filtrar por disponíveis</label>
+		<input type="checkbox" id="filter" name="filter">
+		<br>
+		<label for="cnpj">CNPJ da agência</label>
+		<input type="number" name="cnpj" id="cnpj">
+		<br>
+		<label for="data">Data de partida</label>
+		<input type="date" name="data" id="data">
+		<br>
+		<label for="destino">Destino</label>
+		<input type="text" name="destino" id="destino">
+		<br>
+		<button class="btn btn-primary submit" onclick="">Filtrar</button>
+	</form>
+</fieldset>
+<br>
 <br>
 <div class="row">
-	<c:forEach var="pacote" items="${PacoteDAO().getAll()}">
+	<c:forEach var="pacote" items='${PacoteDAO().getApplyFilters(pageContext.request.getParameter("destino"), pageContext.request.getParameter("cnpj"), pageContext.request.getParameter("data"), pageContext.request.getParameter("filter"))}'>
 		<div class="col-3">
 			<div class="card">
 				<div class="carousel slide" id="fotos_${pacote.id}" data-ride="carousel">

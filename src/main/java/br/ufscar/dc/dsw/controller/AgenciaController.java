@@ -1,17 +1,27 @@
 package br.ufscar.dc.dsw.controller;
 
+import java.io.*;
+import java.util.*;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
+import javax.servlet.*;
+import javax.servlet.http.*;
+// import javax.servlet.RequestDispatcher;
+// import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpServlet;
+// import javax.servlet.http.HttpServletRequest;
+// import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.*;
+import org.apache.commons.fileupload.disk.*;
+import org.apache.commons.fileupload.servlet.*;
+import org.apache.commons.io.output.*;
+
+import br.ufscar.dc.dsw.controller.ImageController;
 import br.ufscar.dc.dsw.dao.AgenciaDAO;
 import br.ufscar.dc.dsw.dao.PacoteDAO;
 import br.ufscar.dc.dsw.dao.UsuarioDAO;
@@ -49,6 +59,9 @@ public class AgenciaController extends HttpServlet {
 
 		try {
 			switch (action) {
+			case "/addImg":
+				adicionarImagem(request, response);
+				break;
 			case "/cadastro":
 				apresentaFormCadastro(request, response);
 				break;
@@ -75,6 +88,27 @@ public class AgenciaController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/erro.jsp");
 			rd.forward(request, response);
 		}
+	}
+
+	private void adicionarImagem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ImageController imageController = new ImageController();
+
+		String contentType = request.getContentType();		
+		if ((contentType.indexOf("multipart/form-data") >= 0)) {
+			try {
+				List fileItems = imageController.GetServletFileItem().parseRequest(request);
+				Agencia auxA = (Agencia) request.getSession().getAttribute("usuarioLogado");
+				ServletContext context = request.getServletContext();
+				String location = context.getRealPath("images") + String.valueOf(auxA.getId());
+
+				imageController.SaveFileList(location, fileItems);
+			} catch(Exception ex) {
+				System.out.println(ex);
+			}
+		}
+
+		RequestDispatcher rd = request.getRequestDispatcher("/logado/agencia/user.jsp");
+		rd.forward(request, response);
 	}
 	
 	private void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -150,7 +184,8 @@ public class AgenciaController extends HttpServlet {
 				duracaoDias, valor, descricao
 		);
 		pacoteDAO.insert(pacote);
-		response.sendRedirect("lista");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/agencia/adicionarImagens.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

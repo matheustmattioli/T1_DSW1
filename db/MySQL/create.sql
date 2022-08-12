@@ -7,7 +7,7 @@ use Rotes
 create table Usuario(
 id bigint not null auto_increment, 
 nome varchar(256) not null, 
-email varchar(24) not null unique, 
+email varchar(128) not null unique, 
 cpf varchar(11) not null unique, 
 senha varchar(64) not null, 
 sexo varchar(1),
@@ -20,7 +20,7 @@ create table Agencia(
 id bigint not null auto_increment, 
 cnpj varchar(14) not null unique, 
 nome varchar(256) not null, 
-email varchar(24) not null unique, 
+email varchar(128) not null unique, 
 senha varchar(64) not null, 
 descricao varchar(256),
 primary key (id));

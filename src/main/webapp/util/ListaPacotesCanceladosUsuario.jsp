@@ -40,7 +40,6 @@
             <th>Duração (Dias)</th>
             <th>Valor (BTC)</th>
             <th>Fotos</th>
-            <th>Ações</th>
         </tr>
         </thead>
         <c:forEach var="proposta" items="${PropostaDAO().getAllCancelledbyIDUsuario(sessionScope.usuarioLogado.id)}">

@@ -32,17 +32,13 @@ String contextPath = request.getContextPath().replace("/", "");
 		<c:choose><c:when test='${sessionScope.usuarioLogado.papel != "USR"}'>
 		<label for="filter">Filtrar por disponíveis</label>
 		<input type="checkbox" id="filter" name="filter">
-		<br>
 		</c:when></c:choose>
 		<label for="cnpj">CNPJ da agência</label>
 		<input type="number" name="cnpj" id="cnpj">
-		<br>
 		<label for="data">Data de partida</label>
 		<input type="date" name="data" id="data">
-		<br>
 		<label for="destino">Destino</label>
 		<input type="text" name="destino" id="destino">
-		<br>
 		<button class="btn btn-primary submit" onclick="">Filtrar</button>
 	</form>
 </fieldset>

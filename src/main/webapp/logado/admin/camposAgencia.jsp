@@ -29,7 +29,7 @@
 		</tr>
 		<tr>
 			<td><label for="email">Email</label></td>
-			<td><input class="form-control" type="email" id="email" name="email" required maxlength="24"
+			<td><input class="form-control" type="email" id="email" name="email" required maxlength="128"
 				value="${agencia.email}" /></td>
 		</tr>
 		<tr>

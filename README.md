@@ -4,11 +4,11 @@ Nesse projeto estamos implementando a aplicação web do documento de requisitos
 
 ## Participantes
 
-André Souza Santos - RA: 769809
-Gabriel Penajo Machado - RA: 769712
-Isabela Vieira Magalhães - RA: 769755
-João Victor Bueno de Caldas - RA: 769657 
-Matheus Teixeira Mattioli - RA: 769783
+. André Souza Santos - RA: 769809
+. Gabriel Penajo Machado - RA: 769712
+. Isabela Vieira Magalhães - RA: 769755
+. João Victor Bueno de Caldas - RA: 769657 
+. Matheus Teixeira Mattioli - RA: 769783
 
 ## Execução do Código
 

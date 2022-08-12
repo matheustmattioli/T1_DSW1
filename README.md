@@ -4,11 +4,11 @@ Nesse projeto estamos implementando a aplicação web do documento de requisitos
 
 ## Participantes
 
-. André Souza Santos - RA: 769809
-. Gabriel Penajo Machado - RA: 769712
-. Isabela Vieira Magalhães - RA: 769755
-. João Victor Bueno de Caldas - RA: 769657 
-. Matheus Teixeira Mattioli - RA: 769783
+- André Souza Santos - RA: 769809
+- Gabriel Penajo Machado - RA: 769712
+- Isabela Vieira Magalhães - RA: 769755
+- João Victor Bueno de Caldas - RA: 769657 
+- Matheus Teixeira Mattioli - RA: 769783
 
 ## Execução do Código
 
@@ -17,14 +17,14 @@ Nesse projeto estamos implementando a aplicação web do documento de requisitos
 Dentro da pasta raíz do trabalho executar.
 Para rodar o banco de dados:
 
-. mysql -uroot -p
-. senha: 123456
-. source db/MySQL/create.sql
-. exit
+- mysql -uroot -p
+- senha: 123456
+- source db/MySQL/create.sql
+- exit 
 
 Para rodar o programa:
 
-. mvn tomcat7:redeploy
+- mvn tomcat7:redeploy
 
 ## Requisitos
 1. CRUD (Create, Read, Update e Delete) de clientes (requer login de administrador). O sistema deve possuir um cadastro de clientes, com os seguintes dados: e-mail, senha, CPF, nome, telefone, sexo e data de nascimento ✅

@@ -37,7 +37,8 @@
             <th>Pais</th>
             <th>Agência</th>
             <th>Data de Partida</th>
-            <th>Valor</th>
+            <th>Duração (Dias)</th>
+            <th>Valor (BTC)</th>
             <th>Fotos</th>
             <th>Ações</th>
         </tr>
@@ -51,6 +52,7 @@
                 <td>${PacoteDAO().getbyID(proposta.idPacote).pais}</td>
                 <td>${AgenciaDAO().getByCNPJ(PacoteDAO().getbyID(proposta.idPacote).CNPJ).nome}</td>
                 <td>${PacoteDAO().getbyID(proposta.idPacote).dataPartida}</td>
+                <td>${PacoteDAO().getbyID(proposta.idPacote).duracaoDias}</td>
                 <td>${PacoteDAO().getbyID(proposta.idPacote).valor} BTC</td>
                 <td>
                         <c:forEach var="image"

@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -44,6 +46,14 @@ public class PacoteDAO extends GenericDAO {
 		}
 	}
 
+	public List<Pacote> getAllValid() {
+		List<Pacote> listaPacotes = this.getAll();
+		Date hoje = Date.from(Instant.now());
+		listaPacotes = listaPacotes.stream().filter(x -> x.getDataPartida().after(hoje)).collect(Collectors.toList());
+
+		return listaPacotes;
+	}
+
 	public List<Pacote> getAll() {
 
 		List<Pacote> listaPacotes = new ArrayList<>();
@@ -74,11 +84,6 @@ public class PacoteDAO extends GenericDAO {
 			resultSet.close();
 			statement.close();
 			conn.close();
-			
-			Date hoje = Date.from(Instant.now());
-			
-			listaPacotes = listaPacotes.stream().filter(x -> x.getDataPartida().after(hoje)).collect(Collectors.toList());
-			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -103,7 +108,7 @@ public class PacoteDAO extends GenericDAO {
 	}
 
 	public void update(Pacote pacote) {
-		String sql = "UPDATE Pacote SET idAgencia = ?, cnpj = ?, cidade = ?, estado = ?, pais = ? dataPartida = ?, duracaoDias = ?, valor = ?, descricao = ? WHERE id = ?";
+		String sql = "UPDATE Pacote SET idAgencia = ?, cnpj = ?, cidade = ?, estado = ?, pais = ?, dataPartida = ?, duracaoDias = ?, valor = ?, descricao = ? WHERE id = ?";
 
 		try {
 			Connection conn = this.getConnection();
@@ -202,6 +207,13 @@ public class PacoteDAO extends GenericDAO {
 		}
 		return listaPacotesAgencia;
 	}
+
+	public List<Pacote> getAllbyIDAgenciaValid(Long idAgencia) {
+		List<Pacote> listaPacotes = this.getAllbyIDAgencia(idAgencia);
+		Date hoje = Date.from(Instant.now());
+		listaPacotes = listaPacotes.stream().filter(x -> x.getDataPartida().after(hoje)).collect(Collectors.toList());
+		return listaPacotes;
+	}
 	
 	public List<Pacote> getAllDestino(String destino) {
 
@@ -224,6 +236,28 @@ public class PacoteDAO extends GenericDAO {
 		List<Pacote> pacotes = getAll();
 		
 		pacotes = pacotes.stream().filter(x -> x.getDataPartida() == dataPartida).collect(Collectors.toList());
+		return pacotes;
+	}
+
+	public List<Pacote> getApplyFilters(String destino, String cnpj, String dataPartida, String validoStr) {
+		List<Pacote> pacotes = this.getAll();
+
+		System.out.println("oioioi " + dataPartida);
+		Boolean valido = validoStr.equals("on") ? true : false;
+		for (Pacote pacote : pacotes)
+			System.out.println(pacote.getDataPartida());
+		System.out.println("tchautchautchau " + valido);
+		Date hoje = Date.from(Instant.now());
+		System.out.println(dataPartida);
+		if (!dataPartida.isEmpty())
+			pacotes = pacotes.stream().filter(x -> x.getDataPartida().toString().equals(dataPartida)).collect(Collectors.toList());
+		if (cnpj != "")
+			pacotes = pacotes.stream().filter(x -> x.getCNPJ().equals(cnpj)).collect(Collectors.toList());
+		if (destino != "")
+			pacotes = pacotes.stream().filter(x -> x.getCidade().equals(destino) || x.getEstado().equals(destino) || x.getPais().equals(destino)).collect(Collectors.toList());
+		if (valido == true)
+			pacotes = pacotes.stream().filter(x -> x.getDataPartida().after(hoje)).collect(Collectors.toList());
+
 		return pacotes;
 	}
 	

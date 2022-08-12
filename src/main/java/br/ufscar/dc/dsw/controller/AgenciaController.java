@@ -145,8 +145,22 @@ public class AgenciaController extends HttpServlet {
 	private void atualiza(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Long id = Long.parseLong(request.getParameter("id"));
-		
-		pacoteDAO.update(pacoteDAO.getbyID(id));
+		Long idAgencia = Long.valueOf(request.getParameter("idAgencia"));
+		String cnpjAgencia = request.getParameter("cnpj");
+		String cidade = request.getParameter("cidade");
+		String estado = request.getParameter("estado");
+		String pais = request.getParameter("pais");
+		Date dataPartida = Date.valueOf(request.getParameter("dataPartida"));
+		Integer duracaoDias = Integer.valueOf(request.getParameter("duracao"));
+		BigDecimal valor = BigDecimal.valueOf(Double.valueOf(request.getParameter("valor")));
+		String descricao = request.getParameter("descricao");
+
+		Pacote pacote = new Pacote(
+				id, idAgencia, cnpjAgencia, cidade,
+				estado, pais, dataPartida,
+				duracaoDias, valor, descricao
+		);
+		pacoteDAO.update(pacote);
 		response.sendRedirect("lista");
 	}
 

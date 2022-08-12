@@ -5,6 +5,8 @@
 <%@ page import="br.ufscar.dc.dsw.dao.PacoteDAO"%>
 <%@ page import="java.util.List"%>
 <%@ page import="br.ufscar.dc.dsw.domain.Pacote"%>
+<%@ page import="br.ufscar.dc.dsw.domain.Usuario" %>
+<%@ page import="br.ufscar.dc.dsw.domain.Agencia" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -21,13 +23,35 @@ String contextPath = request.getContextPath().replace("/", "");
 	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
 	crossorigin="anonymous">
 </head>
-
+<%!
+	public Boolean isFilter = true;
+%>
 <div class="container">
-<h2>Pacotes da ${sessionScope.usuarioLogado.nome}</h2>
-<br/>
+	<h1>${pageContext.request.getPathInfo()}</h1>
+	<h2>Pacotes da ${sessionScope.usuarioLogado.nome}</h2>
+	<br>
+	<c:choose>
+	<c:when test='${pageContext.request.getParameter("filter").equals("false")}'>
+		<form action="" method="post">
+			<input type="hidden" value="true" name="filter" id="filter">
+			<button class="btn btn-primary submit" onclick="">Filtrar pacotes disponíveis</button>
+		</form>
+	</c:when>
+	<c:otherwise>
+		<form action="" method="post">
+			<input type="hidden" value="false" name="filter" id="filter">
+			<button class="btn btn-primary submit" onclick="">Exibir todos os pacotes</button>
+		</form>
+	</c:otherwise>
+	</c:choose>
+	<br>
 	<div class="row">
 		<c:forEach var="pacote"
-			items="${PacoteDAO().getAllbyIDAgencia(sessionScope.usuarioLogado.id)}">
+			items='${
+				pageContext.request.getParameter("filter").equals("false") ?
+					PacoteDAO().getAllbyIDAgencia(sessionScope.usuarioLogado.id) :
+					PacoteDAO().getAllbyIDAgenciaValid(sessionScope.usuarioLogado.id)}'
+		>
 			<div class="col-3">
 				<div class="card">
 					<img class="card-img-top"
@@ -42,6 +66,7 @@ String contextPath = request.getContextPath().replace("/", "");
 							${pacote.estado} ${pacote.pais}</li>
 						<li class="list-group-item">Data de partida:
 							${pacote.dataPartida}</li>
+						<li class="list-group-item">Duração: ${pacote.duracaoDias} dias</li>
 						<li class="list-group-item">Agência: ${pacote.CNPJ}</li>
 						<li class="list-group-item">Valor: ${pacote.valor} BTC</li>
 					</ul>

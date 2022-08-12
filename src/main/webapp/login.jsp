@@ -29,12 +29,12 @@
 					<div class="form-group">
 						<label for="basic-url">Email</label>
 						<div class="input-group mb-3">
-							<input class="form-control" type="text" name="email"
+							<input class="form-control" type="text" maxlength="128" name="email"
 								value="${param.email}" required/>
 						</div>
 						<label for="basic-url">Senha</label>
 						<div class="input-group mb-3">
-							<input class="form-control" type="password" name="senha" required/>
+							<input class="form-control" type="password" name="senha" maxlength="64" required/>
 						</div>
 						<input type="submit" class="btn btn-primary" name="bOK"
 							value="Entrar" />

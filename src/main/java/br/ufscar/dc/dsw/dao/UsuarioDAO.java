@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,12 @@ public class UsuarioDAO extends GenericDAO {
             statement.close();
             conn.close();
         } catch (SQLException e) {
+        	if(e instanceof SQLIntegrityConstraintViolationException) {
+        		if (e.getMessage().contains("email"))
+        			throw new RuntimeException("Já existe um cadastro com o Email inserido.", e);
+        		if (e.getMessage().contains("cpf"))
+        			throw new RuntimeException("Já existe um cadastro com o CPF inserido.", e);
+        	}
             throw new RuntimeException(e);
         }
     }
@@ -73,7 +80,7 @@ public class UsuarioDAO extends GenericDAO {
         return listaUsuarios;
     }
 
-    public void delete(Usuario usuario) throws SQLException {
+    public void delete(Usuario usuario) {
         String sql = "DELETE FROM Usuario where id = ?";
 
         try {
@@ -86,7 +93,7 @@ public class UsuarioDAO extends GenericDAO {
             statement.close();
             conn.close();
         } catch (SQLException e) {
-            throw e;
+            throw new RuntimeException(e);
         }
     }
 
@@ -110,6 +117,12 @@ public class UsuarioDAO extends GenericDAO {
             statement.close();
             conn.close();
         } catch (SQLException e) {
+        	if(e instanceof SQLIntegrityConstraintViolationException) {
+        		if (e.getMessage().contains("email"))
+        			throw new RuntimeException("Já existe um cadastro com o email inserido.", e);
+        		if (e.getMessage().contains("cpf"))
+        			throw new RuntimeException("Já existe um cadastro com o cpf inserido.", e);
+        	}
             throw new RuntimeException(e);
         }
     }

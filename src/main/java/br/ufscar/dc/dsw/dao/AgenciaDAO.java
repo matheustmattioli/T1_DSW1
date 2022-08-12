@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,13 @@ public class AgenciaDAO extends GenericDAO {
 			statement.close();
 			conn.close();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			if(e instanceof SQLIntegrityConstraintViolationException) {
+        		if (e.getMessage().contains("email"))
+        			throw new RuntimeException("Já existe uma agência cadastrada com o email inserido.", e);
+        		if (e.getMessage().contains("cnpj"))
+        			throw new RuntimeException("Já existe uma agência cadastrada com o CNPJ inserido.", e);
+        	}
+            throw new RuntimeException(e);
 		}
 	}
 
@@ -66,7 +73,7 @@ public class AgenciaDAO extends GenericDAO {
 		return listaAgencias;
 	}
 
-	public void delete(Agencia agencia) throws SQLException {
+	public void delete(Agencia agencia) {
 		String sql = "DELETE FROM Agencia where id = ?";
 
 		try {
@@ -79,7 +86,7 @@ public class AgenciaDAO extends GenericDAO {
 			statement.close();
 			conn.close();
 		} catch (SQLException e) {
-			throw e;
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -101,6 +108,12 @@ public class AgenciaDAO extends GenericDAO {
 			statement.close();
 			conn.close();
 		} catch (SQLException e) {
+			if(e instanceof SQLIntegrityConstraintViolationException) {
+        		if (e.getMessage().contains("email"))
+        			throw new RuntimeException("Já existe uma agência cadastrada com o email inserido.", e);
+        		if (e.getMessage().contains("cnpj"))
+        			throw new RuntimeException("Já existe uma agência cadastrada com o CNPJ inserido.", e);
+        	}
 			throw new RuntimeException(e);
 		}
 	}

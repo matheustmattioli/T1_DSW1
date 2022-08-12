@@ -39,7 +39,7 @@
 			<label for="cpf">CPF (sem pontos ou traços)</label>
 				<c:choose>
 					<c:when test="${usuario == null}">
-						<input class="form-control" type="number" id="cpf" name="cpf" maxlength="11" minlength="11" required
+						<input class="form-control" type="tel" id="cpf" name="cpf" maxlength="11" minlength="11" required
 							   value="${usuario.cpf}"/>
 					</c:when>
 					<c:otherwise>
@@ -65,7 +65,7 @@
 				<br>
 				 <div class="form-group">
 				<label for="telefone">Telefone</label>
-				<input class="form-control" type="number" id="telefone" name="telefone" minlength="8" required value="${usuario.telefone}" maxlength="11"/></div>
+				<input class="form-control" type="tel" id="telefone" name="telefone" minlength="8" required value="${usuario.telefone}" maxlength="11"/></div>
 				<br>
 				 <div class="form-group">
 				<label for="senha">Senha</label>

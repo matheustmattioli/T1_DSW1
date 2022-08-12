@@ -37,7 +37,7 @@
 			<td>
 			<c:choose>
 					<c:when test="${agencia == null}">
-						<input class="form-control" type="text" id="cnpj" name="cnpj" maxlength="14" minlength="14" required
+						<input class="form-control" type="tel" id="cnpj" name="cnpj" maxlength="14" minlength="14" required
 							   value="${agencia.CNPJ}"/>
 					</c:when>
 					<c:otherwise>

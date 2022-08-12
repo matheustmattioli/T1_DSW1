@@ -242,13 +242,11 @@ public class PacoteDAO extends GenericDAO {
 	public List<Pacote> getApplyFilters(String destino, String cnpj, String dataPartida, String validoStr) {
 		List<Pacote> pacotes = this.getAll();
 
-		System.out.println("oioioi " + dataPartida);
 		Boolean valido = validoStr.equals("on") ? true : false;
-		for (Pacote pacote : pacotes)
-			System.out.println(pacote.getDataPartida());
-		System.out.println("tchautchautchau " + valido);
+		// for (Pacote pacote : pacotes)
+		// 	System.out.println(pacote.getDataPartida());
+		// System.out.println("tchautchautchau " + valido);
 		Date hoje = Date.from(Instant.now());
-		System.out.println(dataPartida);
 		if (!dataPartida.isEmpty())
 			pacotes = pacotes.stream().filter(x -> x.getDataPartida().toString().equals(dataPartida)).collect(Collectors.toList());
 		if (cnpj != "")

@@ -36,6 +36,7 @@ public class AgenciaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private PacoteDAO pacoteDAO;
+	private Pacote lastPacote;
 
 	@Override
 	public void init() {
@@ -99,7 +100,7 @@ public class AgenciaController extends HttpServlet {
 				List fileItems = imageController.GetServletFileItem().parseRequest(request);
 				Agencia auxA = (Agencia) request.getSession().getAttribute("usuarioLogado");
 				ServletContext context = request.getServletContext();
-				String location = context.getRealPath("images") + String.valueOf(auxA.getId());
+				String location = context.getRealPath("images") + File.separator + lastPacote.getId();
 
 				imageController.SaveFileList(location, fileItems);
 			} catch(Exception ex) {
@@ -160,8 +161,10 @@ public class AgenciaController extends HttpServlet {
 				estado, pais, dataPartida,
 				duracaoDias, valor, descricao
 		);
+		lastPacote = pacote;
 		pacoteDAO.update(pacote);
-		response.sendRedirect("lista");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/agencia/adicionarImagens.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	private void apresentaFormEdicao(HttpServletRequest request, HttpServletResponse response)
@@ -198,8 +201,7 @@ public class AgenciaController extends HttpServlet {
 				duracaoDias, valor, descricao
 		);
 		pacoteDAO.insert(pacote);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/logado/agencia/adicionarImagens.jsp");
-		dispatcher.forward(request, response);
+		response.sendRedirect("lista");
 	}
 
 }

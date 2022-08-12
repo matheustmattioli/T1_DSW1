@@ -59,13 +59,13 @@ insert into Agencia(cnpj, nome, email, senha, descricao) values ('12345678901234
 
 insert into Pacote(idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao) values (1, '12345678901234', 'Batatais', 'Sao Paulo', 'Brasil', '2011-09-23', 5, 1999, 'Lorem Ipsum');
 
-insert into Pacote(idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao) values (1, '12345678901234', 'Bananais', 'HUEHUE', 'Bostil', '2022-08-06', 365, 42069, 'Depressao Dor Sofrimentos');
+insert into Pacote(idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao) values (1, '12345678901234', 'Seul', 'Seul', 'Coreia do Norte', '2022-08-06', 365, 42069, 'SUS');
 
-insert into Pacote(idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao) values (1, '12345678901234', 'Paris', 'Sla', 'França', '2022-09-21', 365, 3000, 'Torre Waffle uiui');
+insert into Pacote(idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao) values (1, '12345678901234', 'Paris', 'Paris', 'França', '2022-09-21', 365, 3000, 'Pariscidinha');
 
 insert into Proposta(idUsuario, idPacote, dataProposta, valor, statusProposta) values (1, 1, "2011-09-21", 1, 1);
 
-insert into Pacote(idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao) values (1, '12345678901234', 'Sao Carros', 'Sao Paulo', 'Brasil', '2022-09-23', 365, 42069, 'Depressao Dor Sofrimentos');
+insert into Pacote(idAgencia, cnpj, cidade, estado, pais, dataPartida, duracaoDias, valor, descricao) values (1, '12345678901234', 'Sao Carros', 'Sao Paulo', 'Brasil', '2022-09-23', 365, 42069, 'Carros?');
 
 insert into Proposta(idUsuario, idPacote, dataProposta, valor, statusProposta) values (1, 1, "2011-09-21", 1, 1);
 
